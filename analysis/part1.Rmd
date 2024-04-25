@@ -18,5 +18,52 @@ load("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluo
 #saveRDS(Demographics, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.rds")
 Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.rds")
 
+#FFS_claim=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS Claims.csv", header=T)
+#saveRDS(FFS_claim, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS_Claims.rds")
+FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS_Claims.rds")
 ```
+
+
+
+```{r, echo=F, message=F, warning=F}
+#length(unique(Demographics$RECIPIENT_ID))  # 2,898,611
+# length(unique(HMO_claims$RECIPIENT_ID))  # 356,587
+# length(unique(FFS_claims$RECIPIENT_ID))  # 260,764
+# length(unique(intersect(Demographics$RECIPIENT_ID,HMO_claims$RECIPIENT_ID))) # 356586 
+# length(unique(intersect(Demographics$RECIPIENT_ID,FFS_claims$RECIPIENT_ID))) # 260758 
+# length(unique(intersect(HMO_claims$RECIPIENT_ID,FFS_claims$RECIPIENT_ID))) # 63675
+# length(unique(intersect(Demographics$RECIPIENT_ID, intersect(HMO_claims$RECIPIENT_ID,FFS_claims$RECIPIENT_ID)))) # 63675
+
+
+
+
+ggplot(data.frame(source=c("Demographic", "HMO claims", "FFS claims"), num=c(2898611, 356587, 260764)), aes(x=source, y=num, fill=source))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("#")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
+   ggtitle("")+
+   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+# move to new plotting page 
+grid.newpage() 
+  
+# create Venn diagram with three sets 
+draw.triple.venn(area1=2898611,area2=356587, area3 =260764,  
+                 n12=356586, n23=63675, n13=260758, n123=63675,  
+                 category=c("Demographics","HMO claims","FFS claims"), 
+                 col="red",fill=c("Green","Orange","Blue"), lty="solid", 
+                 cat.cex = 1.3, cat.pos=0, cat.col=c("Green","Orange","Blue"), cex=1.5) # cat.cex  the size of the category names; cex: A vector (length 7) giving the size of the areas' labels; cat.pos: position of category names https://www.rdocumentation.org/packages/VennDiagram/versions/1.7.3/topics/draw.triple.venn
+#dev.off()
+
+```
+
+* in demographics, there are 2,898,611 individuals 
+* HMO has 356,587 claims 
+* FFS has 260,764 claims 
 
