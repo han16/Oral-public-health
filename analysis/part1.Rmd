@@ -39,7 +39,7 @@ FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_
 
 ggplot(data.frame(source=c("Demographic", "HMO claims", "FFS claims"), num=c(2898611, 356587, 260764)), aes(x=source, y=num, fill=source))+ 
 geom_bar(position = "dodge",stat="identity")+
-   xlab("")+ylab("#")+
+   xlab("")+ylab("No. unique ids")+
  #  ylim(c(0,1))+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
    ggtitle("")+
@@ -63,7 +63,7 @@ draw.triple.venn(area1=2898611,area2=356587, area3 =260764,
 
 ```
 
-* in demographics, there are 2,898,611 individuals 
-* HMO has 356,587 claims 
-* FFS has 260,764 claims 
+* in demographics, there are 2,898,611 unique ids  
+* HMO has 356,587 unique ids  
+* FFS has 260,764 unique ids 
 
