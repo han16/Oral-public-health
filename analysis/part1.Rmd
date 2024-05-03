@@ -64,6 +64,6 @@ draw.triple.venn(area1=2898611,area2=356587, area3 =260764,
 ```
 
 * in demographics, there are 2,898,611 unique ids  
-* HMO has 356,587 unique ids  
-* FFS has 260,764 unique ids 
+* HMO has 356,587 unique ids  (17.86%) overlapping with FFS
+* FFS has 260,764 unique ids (24.42%) overlapping with HMO
 
