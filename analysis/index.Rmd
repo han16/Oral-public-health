@@ -11,3 +11,5 @@ editor_options:
 Welcome to my research website.
 
 * [preliminary analysis](part1.html)
+
+* [year 2019](part2.html)

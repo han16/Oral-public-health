@@ -6,14 +6,28 @@ date: "2024-04-23"
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, results=F}
 #HMO_claims=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO Claims.csv")
 #save(HMO_claims, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
 load("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
 
+#Demographics=multiplesheets("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\Demographics\\Demographics.xlsx")
 #Demographics=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.csv", header=T)
 #saveRDS(Demographics, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.rds")
 Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.rds")

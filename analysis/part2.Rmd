@@ -1,0 +1,163 @@
+---
+title: "year 2019"
+output: html_document
+date: "2024-05-08"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+```
+
+
+```{r, echo=F, message=F, warning=F, results=F, eval=F}
+#HMO_claims=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\HMO Claims\\HMO Claims.csv")
+#save(HMO_claims, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
+load("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\HMO Claims\\HMO_claims.RData")
+
+#Demographics=multiplesheets("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\Demographics\\Demographics.xlsx")
+#Demographics=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.csv", header=T)
+#saveRDS(Demographics, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\Demographics\\Demographics.rds")
+Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\Demographics\\Demographics.rds")
+
+#FFS_claim=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS Claims.csv", header=T)
+#saveRDS(FFS_claim, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS_Claims.rds")
+FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\FFS Claims\\FFS_Claims.rds")
+
+####################### extract data at specific year 
+
+hmo_claims_2019=HMO_claims %>% filter(str_detect(FIRST_DATE_OF_SERVICE, "2019"))  # extract individuals with service at year 2019
+ffs_claims_2019=FFS_claims %>% filter(str_detect(FIRST_DATE_OF_SERVICE, "2019")) 
+demographics_2019=Demographics %>% filter(RECIPIENT_ID %in% union(hmo_claims_2019$RECIPIENT_ID, ffs_claims_2019$RECIPIENT_ID))
+data_2019=list(demographics_2019=demographics_2019, hmo_claims_2019=hmo_claims_2019, ffs_claims_2019=ffs_claims_2019)
+#saveRDS(data_2019, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
+```
+
+
+## total number of unique ID's 
+
+```{r, echo=F, message=F, warning=F}
+data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+#length(unique(data_year2019$demographics_2019$RECIPIENT_ID)) # 112429
+#length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID)) # 56763
+#length(unique(data_year2019$ffs_claims_2019$RECIPIENT_ID)) # 59361
+#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 59360
+#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 56763
+#length(unique(intersect(data_year2019$hmo_claims_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 3694
+#length(unique(intersect(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 59360
+
+ggplot(data.frame(source=c("Demographic", "HMO claims", "FFS claims"), num=c(112429, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("No. unique ids")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
+   ggtitle("")+
+   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+# move to new plotting page 
+grid.newpage() 
+  
+# create Venn diagram with three sets 
+draw.triple.venn(area1=112429,area2=59361, area3 =56763,  
+                 n12=59360, n23=3694, n13=56763, n123=3694,  
+                 category=c("Demographics","HMO claims","FFS claims"), 
+                 col="red",fill=c("Green","Orange","Blue"), lty="solid", 
+                 cat.cex = 1.3, cat.pos=0, cat.col=c("Green","Orange","Blue"), cex=1.5) # cat.cex  the size of the category names; cex: A vector (length 7) giving the size of the areas' labels; cat.pos: position of category names https://www.rdocumentation.org/packages/VennDiagram/versions/1.7.3/topics/draw.triple.venn
+#dev.off()
+
+
+```
+
+
+* demographic is id union of HMO and FFS 
+
+
+
+```{r, echo=F, message=F, warning=F}
+hmo_2019=data_year2019$hmo_claims_2019
+ffs_2019=data_year2019$ffs_claims_2019
+convert_date<-function(x)
+{
+  year=substr(x, 6,9)
+  month=substr(x, 3,5)
+  if (month=="JAN")
+     month="01"
+  if (month=="FEB")
+     month="02"
+  if (month=="MAR")
+     month="03"
+   if (month=="APR")
+     month="04"
+   if (month=="MAY")
+     month="05"
+   if (month=="JUN")
+     month="06"
+   if (month=="JUL")
+     month="07"
+   if (month=="AUG")
+     month="08"
+   if (month=="SEP")
+     month="09"
+   if (month=="OCT")
+     month="10"
+   if (month=="NOV")
+     month="11"
+   if (month=="DEC")
+     month="12"
+   date=substr(x, 1,2)
+  return(paste(year, month, date, sep="-"))
+}
+FIRST_DATE_OF_SERVICE_converted_hmo=sapply(hmo_2019$FIRST_DATE_OF_SERVICE, convert_date)
+FIRST_DATE_OF_SERVICE_converted_ffs=sapply(ffs_2019$FIRST_DATE_OF_SERVICE, convert_date)
+
+hmo_2019_with_service_date_only=data.frame(RECIPIENT_ID=hmo_2019$RECIPIENT_ID, FIRST_DATE_OF_SERVICE_converted=FIRST_DATE_OF_SERVICE_converted_hmo) %>% distinct()  # remove duplicated rows that individuals have multiple rows at the same day 
+
+ffs_2019_with_service_date_only=data.frame(RECIPIENT_ID=ffs_2019$RECIPIENT_ID, FIRST_DATE_OF_SERVICE_converted=FIRST_DATE_OF_SERVICE_converted_ffs) %>% distinct()
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+library(lubridate)
+dat <- read.table(textConnection("start.date start.time end.date end.time
+2012-07-13   15:01:32 2012-07-13 15:02:42
+2012-07-05   18:26:31 2012-07-05 18:27:19 
+2012-07-14   20:23:21 2012-07-14 20:24:11"), header=TRUE)
+starttime = ymd_hms(paste(dat[,1], dat[,2]))
+endtime = ymd_hms(paste(dat[,3], dat[,4]))
+interval = difftime(endtime,starttime,units = "days")
+
+
+
+date_1<-as.Date("04SEP2019")
+ 
+# creating date_2 variable
+# and storing date in it.
+date_2<-as.Date("2020-10-11")
+
+a = seq(from = date_1, to = date_2, by = 'day')
+```
