@@ -141,6 +141,53 @@ ffs_2019_with_service_date_only=data.frame(RECIPIENT_ID=ffs_2019$RECIPIENT_ID, F
 
 
 
+```{r, echo=F, message=F, warning=F}
+hmo_table=table(hmo_2019_with_service_date_only$RECIPIENT_ID)
+num_visit=seq(1,10)
+count_id_hmo=function(x)
+{sum(hmo_table==x)}
+num_id_hmo=sapply(num_visit, count_id_hmo)
+num_id_hmo[11]=sum(hmo_table>10)
+visit_hmo=data.frame(num_visit=c(paste("0",num_visit[1:9], sep=""), "10", "more than 10"), num_id=num_id_hmo) %>% mutate(prop=round(num_id/sum(num_id_hmo),4))
+
+ggplot(visit_hmo, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat="identity")+
+  ylim(c(0, 0.7))+
+  ylab("No.unique ids")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("hmo (2019)")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+# use rank function to rank multiple dates, then calculate the difference. 
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ffs_table=table(ffs_2019_with_service_date_only$RECIPIENT_ID)
+num_visit=seq(1,10)
+count_id_ffs=function(x)
+{sum(ffs_table==x)}
+num_id_ffs=sapply(num_visit, count_id_ffs)
+num_id_ffs[11]=sum(ffs_table>10)
+visit_ffs=data.frame(num_visit=c(paste("0",num_visit[1:9], sep=""), "10", "more than 10"), num_id=num_id_ffs) %>% mutate(prop=round(num_id/sum(num_id_ffs),4))
+
+ggplot(visit_ffs, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat="identity")+
+  ylim(c(0, 0.7))+
+  ylab("No.unique ids")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("ffs (2019)")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+# use rank function to rank multiple dates, then calculate the difference. 
+
+```
+
+
+
 ```{r, echo=F, message=F, warning=F, eval=F}
 library(lubridate)
 dat <- read.table(textConnection("start.date start.time end.date end.time
