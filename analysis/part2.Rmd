@@ -46,7 +46,7 @@ data_2019=list(demographics_2019=demographics_2019, hmo_claims_2019=hmo_claims_2
 ```
 
 
-## total number of unique ID's 
+## No. unique ID's in hmo and ffs  
 
 ```{r, echo=F, message=F, warning=F}
 data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
@@ -64,12 +64,12 @@ data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergen
 #length(unique(intersect(data_year2019$hmo_claims_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 3694
 #length(unique(intersect(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 59360
 
-ggplot(data.frame(source=c("Demographic", "HMO claims", "FFS claims"), num=c(112429, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
+ggplot(data.frame(source=c("HMO claims", "FFS claims"), num=c(56763, 59361)), aes(x=source, y=num, fill=source))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("No. unique ids")+
  #  ylim(c(0,1))+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
-   ggtitle("")+
+   ggtitle("year 2019")+
    geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
   #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
   # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
@@ -77,22 +77,25 @@ geom_bar(position = "dodge",stat="identity")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
+```
+* in total FFS+HMO have 112429 unique ids 
+
+
+```{r, echo=F, message=F, warning=F}
+
 # move to new plotting page 
 grid.newpage() 
-  
-# create Venn diagram with three sets 
-draw.triple.venn(area1=112429,area2=59361, area3 =56763,  
-                 n12=59360, n23=3694, n13=56763, n123=3694,  
-                 category=c("Demographics","HMO claims","FFS claims"), 
-                 col="red",fill=c("Green","Orange","Blue"), lty="solid", 
-                 cat.cex = 1.3, cat.pos=0, cat.col=c("Green","Orange","Blue"), cex=1.5) # cat.cex  the size of the category names; cex: A vector (length 7) giving the size of the areas' labels; cat.pos: position of category names https://www.rdocumentation.org/packages/VennDiagram/versions/1.7.3/topics/draw.triple.venn
-#dev.off()
+
+draw.pairwise.venn(area1=59361, area2=56763,cross.area=3694, 
+                   category=c("HMO claims","FFS claims"),fill=c("lightblue","red")) # https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
 
 
 ```
 
 
-* demographic is id union of HMO and FFS 
+* HMO has (3694) 6.5%, FFS has 6.2% ids overlapping with each other. 
+
+## unique ids split by number of visits 
 
 
 
@@ -152,7 +155,7 @@ visit_hmo=data.frame(num_visit=c(paste("0",num_visit[1:9], sep=""), "10", "more 
 
 ggplot(visit_hmo, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat="identity")+
   ylim(c(0, 0.7))+
-  ylab("No.unique ids")+
+  ylab("% unique ids")+xlab("number of visits in the year")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
@@ -175,7 +178,7 @@ visit_ffs=data.frame(num_visit=c(paste("0",num_visit[1:9], sep=""), "10", "more 
 
 ggplot(visit_ffs, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat="identity")+
   ylim(c(0, 0.7))+
-  ylab("No.unique ids")+
+  ylab("% unique ids")+xlab("number of visits in the year")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
@@ -187,24 +190,128 @@ ggplot(visit_ffs, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat="iden
 ```
 
 
+## unique ids split by time intervals 
+
 
 ```{r, echo=F, message=F, warning=F, eval=F}
+############ DONOT run as it takes too long time
+hmo_unique_id=unique(hmo_2019_with_service_date_only$RECIPIENT_ID)
 library(lubridate)
-dat <- read.table(textConnection("start.date start.time end.date end.time
-2012-07-13   15:01:32 2012-07-13 15:02:42
-2012-07-05   18:26:31 2012-07-05 18:27:19 
-2012-07-14   20:23:21 2012-07-14 20:24:11"), header=TRUE)
-starttime = ymd_hms(paste(dat[,1], dat[,2]))
-endtime = ymd_hms(paste(dat[,3], dat[,4]))
-interval = difftime(endtime,starttime,units = "days")
-
-
-
-date_1<-as.Date("04SEP2019")
- 
-# creating date_2 variable
-# and storing date in it.
-date_2<-as.Date("2020-10-11")
-
-a = seq(from = date_1, to = date_2, by = 'day')
+calculate_time_period_hmo=function(X)
+{
+  id_visit=hmo_2019_with_service_date_only %>% filter(RECIPIENT_ID ==X)
+  if (nrow(id_visit)>1)
+  {
+    id_visit_rank=id_visit[rank(id_visit$FIRST_DATE_OF_SERVICE_converted),]
+    first_date_of_servie=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[nrow(id_visit_rank)]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = "days")
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  if (nrow(id_visit)==1)
+  {
+    
+    first_date_of_servie=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = "days")
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  
+}
+time_preiod_visit_hmo=sapply(hmo_unique_id, calculate_time_period_hmo)
+#saveRDS(t(time_preiod_visit_hmo), file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240510.rds")
 ```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+############ DONOT run as it takes too long time
+ffs_unique_id=unique(ffs_2019_with_service_date_only$RECIPIENT_ID)
+library(lubridate)
+calculate_time_period_ffs=function(X)
+{
+  id_visit=ffs_2019_with_service_date_only %>% filter(RECIPIENT_ID ==X)
+  if (nrow(id_visit)>1)
+  {
+    id_visit_rank=id_visit[rank(id_visit$FIRST_DATE_OF_SERVICE_converted),]
+    first_date_of_servie=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[nrow(id_visit_rank)]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = "days")
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  if (nrow(id_visit)==1)
+  {
+    
+    first_date_of_servie=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = "days")
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  
+}
+time_preiod_visit_ffs=sapply(ffs_unique_id, calculate_time_period_ffs)
+#saveRDS(t(time_preiod_visit_ffs), file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240514.rds")
+```
+
+
+```{r, echo=F, message=F, warning=F}
+hmo_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240510.rds")
+hmo_2019_time_period_visit1=data.frame(id=unlist(hmo_2019_time_period_visit[,1]), first_date_of_servie=unlist(hmo_2019_time_period_visit[,2]), last_date_of_service=unlist(hmo_2019_time_period_visit[,3]), time_period=abs(unlist(hmo_2019_time_period_visit[,4])))
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+time_length=seq(30, 180, by=30); num_ids=numeric()
+count_ids_hmo=function(x)
+{
+  hmo_2019_time_period_visit1 %>% filter(time_period>=x) %>% nrow()
+  
+}
+num_ids=sapply(time_length, count_ids_hmo)
+
+num_ids_hmo=data.frame(time_interval=paste(">=",seq(1,6), " month", sep=""), num_id=num_ids) %>% mutate(prop=round(num_id/nrow(hmo_2019_time_period_visit1),4))
+
+ggplot(num_ids_hmo, aes(x=time_interval, y=prop, fill=time_interval)) +geom_bar(stat="identity")+
+  ylim(c(0, 0.25))+
+  ylab("% No.unique ids")+xlab("time interval between the first and last visit")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("hmo (2019)")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ffs_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240514.rds")
+ffs_2019_time_period_visit1=data.frame(id=unlist(ffs_2019_time_period_visit[,1]), first_date_of_servie=unlist(ffs_2019_time_period_visit[,2]), last_date_of_service=unlist(ffs_2019_time_period_visit[,3]), time_period=abs(unlist(ffs_2019_time_period_visit[,4])))
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+time_length=seq(30, 180, by=30); num_ids=numeric()
+count_ids_ffs=function(x)
+{
+  ffs_2019_time_period_visit1 %>% filter(time_period>=x) %>% nrow()
+  
+}
+num_ids=sapply(time_length, count_ids_ffs)
+
+num_ids_ffs=data.frame(time_interval=paste(">=",seq(1,6), " month", sep=""), num_id=num_ids) %>% mutate(prop=round(num_id/nrow(ffs_2019_time_period_visit1),4))
+
+ggplot(num_ids_ffs, aes(x=time_interval, y=prop, fill=time_interval)) +geom_bar(stat="identity")+
+  ylim(c(0, 0.4))+
+  ylab("% unique ids")+xlab("time interval between the first and last visit")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("ffs (2019)")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+
+```
+
+* denominator is total number of unique ids including ids with one visit 
