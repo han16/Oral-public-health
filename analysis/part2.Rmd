@@ -86,8 +86,8 @@ geom_bar(position = "dodge",stat="identity")+
 # move to new plotting page 
 grid.newpage() 
 
-draw.pairwise.venn(area1=59361, area2=56763,cross.area=3694, 
-                   category=c("HMO claims","FFS claims"),fill=c("lightblue","red")) # https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
+draw.pairwise.venn(area1=56763, area2=59361,cross.area=3694, 
+                   category=c("HMO claims","FFS claims"),fill=c("#009999","red")) # https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
 
 
 ```
