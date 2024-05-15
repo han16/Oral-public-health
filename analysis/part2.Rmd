@@ -220,7 +220,7 @@ calculate_time_period_hmo=function(X)
   id_visit=hmo_2019_with_service_date_only %>% filter(RECIPIENT_ID ==X)
   if (nrow(id_visit)>1)
   {
-    id_visit_rank=id_visit[rank(id_visit$FIRST_DATE_OF_SERVICE_converted),]
+    id_visit_rank=id_visit[order(id_visit$FIRST_DATE_OF_SERVICE_converted),] # https://stackoverflow.com/questions/6246159/how-to-sort-a-data-frame-by-date
     first_date_of_servie=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[1]
     last_date_of_servide=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[nrow(id_visit_rank)]
     time_period=difftime(last_date_of_servide,first_date_of_servie,units = "days")
@@ -237,7 +237,7 @@ calculate_time_period_hmo=function(X)
   
 }
 time_preiod_visit_hmo=sapply(hmo_unique_id, calculate_time_period_hmo)
-#saveRDS(t(time_preiod_visit_hmo), file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240510.rds")
+#saveRDS(t(time_preiod_visit_hmo), file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240515.rds")
 ```
 
 
@@ -250,7 +250,7 @@ calculate_time_period_ffs=function(X)
   id_visit=ffs_2019_with_service_date_only %>% filter(RECIPIENT_ID ==X)
   if (nrow(id_visit)>1)
   {
-    id_visit_rank=id_visit[rank(id_visit$FIRST_DATE_OF_SERVICE_converted),]
+    id_visit_rank=id_visit[order(id_visit$FIRST_DATE_OF_SERVICE_converted),]
     first_date_of_servie=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[1]
     last_date_of_servide=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[nrow(id_visit_rank)]
     time_period=difftime(last_date_of_servide,first_date_of_servie,units = "days")
@@ -267,13 +267,13 @@ calculate_time_period_ffs=function(X)
   
 }
 time_preiod_visit_ffs=sapply(ffs_unique_id, calculate_time_period_ffs)
-#saveRDS(t(time_preiod_visit_ffs), file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240514.rds")
+#saveRDS(t(time_preiod_visit_ffs), file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240515.rds")
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
-hmo_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240510.rds")
-hmo_2019_time_period_visit1=data.frame(id=unlist(hmo_2019_time_period_visit[,1]), first_date_of_servie=unlist(hmo_2019_time_period_visit[,2]), last_date_of_service=unlist(hmo_2019_time_period_visit[,3]), time_period=abs(unlist(hmo_2019_time_period_visit[,4])))
+hmo_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240515.rds")
+hmo_2019_time_period_visit1=data.frame(id=unlist(hmo_2019_time_period_visit[,1]), first_date_of_servie=unlist(hmo_2019_time_period_visit[,2]), last_date_of_service=unlist(hmo_2019_time_period_visit[,3]), time_period=unlist(hmo_2019_time_period_visit[,4]))
 ```
 
 
@@ -303,8 +303,8 @@ num_ids_hmo=data.frame(time_interval=paste(">=",seq(1,6), " month", sep=""), num
 
 
 ```{r, echo=F, message=F, warning=F}
-ffs_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240514.rds")
-ffs_2019_time_period_visit1=data.frame(id=unlist(ffs_2019_time_period_visit[,1]), first_date_of_servie=unlist(ffs_2019_time_period_visit[,2]), last_date_of_service=unlist(ffs_2019_time_period_visit[,3]), time_period=abs(unlist(ffs_2019_time_period_visit[,4])))
+ffs_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240515.rds")
+ffs_2019_time_period_visit1=data.frame(id=unlist(ffs_2019_time_period_visit[,1]), first_date_of_servie=unlist(ffs_2019_time_period_visit[,2]), last_date_of_service=unlist(ffs_2019_time_period_visit[,3]), time_period=unlist(ffs_2019_time_period_visit[,4]))
 ```
 
 
