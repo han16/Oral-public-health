@@ -40,13 +40,13 @@ FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_
 
 hmo_claims_2019=HMO_claims %>% filter(str_detect(FIRST_DATE_OF_SERVICE, "2019"))  # extract individuals with service at year 2019
 ffs_claims_2019=FFS_claims %>% filter(str_detect(FIRST_DATE_OF_SERVICE, "2019")) 
-demographics_2019=Demographics %>% filter(RECIPIENT_ID %in% union(hmo_claims_2019$RECIPIENT_ID, ffs_claims_2019$RECIPIENT_ID))
+demographics_2019=Demographics %>% filter(str_detect(EFFECTIVE_DATE, "2019"))
 data_2019=list(demographics_2019=demographics_2019, hmo_claims_2019=hmo_claims_2019, ffs_claims_2019=ffs_claims_2019)
 #saveRDS(data_2019, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
 ```
 
 
-## No. unique ID's in hmo and ffs  
+## unique ids  
 
 ```{r, echo=F, message=F, warning=F}
 data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
@@ -56,15 +56,11 @@ data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergen
 
 ```{r, echo=F, message=F, warning=F}
 
-#length(unique(data_year2019$demographics_2019$RECIPIENT_ID)) # 112429
+#length(unique(data_year2019$demographics_2019$RECIPIENT_ID)) # 827446
 #length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID)) # 56763
 #length(unique(data_year2019$ffs_claims_2019$RECIPIENT_ID)) # 59361
-#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 59360
-#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 56763
-#length(unique(intersect(data_year2019$hmo_claims_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 3694
-#length(unique(intersect(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 59360
 
-ggplot(data.frame(source=c("HMO claims", "FFS claims"), num=c(56763, 59361)), aes(x=source, y=num, fill=source))+ 
+ggplot(data.frame(source=c( "Demographs", "HMO claims", "FFS claims"), num=c(827446, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("No. unique ids")+
  #  ylim(c(0,1))+
@@ -78,22 +74,42 @@ geom_bar(position = "dodge",stat="identity")+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 ```
-* in total FFS+HMO have 112429 unique ids 
+
+* ffs: first service date in 2019
+
+* hmo: first service date in 2019
+
+* demographics: EFFECTIVE_DATE in 2019 
 
 
 ```{r, echo=F, message=F, warning=F}
 
+#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 32798
+#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 35116
+#length(unique(intersect(data_year2019$hmo_claims_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 3694
+#length(unique(intersect(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 2538
+
+
 # move to new plotting page 
 grid.newpage() 
 
-draw.pairwise.venn(area1=56763, area2=59361,cross.area=3694, 
-                   category=c("HMO claims","FFS claims"),fill=c("#009999","red")) # https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
+#draw.pairwise.venn(area1=56763, area2=59361,cross.area=3694, 
+#                   category=c("HMO claims","FFS claims"),fill=c("#009999","red")) # https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
+
+
+# create Venn diagram with three sets 
+draw.triple.venn(area1=56763,area2=59361, area3 =827446,  
+                 n12=3694, n23=32798, n13=35116, n123=2538,  
+                 category=c("HMO","FFS","Demographics"), 
+                 col="red",fill=c("Green","Orange","Blue"), lty="solid", 
+                 cat.cex = 1.3, cat.pos=c(0,0, 180), cat.col=c("Green","Orange","Blue"), cex=1.5) # cat.cex  the size of the category names; cex: A vector (length 7) giving the size of the areas' labels; cat.pos: position of category names https://www.rdocumentation.org/packages/VennDiagram/versions/1.7.3/topics/draw.triple.venn
+#dev.off()
 
 
 ```
 
 
-* HMO has (3694) 6.5%, FFS has 6.2% ids overlapping with each other. 
+
 
 ## unique ids split by number of visits 
 
@@ -202,7 +218,13 @@ ggplot(visit_ffs_and_hmo, aes(x=num_visit, y=prop, fill=plan)) +geom_bar(positio
   ggtitle("year 2019 ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-
+visit_ffs_and_hmo%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
@@ -344,6 +366,13 @@ ggplot(num_ids_ffs_and_hmo, aes(x=time_interval, y=prop, fill=plan)) +geom_bar(p
   ggtitle("year 2019")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
+num_ids_ffs_and_hmo%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
