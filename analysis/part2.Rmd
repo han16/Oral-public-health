@@ -52,6 +52,25 @@ data_2019=list(demographics_2019=demographics_2019, hmo_claims_2019=hmo_claims_2
 data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
 ```
 
+* numbers for benchmarking 
+
+```
+2017 (n = 803 659)
+
+Male 363 814 (45.3) Female 439 845 (54.7)
+
+2018 (n = 796 162)
+
+Male 361 588 (45.4) Female 434 574 (54.6)
+
+2019 (n = 786 095)
+
+Male 356 983 (45.4) Female 429 112 (54.6)
+
+2020 (n = 792 777)
+
+Male 361 723 (45.6) Female 431 054 (54.4)
+```
 
 
 ```{r, echo=F, message=F, warning=F}
