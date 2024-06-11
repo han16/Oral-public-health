@@ -22,15 +22,17 @@ multiplesheets <- function(fname) {
 ```
 
 
+
+
 ```{r, echo=F, message=F, warning=F, results=F}
 #HMO_claims=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO Claims.csv")
 #save(HMO_claims, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
-load("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
+load("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\HMO Claims\\HMO_claims.RData")
 
 #Demographics=multiplesheets("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\Demographics\\Demographics.xlsx")
 #Demographics=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.csv", header=T)
 #saveRDS(Demographics, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.rds")
-Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\Demographics\\Demographics.rds")
+Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\Demographics\\Demographics.rds")
 
 #FFS_claim=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS Claims.csv", header=T)
 #saveRDS(FFS_claim, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS_Claims.rds")

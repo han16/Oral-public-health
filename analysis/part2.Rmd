@@ -22,6 +22,45 @@ multiplesheets <- function(fname) {
 ```
 
 
+
+```{r, echo=F, message=F, warning=F}
+# convter date, e.g. 01OCT2017  -->2017-10-01
+convert_date<-function(x)
+{
+  year=substr(x, 6,9)
+  month=substr(x, 3,5)
+  if (month=="JAN")
+     month="01"
+  if (month=="FEB")
+     month="02"
+  if (month=="MAR")
+     month="03"
+   if (month=="APR")
+     month="04"
+   if (month=="MAY")
+     month="05"
+   if (month=="JUN")
+     month="06"
+   if (month=="JUL")
+     month="07"
+   if (month=="AUG")
+     month="08"
+   if (month=="SEP")
+     month="09"
+   if (month=="OCT")
+     month="10"
+   if (month=="NOV")
+     month="11"
+   if (month=="DEC")
+     month="12"
+   date=substr(x, 1,2)
+  return(paste(year, month, date, sep="-"))
+}
+```
+
+
+
+
 ```{r, echo=F, message=F, warning=F, results=F, eval=F}
 #HMO_claims=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\HMO Claims\\HMO Claims.csv")
 #save(HMO_claims, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
@@ -40,9 +79,75 @@ FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_
 
 hmo_claims_2019=HMO_claims %>% filter(str_detect(FIRST_DATE_OF_SERVICE, "2019"))  # extract individuals with service at year 2019
 ffs_claims_2019=FFS_claims %>% filter(str_detect(FIRST_DATE_OF_SERVICE, "2019")) 
-demographics_2019=Demographics %>% filter(str_detect(EFFECTIVE_DATE, "2019"))
+#demographics_2019=Demographics %>% filter(str_detect(EFFECTIVE_DATE, "2019"))  # this is not correct
+demographics_2019=readRDS("C:\\Users\\hans\\OneDrive - Marquette University\\OralPublicHealth\\demographic_2019.rds")
 data_2019=list(demographics_2019=demographics_2019, hmo_claims_2019=hmo_claims_2019, ffs_claims_2019=ffs_claims_2019)
 #saveRDS(data_2019, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+# given an id, calculate its eligibility time period(s)
+demographics_ELIGIBILITY_START_DATE=sapply(Demographics$ELIGIBILITY_START_DATE, convert_date)
+demographics_ELIGIBILITY_END_DATE=sapply(Demographics$ELIGIBILITY_END_DATE, convert_date)
+demographics_eligibiligy=data.frame(id=Demographics$RECIPIENT_ID, demographics_ELIGIBILITY_START_DATE=demographics_ELIGIBILITY_START_DATE, demographics_ELIGIBILITY_END_DATE=demographics_ELIGIBILITY_END_DATE)
+demographics_eligibiligy_unique_id=unique(demographics_eligibiligy$id)
+
+###################### check if an id has enrolled dates in 2019
+library(lubridate)
+
+check_enrolled_date=function(X)
+{
+cat(which(demographics_eligibiligy_unique_id==X)," th id is running", ".\n",sep="")
+
+  id_visit=demographics_eligibiligy %>% filter(id ==X)
+  
+  status_checking=function(Y)
+  {
+   # if (Y$demographics_ELIGIBILITY_START_DATE>=2019-12-31 || Y$demographics_ELIGIBILITY_END_DATE<=2019-01-01)   # check if this interval crosses year 2019
+    if (as.Date(Y[2])<=as.Date("2019-01-01") & as.Date(Y[3])>=as.Date("2019-01-01"))  # check if this interval crosses year 2019
+      return(1)
+    if (as.Date(Y[2])>=as.Date("2019-01-01") & as.Date(Y[2])<=as.Date("2019-12-31"))   # check if this interval crosses year 2019
+      return(1)
+    
+    if (as.Date(Y[3])<as.Date("2019-01-01"))  # check if this interval crosses year 2019
+      return(0)
+    if (as.Date(Y[2])>as.Date("2019-12-31"))  # check if this interval crosses year 2019
+      return(0)
+  }
+  
+  if (nrow(id_visit)>1)
+    status_total=sum(unlist(apply(id_visit, 1, status_checking)))  
+
+  
+  if (nrow(id_visit)==1)
+  {
+    if (as.Date(id_visit[1,2])<=as.Date("2019-01-01") & as.Date(id_visit[1,3])>=as.Date("2019-01-01"))  # check if this interval crosses year 2019
+      status_total=1
+    if (as.Date(id_visit[1,2])>=as.Date("2019-01-01") & as.Date(id_visit[1,2])<=as.Date("2019-12-31"))   # check if this interval crosses year 2019
+      status_total=1
+    
+    if (as.Date(id_visit[1,3])<as.Date("2019-01-01"))  # check if this interval crosses year 2019
+      status_total=0
+    if (as.Date(id_visit[1,2])>as.Date("2019-12-31"))  # check if this interval crosses year 2019
+      status_total=0
+
+  }
+  
+  return(ifelse(status_total>0, "Yes", "No"))
+}
+library(dplyr)
+start.time <- Sys.time()
+
+demographic_2019_check=sapply(demographics_eligibiligy_unique_id, check_enrolled_date)
+demographic_2019=data.frame(demographics_eligibiligy_unique_id,demographic_2019_check)
+end.time <- Sys.time()
+time.taken <- round(end.time - start.time,2)
+time.taken
+
+saveRDS(demographic_2019, file="C:\\Users\\hans\\OneDrive - Marquette University\\OralPublicHealth\\demographic_2019.rds")
+
+
 ```
 
 
@@ -75,17 +180,17 @@ Male 361 723 (45.6) Female 431 054 (54.4)
 
 ```{r, echo=F, message=F, warning=F}
 
-#length(unique(data_year2019$demographics_2019$RECIPIENT_ID)) # 827446
+#data_2019$demographics_2019 %>% filter(demographic_2019_check=="Yes") %>% nrow()  # 1612620
 #length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID)) # 56763
 #length(unique(data_year2019$ffs_claims_2019$RECIPIENT_ID)) # 59361
 
-ggplot(data.frame(source=c( "Demographs", "HMO claims", "FFS claims"), num=c(827446, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
+ggplot(data.frame(source=c( "Demographs", "HMO claims", "FFS claims"), num=c(1612620, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("No. unique ids")+
  #  ylim(c(0,1))+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
    ggtitle("year 2019")+
-   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
+   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
   #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
   # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
   #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
@@ -98,15 +203,15 @@ geom_bar(position = "dodge",stat="identity")+
 
 * hmo: first service date in 2019
 
-* demographics: EFFECTIVE_DATE in 2019 
+* demographics: ids that have eligibility date in 2019
 
 
 ```{r, echo=F, message=F, warning=F}
-
-#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 32798
-#length(unique(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 35116
+demographic_2019_id=data_year2019$demographics_2019 %>% filter(demographic_2019_check=="Yes") %>% select(demographics_eligibiligy_unique_id) %>% pull()
+#length(unique(intersect(demographic_2019_id, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 59360
+#length(unique(intersect(demographic_2019_id, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 56763
 #length(unique(intersect(data_year2019$hmo_claims_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 3694
-#length(unique(intersect(intersect(data_year2019$demographics_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 2538
+#length(unique(intersect(intersect(demographic_2019_id, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 3694
 
 
 # move to new plotting page 
@@ -117,9 +222,9 @@ grid.newpage()
 
 
 # create Venn diagram with three sets 
-draw.triple.venn(area1=56763,area2=59361, area3 =827446,  
-                 n12=3694, n23=32798, n13=35116, n123=2538,  
-                 category=c("HMO","FFS","Demographics"), 
+draw.triple.venn(area1=56763,area2=59361, area3 =1612620,  
+                 n12=3694, n23=59360, n13=56763, n123=3694,  
+                 category=c("HMO (2019)","FFS (2019)","Demographics (2019)"), 
                  col="red",fill=c("Green","Orange","Blue"), lty="solid", 
                  cat.cex = 1.3, cat.pos=c(0,0, 180), cat.col=c("Green","Orange","Blue"), cex=1.5) # cat.cex  the size of the category names; cex: A vector (length 7) giving the size of the areas' labels; cat.pos: position of category names https://www.rdocumentation.org/packages/VennDiagram/versions/1.7.3/topics/draw.triple.venn
 #dev.off()
@@ -137,37 +242,7 @@ draw.triple.venn(area1=56763,area2=59361, area3 =827446,
 ```{r, echo=F, message=F, warning=F}
 hmo_2019=data_year2019$hmo_claims_2019
 ffs_2019=data_year2019$ffs_claims_2019
-convert_date<-function(x)
-{
-  year=substr(x, 6,9)
-  month=substr(x, 3,5)
-  if (month=="JAN")
-     month="01"
-  if (month=="FEB")
-     month="02"
-  if (month=="MAR")
-     month="03"
-   if (month=="APR")
-     month="04"
-   if (month=="MAY")
-     month="05"
-   if (month=="JUN")
-     month="06"
-   if (month=="JUL")
-     month="07"
-   if (month=="AUG")
-     month="08"
-   if (month=="SEP")
-     month="09"
-   if (month=="OCT")
-     month="10"
-   if (month=="NOV")
-     month="11"
-   if (month=="DEC")
-     month="12"
-   date=substr(x, 1,2)
-  return(paste(year, month, date, sep="-"))
-}
+
 FIRST_DATE_OF_SERVICE_converted_hmo=sapply(hmo_2019$FIRST_DATE_OF_SERVICE, convert_date)
 FIRST_DATE_OF_SERVICE_converted_ffs=sapply(ffs_2019$FIRST_DATE_OF_SERVICE, convert_date)
 
