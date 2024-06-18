@@ -1,0 +1,91 @@
+---
+title: "summary statistics"
+output: html_document
+date: "2024-06-13"
+---
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+```
+
+```{r, echo=F, message=F, warning=F, results=F, eval=F}
+year=seq(2011, 2020, by=1)
+for (i in 1:length(year))
+{
+  cat("year", year[i], "is running", "\n")
+data=multiplesheets(paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\", year[i], " Marquette Community Water Fluoridation Study.xlsx", sep=""))
+saveRDS(data, file=paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\data_", year[i], ".rds", sep=""))
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+year=seq(2011, 2020); all_data=list()
+for (i in 1:length(year))
+  all_data[[i]]=readRDS(paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\data_", year[i], ".rds", sep=""))
+
+```
+
+
+## D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)
+
+```{r, echo=F, message=F, warning=F}
+num=numeric(); prop=numeric()
+for (i in 1:length(all_data))
+{
+  if (i<6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==3110)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==3110)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
+  }
+  
+  if (i>=6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==3110)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==3110)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==3110)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
+  
+  }
+  
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=prop, year=as.factor(year)), aes(x=year, y=num, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("#")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("D3110")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("%")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=prop), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("D3110")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```

@@ -8,7 +8,16 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+
+## DDWI 
+
+* [summary statistics](ddwi_part1.html)
+
+
+
+## Medicare 
+
+
 
 * [preliminary analysis](part1.html)
 
