@@ -37,28 +37,35 @@ saveRDS(data, file=paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\20240
 
 
 ```{r, echo=F, message=F, warning=F}
-year=seq(2011, 2020); all_data=list()
-for (i in 1:length(year))
-  all_data[[i]]=readRDS(paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\data_", year[i], ".rds", sep=""))
+year=seq(2011, 2020); 
+#all_data=list()
+#for (i in 1:length(year))
+#  all_data[[i]]=readRDS(paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\data_", year[i], ".rds", sep=""))
+#saveRDS(all_data, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\all_data.rds")
 
+all_data=readRDS("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\all_data.rds")
 ```
 
 
-## D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)
+
+## Pulp therapy Codes
+
+### D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)
 
 ```{r, echo=F, message=F, warning=F}
 num=numeric(); prop=numeric()
+code=3110
 for (i in 1:length(all_data))
 {
   if (i<6)
   {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==3110)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==3110)
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
   prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
   }
   
   if (i>=6)
   {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==3110)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==3110)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==3110)
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
   prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
   
   }
@@ -74,18 +81,248 @@ ggplot(data.frame(num=num, prop=prop, year=as.factor(year)), aes(x=year, y=num, 
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
-  ggtitle("D3110")+
+  ggtitle(code)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+data.frame(num=num, prop=round(prop,6),  year=as.factor(year))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
 ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.4))+
-  ylab("%")+xlab("year")+
+  ylab("prop(%)")+xlab("year")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=prop), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
-  ggtitle("D3110")+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+
+
+### D3120 Pulp cap indirect
+
+```{r, echo=F, message=F, warning=F}
+num=numeric(); prop=numeric()
+code=3120
+for (i in 1:length(all_data))
+{
+  if (i<6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
+  }
+  
+  if (i>=6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
+  
+  }
+  
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=prop, year=as.factor(year)), aes(x=year, y=num, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("#")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+data.frame(num=num, prop=round(prop,6),  year=as.factor(year))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("prop(%)")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+
+
+### D3220 Therapeutic Pulpotomy
+
+```{r, echo=F, message=F, warning=F}
+num=numeric(); prop=numeric()
+code=3220
+for (i in 1:length(all_data))
+{
+  if (i<6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
+  }
+  
+  if (i>=6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
+  
+  }
+  
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=prop, year=as.factor(year)), aes(x=year, y=num, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("#")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+data.frame(num=num, prop=round(prop,6),  year=as.factor(year))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("prop(%)")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+
+
+### D3230 Pulp therapy , resorbable filling, anterior, primary
+
+```{r, echo=F, message=F, warning=F}
+num=numeric(); prop=numeric()
+code=3230
+for (i in 1:length(all_data))
+{
+  if (i<6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
+  }
+  
+  if (i>=6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
+  
+  }
+  
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=prop, year=as.factor(year)), aes(x=year, y=num, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("#")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+data.frame(num=num, prop=round(prop,6),  year=as.factor(year))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("prop(%)")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+
+
+### D3240 Pulp therapy , resorbable filling, Posterior, primary
+
+```{r, echo=F, message=F, warning=F}
+num=numeric(); prop=numeric()
+code=3240
+for (i in 1:length(all_data))
+{
+  if (i<6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
+  }
+  
+  if (i>=6)
+  {
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
+  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
+  
+  }
+  
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=prop, year=as.factor(year)), aes(x=year, y=num, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("#")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+data.frame(num=num, prop=round(prop,6),  year=as.factor(year))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.4))+
+  ylab("prop(%)")+xlab("year")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(code)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 ```
