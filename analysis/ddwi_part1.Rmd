@@ -1,7 +1,10 @@
 ---
 title: "summary statistics"
-output: html_document
 date: "2024-06-13"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 ---
 
 
@@ -52,7 +55,7 @@ all_data=readRDS("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Prade
 
 ### D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 num=numeric(); prop=numeric()
 code=3110
 for (i in 1:length(all_data))
@@ -92,7 +95,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.4))+
   ylab("prop(%)")+xlab("year")+
@@ -107,7 +110,7 @@ ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year
 
 ### D3120 Pulp cap indirect
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 num=numeric(); prop=numeric()
 code=3120
 for (i in 1:length(all_data))
@@ -163,7 +166,7 @@ ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year
 
 ### D3220 Therapeutic Pulpotomy
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 num=numeric(); prop=numeric()
 code=3220
 for (i in 1:length(all_data))
@@ -219,7 +222,7 @@ ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year
 
 ### D3230 Pulp therapy , resorbable filling, anterior, primary
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 num=numeric(); prop=numeric()
 code=3230
 for (i in 1:length(all_data))
@@ -275,7 +278,7 @@ ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year
 
 ### D3240 Pulp therapy , resorbable filling, Posterior, primary
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 num=numeric(); prop=numeric()
 code=3240
 for (i in 1:length(all_data))
@@ -316,7 +319,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.4))+
   ylab("prop(%)")+xlab("year")+
