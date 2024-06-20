@@ -558,15 +558,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree1479a72ddec0b7ba03f8299687828614fe512211targetblank1479a72a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreee62c87ba8ab22a635fc8ad85d6e9c2c783a807fctargetblanke62c87ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/1479a72ddec0b7ba03f8299687828614fe512211" target="_blank">1479a72</a>
+<a href="https://github.com/han16/Oral-public-health/tree/e62c87ba8ab22a635fc8ad85d6e9c2c783a807fc" target="_blank">e62c87b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree1479a72ddec0b7ba03f8299687828614fe512211targetblank1479a72a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreee62c87ba8ab22a635fc8ad85d6e9c2c783a807fctargetblanke62c87ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -576,7 +576,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/1479a72ddec0b7ba03f8299687828614fe512211" target="_blank">1479a72</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/e62c87ba8ab22a635fc8ad85d6e9c2c783a807fc" target="_blank">e62c87b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -642,6 +642,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/e62c87ba8ab22a635fc8ad85d6e9c2c783a807fc/analysis/ddwi_part1.Rmd" target="_blank">e62c87b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+6/20/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/e62c87ba8ab22a635fc8ad85d6e9c2c783a807fc/docs/ddwi_part1.html" target="_blank">e62c87b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+6/20/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -722,7 +756,7 @@ han
 <div id="d3110-pr-pulp-cap---direct-excluding-final-restoration"
 class="section level3">
 <h3>D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)</h3>
-<pre class="r"><code>num=numeric(); prop=numeric()
+<pre class="r"><code>num=numeric(); prop=numeric(); total_claims=numeric()
 code=3110
 for (i in 1:length(all_data))
 {
@@ -730,75 +764,32 @@ for (i in 1:length(all_data))
   {
   num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
   prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
+  total_claims[i]=nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)
+  prop[i]=num[i]/total_claims[i]
   }
   
   if (i&gt;=6)
   {
   num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
+  total_claims[i]=nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`)
+  prop[i]=num[i]/total_claims[i]
   
   }
   
 }</code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-5-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/011b3b8053f3ca28bf3fa69aa0ada1609bd9046f/docs/figure/ddwi_part1.Rmd/unnamed-chunk-5-1.png" target="_blank">011b3b8</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[195,199,246,248,209,201,221,173,159,165],[0.000147,0.000133,0.000153,0.000147,0.000108,9.399999999999999e-05,0.0001,7.499999999999999e-05,6.499999999999999e-05,7.8e-05],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"prop","targets":2},{"name":"year","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[195,199,246,248,209,201,221,173,159,165],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[0.000147,0.000133,0.000153,0.000147,0.000108,9.399999999999999e-05,0.0001,7.499999999999999e-05,6.499999999999999e-05,7.8e-05],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p2=ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.4))+
   ylab(&quot;prop(%)&quot;)+xlab(&quot;year&quot;)+
   theme(legend.position=&quot;none&quot;)+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=10))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(code)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+
+grid.arrange(p1, p2, ncol = 2)</code></pre>
 <p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
