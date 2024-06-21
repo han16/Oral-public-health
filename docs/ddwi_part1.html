@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-20
+<strong>Last updated:</strong> 2024-06-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -558,15 +558,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreee62c87ba8ab22a635fc8ad85d6e9c2c783a807fctargetblanke62c87ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree6bf4342496c54fc377471e9a85c95653c43aac2etargetblank6bf4342a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/e62c87ba8ab22a635fc8ad85d6e9c2c783a807fc" target="_blank">e62c87b</a>
+<a href="https://github.com/han16/Oral-public-health/tree/6bf4342496c54fc377471e9a85c95653c43aac2e" target="_blank">6bf4342</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreee62c87ba8ab22a635fc8ad85d6e9c2c783a807fctargetblanke62c87ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree6bf4342496c54fc377471e9a85c95653c43aac2etargetblank6bf4342a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -576,7 +576,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/e62c87ba8ab22a635fc8ad85d6e9c2c783a807fc" target="_blank">e62c87b</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/6bf4342496c54fc377471e9a85c95653c43aac2e" target="_blank">6bf4342</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -642,6 +642,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/6bf4342496c54fc377471e9a85c95653c43aac2e/analysis/ddwi_part1.Rmd" target="_blank">6bf4342</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+6/20/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/6bf4342496c54fc377471e9a85c95653c43aac2e/docs/ddwi_part1.html" target="_blank">6bf4342</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+6/20/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -751,14 +785,11 @@ han
 </div>
 </div>
 </div>
-<div id="pulp-therapy-codes" class="section level2">
-<h2>Pulp therapy Codes</h2>
-<div id="d3110-pr-pulp-cap---direct-excluding-final-restoration"
-class="section level3">
-<h3>D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)</h3>
-<pre class="r"><code>num=numeric(); prop=numeric(); total_claims=numeric()
-code=3110
-for (i in 1:length(all_data))
+<pre class="r"><code>year=seq(2011, 2020, by=1)
+summary_num=function(code)
+{
+  num=prop=total_claims=numeric()
+  for (i in 1:length(all_data))
 {
   if (i&lt;6)
   {
@@ -776,475 +807,121 @@ for (i in 1:length(all_data))
   
   }
   
-}</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[195,199,246,248,209,201,221,173,159,165],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[0.000147,0.000133,0.000153,0.000147,0.000108,9.399999999999999e-05,0.0001,7.499999999999999e-05,6.499999999999999e-05,7.8e-05],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>p2=ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+}
+return(data.frame(num=num, total_claims=total_claims,  prop=round(prop,6),  year=as.factor(year)))  
+}
+
+draw_plot_num=function(data_plot, code)
+{
+  
+  p=ggplot(data_plot, aes(x=year, y=num, fill=year)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+ # ylim(c(0, 0.4))+
+  ylab(&quot;#&quot;)+xlab(&quot;year&quot;)+
+  theme(legend.position=&quot;none&quot;)+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(code)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+  
+  return(p)
+}
+
+draw_plot_prop=function(data_plot, code)
+{  
+p=ggplot(data_plot, aes(x=year, y=prop, fill=year)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.4))+
   ylab(&quot;prop(%)&quot;)+xlab(&quot;year&quot;)+
   theme(legend.position=&quot;none&quot;)+
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=10))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=2.5)+  # add numbers over bars
   ggtitle(code)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
-
-
+return(p)
+}</code></pre>
+<div id="pulp-therapy-codes" class="section level2">
+<h2>Pulp therapy Codes</h2>
+<div id="d3110-pr-pulp-cap---direct-excluding-final-restoration"
+class="section level3">
+<h3>D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)</h3>
+<pre class="r"><code>D3110_data=summary_num(3110)</code></pre>
+<pre class="r"><code>D3110_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[195,199,246,248,209,201,221,173,159,165],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[0.000147,0.000133,0.000153,0.000147,0.000108,9.399999999999999e-05,0.0001,7.499999999999999e-05,6.499999999999999e-05,7.8e-05],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p1=draw_plot_num(D3110_data, code=&quot;3110&quot;)
+p2=draw_plot_prop(D3110_data, code=&quot;3110&quot;)
 grid.arrange(p1, p2, ncol = 2)</code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-6-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/011b3b8053f3ca28bf3fa69aa0ada1609bd9046f/docs/figure/ddwi_part1.Rmd/unnamed-chunk-6-1.png" target="_blank">011b3b8</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="d3120-pulp-cap-indirect" class="section level3">
 <h3>D3120 Pulp cap indirect</h3>
-<pre class="r"><code>num=numeric(); prop=numeric()
-code=3120
-for (i in 1:length(all_data))
-{
-  if (i&lt;6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
-  }
-  
-  if (i&gt;=6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
-  
-  }
-  
-}</code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-8-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>D3120_data=summary_num(3120)</code></pre>
+<pre class="r"><code>D3120_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[557,510,461,442,471,483,620,529,565,599],[0.00042,0.00034,0.000286,0.000262,0.000244,0.000225,0.000281,0.00023,0.000232,0.000282],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"prop","targets":2},{"name":"year","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-9-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[557,510,461,442,471,483,620,529,565,599],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[0.00042,0.00034,0.000286,0.000262,0.000244,0.000225,0.000281,0.00023,0.000232,0.000282],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p1=draw_plot_num(D3120_data, code=&quot;3120&quot;)
+p2=draw_plot_prop(D3120_data, code=&quot;3120&quot;)
+grid.arrange(p1, p2, ncol = 2)</code></pre>
+<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="d3220-therapeutic-pulpotomy" class="section level3">
 <h3>D3220 Therapeutic Pulpotomy</h3>
-<pre class="r"><code>num=numeric(); prop=numeric()
-code=3220
-for (i in 1:length(all_data))
-{
-  if (i&lt;6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
-  }
-  
-  if (i&gt;=6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
-  
-  }
-  
-}</code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-11-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>D3220_data=summary_num(3220)</code></pre>
+<pre class="r"><code>D3220_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[1742,1544,1427,1628,1631,1444,1515,1537,1483,1493],[0.001313,0.001029,0.000886,0.000964,0.000846,0.000673,0.000687,0.000668,0.00061,0.000704],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"prop","targets":2},{"name":"year","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-12-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[1742,1544,1427,1628,1631,1444,1515,1537,1483,1493],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[0.001313,0.001029,0.000886,0.000964,0.000846,0.000673,0.000687,0.000668,0.00061,0.000704],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p1=draw_plot_num(D3220_data, code=&quot;3220&quot;)
+p2=draw_plot_prop(D3220_data, code=&quot;3220&quot;)
+grid.arrange(p1, p2, ncol = 2)</code></pre>
+<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="d3230-pulp-therapy-resorbable-filling-anterior-primary"
 class="section level3">
 <h3>D3230 Pulp therapy , resorbable filling, anterior, primary</h3>
-<pre class="r"><code>num=numeric(); prop=numeric()
-code=3230
-for (i in 1:length(all_data))
-{
-  if (i&lt;6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
-  }
-  
-  if (i&gt;=6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
-  
-  }
-  
-}</code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-14-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>D3230_data=summary_num(3230)</code></pre>
+<pre class="r"><code>D3230_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[17,18,10,22,14,16,10,5,4,3],[1.3e-05,1.2e-05,6e-06,1.3e-05,7e-06,7e-06,5e-06,2e-06,2e-06,1e-06],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"prop","targets":2},{"name":"year","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-15-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[17,18,10,22,14,16,10,5,4,3],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[1.3e-05,1.2e-05,6e-06,1.3e-05,7e-06,7e-06,5e-06,2e-06,2e-06,1e-06],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p1=draw_plot_num(D3230_data, code=&quot;3230&quot;)
+p2=draw_plot_prop(D3230_data, code=&quot;3230&quot;)
+grid.arrange(p1, p2, ncol = 2)</code></pre>
+<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="d3240-pulp-therapy-resorbable-filling-posterior-primary"
 class="section level3">
 <h3>D3240 Pulp therapy , resorbable filling, Posterior, primary</h3>
-<pre class="r"><code>num=numeric(); prop=numeric()
-code=3240
-for (i in 1:length(all_data))
-{
-  if (i&lt;6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`))
-  }
-  
-  if (i&gt;=6)
-  {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
-  prop[i]=num[i]/(nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`))
-  
-  }
-  
-}</code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
-Past versions of unnamed-chunk-17-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-17-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-17-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>D3240_data=summary_num(3240)</code></pre>
+<pre class="r"><code>D3240_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[97,77,57,62,46,49,38,36,40,39],[7.3e-05,5.1e-05,3.5e-05,3.7e-05,2.4e-05,2.3e-05,1.7e-05,1.6e-05,1.6e-05,1.8e-05],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"prop","targets":2},{"name":"year","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>ggplot(data.frame(num=num, prop=round(prop,6), year=as.factor(year)), aes(x=year, y=prop, fill=year)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.4))+
-  ylab(&quot;prop(%)&quot;)+xlab(&quot;year&quot;)+
-  theme(legend.position=&quot;none&quot;)+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
-  ggtitle(code)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
-<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/1479a72ddec0b7ba03f8299687828614fe512211/docs/figure/ddwi_part1.Rmd/unnamed-chunk-18-1.png" target="_blank">1479a72</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],[97,77,57,62,46,49,38,36,40,39],[1326647,1500840,1610653,1688801,1928769,2146982,2203739,2302293,2432661,2120560],[7.3e-05,5.1e-05,3.5e-05,3.7e-05,2.4e-05,2.3e-05,1.7e-05,1.6e-05,1.6e-05,1.8e-05],["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num<\/th>\n      <th>total_claims<\/th>\n      <th>prop<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num","targets":1},{"name":"total_claims","targets":2},{"name":"prop","targets":3},{"name":"year","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p1=draw_plot_num(D3240_data, code=&quot;3240&quot;)
+p2=draw_plot_prop(D3240_data, code=&quot;3240&quot;)
+grid.arrange(p1, p2, ncol = 2)</code></pre>
+<p><img src="figure/ddwi_part1.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
