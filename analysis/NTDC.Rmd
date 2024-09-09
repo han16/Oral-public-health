@@ -77,9 +77,9 @@ claim_file2_common_ids_year=intersect(claims_file_year_ids, file2_year_ids)
 
 grid.newpage() 
 draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_ids),cross.area=length(claim_file2_common_ids_year), 
-                   category=c("ClientFile2_2022","Claim_2022"),fill=c("Red","Yellow"))
+                   category=c("Claim_2022","files_2022"),fill=c("Red","Yellow"))
 ```
 
-* for year 2022, claims file has 14830 unique ids,  files has 87980 unique ids, with  14759 overlapping with each other. 
+* for year 2022, claims file has 14830 unique ids,  files has 87980 unique ids, with  14759 overlapping with each other and 71 only in claims file. 
 
 * ClientFile2 doesn't have year 2023 in column `CLNDR_YR_MONTH`. 

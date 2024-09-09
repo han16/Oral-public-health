@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree9d19b635b6e399542accf2adf94d8735445a8432targetblank9d19b63a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree8bfe8d377afc06bf11500a0b6d6f594f6e65ad0ftargetblank8bfe8d3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/9d19b635b6e399542accf2adf94d8735445a8432" target="_blank">9d19b63</a>
+<a href="https://github.com/han16/Oral-public-health/tree/8bfe8d377afc06bf11500a0b6d6f594f6e65ad0f" target="_blank">8bfe8d3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree9d19b635b6e399542accf2adf94d8735445a8432targetblank9d19b63a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree8bfe8d377afc06bf11500a0b6d6f594f6e65ad0ftargetblank8bfe8d3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/9d19b635b6e399542accf2adf94d8735445a8432" target="_blank">9d19b63</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/8bfe8d377afc06bf11500a0b6d6f594f6e65ad0f" target="_blank">8bfe8d3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -633,6 +633,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/8bfe8d377afc06bf11500a0b6d6f594f6e65ad0f/analysis/NTDC.Rmd" target="_blank">8bfe8d3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-09
+</td>
+<td>
+9/9/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/8bfe8d377afc06bf11500a0b6d6f594f6e65ad0f/docs/NTDC.html" target="_blank">8bfe8d3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-09
+</td>
+<td>
+9/9/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -757,12 +791,50 @@ claim_file2_common_ids_year=intersect(claims_file_year_ids, file2_year_ids)
 
 grid.newpage() 
 draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_ids),cross.area=length(claim_file2_common_ids_year), 
-                   category=c(&quot;ClientFile2_2022&quot;,&quot;Claim_2022&quot;),fill=c(&quot;Red&quot;,&quot;Yellow&quot;))</code></pre>
+                   category=c(&quot;Claim_2022&quot;,&quot;files_2022&quot;),fill=c(&quot;Red&quot;,&quot;Yellow&quot;))</code></pre>
 <p><img src="figure/NTDC.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/8bfe8d377afc06bf11500a0b6d6f594f6e65ad0f/docs/figure/NTDC.Rmd/unnamed-chunk-5-1.png" target="_blank">8bfe8d3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>(polygon[GRID.polygon.20], polygon[GRID.polygon.21], polygon[GRID.polygon.22], polygon[GRID.polygon.23], text[GRID.text.24], text[GRID.text.25], lines[GRID.lines.26], text[GRID.text.27], text[GRID.text.28], text[GRID.text.29]) </code></pre>
 <ul>
 <li><p>for year 2022, claims file has 14830 unique ids, files has 87980
-unique ids, with 14759 overlapping with each other.</p></li>
+unique ids, with 14759 overlapping with each other and 71 only in claims
+file.</p></li>
 <li><p>ClientFile2 doesn’t have year 2023 in column
 <code>CLNDR_YR_MONTH</code>.</p></li>
 </ul>
