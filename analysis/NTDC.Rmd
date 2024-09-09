@@ -23,13 +23,16 @@ changeCellColor <- function(row, col){
 
 
 
-```{r, message=F, warning=F}
+```{r, echo=F, message=F, warning=F}
 #file1=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_ClientFile1.csv")
 #file2=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_ClientFile2.csv")
 #claims_file=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_DENTAL_CLAIMS_FILE.csv")
 #save(file1, file2, claims_file, file="C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_data.RData")
 load("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_data.RData")
 ```
+
+## ids in file 1 and 2 
+
 
 ```{r, message=F, warning=F}
 file1_unique_ids=unique(file1$MEDICAID_CLIENT_ID)
@@ -41,3 +44,42 @@ draw.pairwise.venn(area1=length(file1_unique_ids), area2=length(file2_unique_ids
                    category=c("ClientFile1","ClientFile2"),fill=c("Red","Yellow"))
 ```
 * all 91833 unique `MEDICAID_CLIENT_ID` in ClientFile2 are in ClientFile1, that has 224 more.  
+
+
+## frequency of column Q 
+
+```{r, message=F, warning=F}
+claims_file %>% select(`LAST_DATE_OF_SERVICE`) %>% dplyr::count(`LAST_DATE_OF_SERVICE`) %>% arrange(desc(`n`))%>%
+datatable(extensions = 'Buttons',
+          caption = "one hour", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+## year 2022 claims 
+
+```{r, message=F, warning=F}
+claims_file_year=claims_file[(grep(claims_file$CLAIM_PAID_DATE, "2022")),]
+status=sapply(claims_file$CLAIM_PAID_DATE, function(x) grepl("2022", x))
+claims_file_year=claims_file[status, ]
+claims_file_year_ids=unique(claims_file_year$CLIENT_ID)
+
+status=sapply(file2$CLNDR_YR_MONTH, function(x) grepl("2022", x))
+file2_year=file2[status, ]
+file2_year_ids=unique(file2_year$MEDICAID_CLIENT_ID)
+
+claim_file2_common_ids_year=intersect(claims_file_year_ids, file2_year_ids)
+
+
+
+
+grid.newpage() 
+draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_ids),cross.area=length(claim_file2_common_ids_year), 
+                   category=c("ClientFile2_2022","Claim_2022"),fill=c("Red","Yellow"))
+```
+
+* for year 2022, claims file has 14830 unique ids,  files has 87980 unique ids, with  14759 overlapping with each other. 
+
+* ClientFile2 doesn't have year 2023 in column `CLNDR_YR_MONTH`. 
