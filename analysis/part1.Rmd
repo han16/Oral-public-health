@@ -1,6 +1,9 @@
 ---
 title: "preliminary analysis"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-04-23"
 ---
 
@@ -24,7 +27,7 @@ multiplesheets <- function(fname) {
 
 
 
-```{r, echo=F, message=F, warning=F, results=F}
+```{r, message=F, warning=F, results=F}
 #HMO_claims=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO Claims.csv")
 #save(HMO_claims, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\HMO Claims\\HMO_claims.RData")
 load("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\HMO Claims\\HMO_claims.RData")
@@ -36,12 +39,18 @@ Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Eme
 
 #FFS_claim=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS Claims.csv", header=T)
 #saveRDS(FFS_claim, file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS_Claims.rds")
-FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CW Fluoridation Analysis\\FFS Claims\\FFS_Claims.rds")
+FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\FFS Claims\\FFS_Claims.rds")
+```
+
+```{r, message=F, warning=F}
+colnames(HMO_claims)
+colnames(Demographics)
+colnames(FFS_claims)
 ```
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #length(unique(Demographics$RECIPIENT_ID))  # 2,898,611
 # length(unique(HMO_claims$RECIPIENT_ID))  # 356,587
 # length(unique(FFS_claims$RECIPIENT_ID))  # 260,764
