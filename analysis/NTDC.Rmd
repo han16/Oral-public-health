@@ -22,6 +22,32 @@ changeCellColor <- function(row, col){
 ```
 
 
+```{r, echo=F, message=F, warning=F}
+plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+{
+  
+  x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
+
+  
+  y_limit=max(data$n)*1.1
+g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  #theme(legend.position="", legend.title=element_text(size=10))+
+  theme(legend.position="bottom", legend.title=element_blank(), legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_text(size = y_axis_text))+
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = legend_rows))
+  return(g1)
+}
+```
+
+
+
 
 ```{r, echo=F, message=F, warning=F}
 #file1=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_ClientFile1.csv")
@@ -46,17 +72,31 @@ draw.pairwise.venn(area1=length(file1_unique_ids), area2=length(file2_unique_ids
 * all 91833 unique `MEDICAID_CLIENT_ID` in ClientFile2 are in ClientFile1, that has 224 more.  
 
 
-## frequency of column Q 
+## frequency of column Q by year  
 
 ```{r, message=F, warning=F}
-claims_file %>% select(`LAST_DATE_OF_SERVICE`) %>% dplyr::count(`LAST_DATE_OF_SERVICE`) %>% arrange(desc(`n`))%>%
-datatable(extensions = 'Buttons',
-          caption = "one hour", 
+last_day_of_service=claims_file$`LAST_DATE_OF_SERVICE`
+last_day_of_service_by_year=substr(last_day_of_service, 6, 9)  3 
+count_by_year=sapply(sort(unique(last_day_of_service_by_year)), function(x) sum(last_day_of_service_by_year==x))
+year_count=data.frame(year=sort(unique(last_day_of_service_by_year)), n=count_by_year) %>% mutate(prop=round(n/sum(count_by_year),4))
+
+fig=plot_function("No. claims by year", year_count, legend_rows = 1, var_name = "year")
+
+fig
+
+
+
+year_count %>% 
+  datatable(extensions = 'Buttons',
+          caption = "", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+* one patient may have multiple claims 
+
+
 
 ## year 2022 claims 
 
