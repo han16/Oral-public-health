@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree3fc24ae5bc0122962c38346ebabf8762107509a7targetblank3fc24aea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreebeffd54b8431e542e5a33c8843f7416827082ca9targetblankbeffd54a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/3fc24ae5bc0122962c38346ebabf8762107509a7" target="_blank">3fc24ae</a>
+<a href="https://github.com/han16/Oral-public-health/tree/beffd54b8431e542e5a33c8843f7416827082ca9" target="_blank">beffd54</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree3fc24ae5bc0122962c38346ebabf8762107509a7targetblank3fc24aea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreebeffd54b8431e542e5a33c8843f7416827082ca9targetblankbeffd54a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/3fc24ae5bc0122962c38346ebabf8762107509a7" target="_blank">3fc24ae</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/beffd54b8431e542e5a33c8843f7416827082ca9" target="_blank">beffd54</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -633,6 +633,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/beffd54b8431e542e5a33c8843f7416827082ca9/analysis/NTDC.Rmd" target="_blank">beffd54</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-18
+</td>
+<td>
+9/18/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/beffd54b8431e542e5a33c8843f7416827082ca9/docs/NTDC.html" target="_blank">beffd54</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-18
+</td>
+<td>
+9/18/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -752,6 +786,43 @@ grid.newpage()
 draw.pairwise.venn(area1=length(file1_unique_ids), area2=length(file2_unique_ids),cross.area=length(file1_file2_common_ids), 
                    category=c(&quot;ClientFile1&quot;,&quot;ClientFile2&quot;),fill=c(&quot;Red&quot;,&quot;Yellow&quot;))</code></pre>
 <p><img src="figure/NTDC.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/beffd54b8431e542e5a33c8843f7416827082ca9/docs/figure/NTDC.Rmd/unnamed-chunk-4-1.png" target="_blank">beffd54</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>(polygon[GRID.polygon.11], polygon[GRID.polygon.12], polygon[GRID.polygon.13], polygon[GRID.polygon.14], text[GRID.text.15], text[GRID.text.16], lines[GRID.lines.17], text[GRID.text.18], text[GRID.text.19]) </code></pre>
 <ul>
 <li>all 91833 unique <code>MEDICAID_CLIENT_ID</code> in ClientFile2 are
@@ -761,7 +832,7 @@ in ClientFile1, that has 224 more.</li>
 <div id="frequency-of-column-q-by-year" class="section level2">
 <h2>frequency of column Q by year</h2>
 <pre class="r"><code>last_day_of_service=claims_file$`LAST_DATE_OF_SERVICE`
-last_day_of_service_by_year=substr(last_day_of_service, 6, 9)
+last_day_of_service_by_year=substr(last_day_of_service, 6, 9)  # extract years  
 count_by_year=sapply(sort(unique(last_day_of_service_by_year)), function(x) sum(last_day_of_service_by_year==x))
 year_count=data.frame(year=sort(unique(last_day_of_service_by_year)), n=count_by_year) %&gt;% mutate(prop=round(n/sum(count_by_year),4))
 
@@ -793,6 +864,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/beffd54b8431e542e5a33c8843f7416827082ca9/docs/figure/NTDC.Rmd/unnamed-chunk-5-1.png" target="_blank">beffd54</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/362a0c4923402d8777d47667e43f3dad05230cc9/docs/figure/NTDC.Rmd/unnamed-chunk-5-1.png" target="_blank">362a0c4</a>
 </td>
 <td>
@@ -819,43 +901,85 @@ han
 </div>
 <pre class="r"><code>year_count %&gt;% 
   datatable(extensions = &#39;Buttons&#39;,
-          caption = &quot;one hour&quot;, 
+          caption = &quot;&quot;, 
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["2019","2020","2021","2022","2023","2024"],["2019","2020","2021","2022","2023","2024"],[45317,66109,97927,127089,114039,32190],[0.0939,0.137,0.2029,0.2633,0.2363,0.0667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"year","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["2019","2020","2021","2022","2023","2024"],["2019","2020","2021","2022","2023","2024"],[45317,66109,97927,127089,114039,32190],[0.0939,0.137,0.2029,0.2633,0.2363,0.0667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"year","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>one patient may have multiple claims</li>
 </ul>
 </div>
-<div id="year-2022-claims" class="section level2">
-<h2>year 2022 claims</h2>
+<div id="year-2022" class="section level2">
+<h2>year 2022</h2>
 <pre class="r"><code>claims_file_year=claims_file[(grep(claims_file$CLAIM_PAID_DATE, &quot;2022&quot;)),]
 status=sapply(claims_file$CLAIM_PAID_DATE, function(x) grepl(&quot;2022&quot;, x))
 claims_file_year=claims_file[status, ]
 claims_file_year_ids=unique(claims_file_year$CLIENT_ID)
-
-status=sapply(file2$CLNDR_YR_MONTH, function(x) grepl(&quot;2022&quot;, x))
+length(claims_file_year_ids)</code></pre>
+<pre><code>[1] 14830</code></pre>
+<pre class="r"><code>status=sapply(file2$CLNDR_YR_MONTH, function(x) grepl(&quot;2022&quot;, x))
 file2_year=file2[status, ]
 file2_year_ids=unique(file2_year$MEDICAID_CLIENT_ID)
+length(file2_year_ids)</code></pre>
+<pre><code>[1] 87980</code></pre>
+<pre class="r"><code>#status=sapply(file1$CLNDR_YR_MONTH, function(x) grepl(&quot;2022&quot;, x))
+#file1_year=file1[status, ]
+#file1_year_ids=unique(file1_year$MEDICAID_CLIENT_ID)
+#length(file1_year_ids)
 
 claim_file2_common_ids_year=intersect(claims_file_year_ids, file2_year_ids)
-
-
-
-
-grid.newpage() 
+length(claim_file2_common_ids_year)</code></pre>
+<pre><code>[1] 14759</code></pre>
+<pre class="r"><code>grid.newpage() 
 draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_ids),cross.area=length(claim_file2_common_ids_year), 
                    category=c(&quot;Claim_2022&quot;,&quot;files_2022&quot;),fill=c(&quot;Red&quot;,&quot;Yellow&quot;))</code></pre>
 <p><img src="figure/NTDC.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/beffd54b8431e542e5a33c8843f7416827082ca9/docs/figure/NTDC.Rmd/unnamed-chunk-6-1.png" target="_blank">beffd54</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>(polygon[GRID.polygon.104], polygon[GRID.polygon.105], polygon[GRID.polygon.106], polygon[GRID.polygon.107], text[GRID.text.108], text[GRID.text.109], lines[GRID.lines.110], text[GRID.text.111], text[GRID.text.112], text[GRID.text.113]) </code></pre>
 <ul>
-<li><p>for year 2022, claims file has 14830 unique ids, files has 87980
-unique ids, with 14759 overlapping with each other and 71 only in claims
+<li><p>for year 2022, claims file has 14830 unique ids, file2 has 87980
+unique ids, with 14759 overlapping with claim file and 71 only in claims
 file.</p></li>
-<li><p>ClientFile2 doesn’t have year 2023 in column
+<li><p>ClientFile1 doesn’t have year 2022 in column
 <code>CLNDR_YR_MONTH</code>.</p></li>
 </ul>
 <br>

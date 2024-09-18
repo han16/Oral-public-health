@@ -76,7 +76,7 @@ draw.pairwise.venn(area1=length(file1_unique_ids), area2=length(file2_unique_ids
 
 ```{r, message=F, warning=F}
 last_day_of_service=claims_file$`LAST_DATE_OF_SERVICE`
-last_day_of_service_by_year=substr(last_day_of_service, 6, 9)  3 
+last_day_of_service_by_year=substr(last_day_of_service, 6, 9)  # extract years  
 count_by_year=sapply(sort(unique(last_day_of_service_by_year)), function(x) sum(last_day_of_service_by_year==x))
 year_count=data.frame(year=sort(unique(last_day_of_service_by_year)), n=count_by_year) %>% mutate(prop=round(n/sum(count_by_year),4))
 
@@ -98,19 +98,27 @@ year_count %>%
 
 
 
-## year 2022 claims 
+## year 2022 
 
 ```{r, message=F, warning=F}
 claims_file_year=claims_file[(grep(claims_file$CLAIM_PAID_DATE, "2022")),]
 status=sapply(claims_file$CLAIM_PAID_DATE, function(x) grepl("2022", x))
 claims_file_year=claims_file[status, ]
 claims_file_year_ids=unique(claims_file_year$CLIENT_ID)
+length(claims_file_year_ids)
 
 status=sapply(file2$CLNDR_YR_MONTH, function(x) grepl("2022", x))
 file2_year=file2[status, ]
 file2_year_ids=unique(file2_year$MEDICAID_CLIENT_ID)
+length(file2_year_ids)
+
+#status=sapply(file1$CLNDR_YR_MONTH, function(x) grepl("2022", x))
+#file1_year=file1[status, ]
+#file1_year_ids=unique(file1_year$MEDICAID_CLIENT_ID)
+#length(file1_year_ids)
 
 claim_file2_common_ids_year=intersect(claims_file_year_ids, file2_year_ids)
+length(claim_file2_common_ids_year)
 
 
 
@@ -120,6 +128,6 @@ draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_i
                    category=c("Claim_2022","files_2022"),fill=c("Red","Yellow"))
 ```
 
-* for year 2022, claims file has 14830 unique ids,  files has 87980 unique ids, with  14759 overlapping with each other and 71 only in claims file. 
+* for year 2022, claims file has 14830 unique ids,  file2 has 87980 unique ids, with  14759 overlapping with claim file and 71 only in claims file. 
 
-* ClientFile2 doesn't have year 2023 in column `CLNDR_YR_MONTH`. 
+* ClientFile1 doesn't have year 2022 in column `CLNDR_YR_MONTH`. 
