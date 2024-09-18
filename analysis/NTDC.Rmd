@@ -125,7 +125,7 @@ length(claim_file2_common_ids_year)
 
 grid.newpage() 
 draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_ids),cross.area=length(claim_file2_common_ids_year), 
-                   category=c("Claim_2022","files_2022"),fill=c("Red","Yellow"))
+                   category=c("Claim_2022","file2_2022"),fill=c("Red","Yellow"))
 ```
 
 * for year 2022, claims file has 14830 unique ids,  file2 has 87980 unique ids, with  14759 overlapping with claim file and 71 only in claims file. 
