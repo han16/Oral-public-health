@@ -131,3 +131,17 @@ draw.pairwise.venn(area1=length(claims_file_year_ids), area2=length(file2_year_i
 * for year 2022, claims file has 14830 unique ids,  file2 has 87980 unique ids, with  14759 overlapping with claim file and 71 only in claims file. 
 
 * ClientFile1 doesn't have year 2022 in column `CLNDR_YR_MONTH`. 
+
+
+
+## medical claim file 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+medical_claims=read.csv("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_MEDICAL_CLAIMS_FILE.csv")
+colnames(medical_claims)
+#save(file1, file2, claims_file, file="C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_data.RData")
+#load("C:\\Shengtong\\Research\\OralPublicHealth\\NTDC\\NTDC_data.RData")
+```
