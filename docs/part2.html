@@ -34,6 +34,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -248,6 +249,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -372,6 +376,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">year 2019</h1>
@@ -404,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-11
+<strong>Last updated:</strong> 2024-10-09
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree978f42ff81783f6a25fffb23ffd318b5e41376eftargetblank978f42fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree3835097ba42aa5ccee4283a6495d943dafc60f9etargetblank3835097a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/978f42ff81783f6a25fffb23ffd318b5e41376ef" target="_blank">978f42f</a>
+<a href="https://github.com/han16/Oral-public-health/tree/3835097ba42aa5ccee4283a6495d943dafc60f9e" target="_blank">3835097</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree978f42ff81783f6a25fffb23ffd318b5e41376eftargetblank978f42fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree3835097ba42aa5ccee4283a6495d943dafc60f9etargetblank3835097a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/978f42ff81783f6a25fffb23ffd318b5e41376ef" target="_blank">978f42f</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/3835097ba42aa5ccee4283a6495d943dafc60f9e" target="_blank">3835097</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -572,10 +584,11 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
+    Ignored:    analysis/ddwi_part1_cache/
     Ignored:    analysis/part1_cache/
 
 Unstaged changes:
-    Modified:   analysis/part1.Rmd
+    Modified:   analysis/index.Rmd
     Modified:   analysis/part2.Rmd
 
 </code></pre>
@@ -621,6 +634,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/cf0c9dc17c85be51918105d22b0ac7c0df36de32/analysis/part2.Rmd" target="_blank">cf0c9dc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+<td>
+6/11/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/cf0c9dc17c85be51918105d22b0ac7c0df36de32/docs/part2.html" target="_blank">cf0c9dc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+<td>
+6/11/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -900,8 +947,41 @@ han
 </div>
 </div>
 </div>
+<pre class="r"><code># convter date, e.g. 01OCT2017  --&gt;2017-10-01
+convert_date&lt;-function(x)
+{
+  year=substr(x, 6,9)
+  month=substr(x, 3,5)
+  if (month==&quot;JAN&quot;)
+     month=&quot;01&quot;
+  if (month==&quot;FEB&quot;)
+     month=&quot;02&quot;
+  if (month==&quot;MAR&quot;)
+     month=&quot;03&quot;
+   if (month==&quot;APR&quot;)
+     month=&quot;04&quot;
+   if (month==&quot;MAY&quot;)
+     month=&quot;05&quot;
+   if (month==&quot;JUN&quot;)
+     month=&quot;06&quot;
+   if (month==&quot;JUL&quot;)
+     month=&quot;07&quot;
+   if (month==&quot;AUG&quot;)
+     month=&quot;08&quot;
+   if (month==&quot;SEP&quot;)
+     month=&quot;09&quot;
+   if (month==&quot;OCT&quot;)
+     month=&quot;10&quot;
+   if (month==&quot;NOV&quot;)
+     month=&quot;11&quot;
+   if (month==&quot;DEC&quot;)
+     month=&quot;12&quot;
+   date=substr(x, 1,2)
+  return(paste(year, month, date, sep=&quot;-&quot;))
+}</code></pre>
 <div id="unique-ids" class="section level2">
 <h2>unique ids</h2>
+<pre class="r"><code>data_year2019=readRDS(&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds&quot;)</code></pre>
 <ul>
 <li>numbers for benchmarking</li>
 </ul>
@@ -920,6 +1000,23 @@ Male 356 983 (45.4) Female 429 112 (54.6)
 2020 (n = 792 777)
 
 Male 361 723 (45.6) Female 431 054 (54.4)</code></pre>
+<pre class="r"><code>#data_2019$demographics_2019 %&gt;% filter(demographic_2019_check==&quot;Yes&quot;) %&gt;% nrow()  # 1612620
+#length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID)) # 56763
+#length(unique(data_year2019$ffs_claims_2019$RECIPIENT_ID)) # 59361
+
+ggplot(data.frame(source=c( &quot;Demographs&quot;, &quot;HMO claims&quot;, &quot;FFS claims&quot;), num=c(1612620, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
+geom_bar(position = &quot;dodge&quot;,stat=&quot;identity&quot;)+
+   xlab(&quot;&quot;)+ylab(&quot;No. unique ids&quot;)+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
+   ggtitle(&quot;year 2019&quot;)+
+   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations =&quot;p=0.074&quot;, y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color=&quot;black&quot;)+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations =&quot;p&lt;0.001&quot;, y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color=&quot;red&quot;)+
+  #geom_signif(annotations =&quot;p&lt;0.001&quot;, y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color=&quot;red&quot;)+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/part2.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -945,6 +1042,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/cf0c9dc17c85be51918105d22b0ac7c0df36de32/docs/figure/part2.Rmd/unnamed-chunk-6-1.png" target="_blank">cf0c9dc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/3b684b2f48547a08fa252389aebcb0ac5e824daf/docs/figure/part2.Rmd/unnamed-chunk-6-1.png" target="_blank">3b684b2</a>
 </td>
 <td>
@@ -963,6 +1071,26 @@ han
 <li><p>hmo: first service date in 2019</p></li>
 <li><p>demographics: ids that have eligibility date in 2019</p></li>
 </ul>
+<pre class="r"><code>demographic_2019_id=data_year2019$demographics_2019 %&gt;% filter(demographic_2019_check==&quot;Yes&quot;) %&gt;% select(demographics_eligibiligy_unique_id) %&gt;% pull()
+#length(unique(intersect(demographic_2019_id, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 59360
+#length(unique(intersect(demographic_2019_id, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 56763
+#length(unique(intersect(data_year2019$hmo_claims_2019$RECIPIENT_ID, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 3694
+#length(unique(intersect(intersect(demographic_2019_id, data_year2019$ffs_claims_2019$RECIPIENT_ID),data_year2019$hmo_claims_2019$RECIPIENT_ID ))) # 3694
+
+
+# move to new plotting page 
+grid.newpage() 
+
+#draw.pairwise.venn(area1=56763, area2=59361,cross.area=3694, 
+#                   category=c(&quot;HMO claims&quot;,&quot;FFS claims&quot;),fill=c(&quot;#009999&quot;,&quot;red&quot;)) # https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
+
+
+# create Venn diagram with three sets 
+draw.triple.venn(area1=56763,area2=59361, area3 =1612620,  
+                 n12=3694, n23=59360, n13=56763, n123=3694,  
+                 category=c(&quot;HMO (2019)&quot;,&quot;FFS (2019)&quot;,&quot;Demographics (2019)&quot;), 
+                 col=&quot;red&quot;,fill=c(&quot;Green&quot;,&quot;Orange&quot;,&quot;Blue&quot;), lty=&quot;solid&quot;, 
+                 cat.cex = 1.3, cat.pos=c(0,0, 180), cat.col=c(&quot;Green&quot;,&quot;Orange&quot;,&quot;Blue&quot;), cex=1.5) # cat.cex  the size of the category names; cex: A vector (length 7) giving the size of the areas&#39; labels; cat.pos: position of category names https://www.rdocumentation.org/packages/VennDiagram/versions/1.7.3/topics/draw.triple.venn</code></pre>
 <p><img src="figure/part2.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -986,6 +1114,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/cf0c9dc17c85be51918105d22b0ac7c0df36de32/docs/figure/part2.Rmd/unnamed-chunk-7-1.png" target="_blank">cf0c9dc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/d3289b6e4161bf1d2cf2b3f928eb5e49821d39c7/docs/figure/part2.Rmd/unnamed-chunk-7-1.png" target="_blank">d3289b6</a>
@@ -1013,9 +1152,65 @@ han
 </div>
 </div>
 <pre><code>(polygon[GRID.polygon.53], polygon[GRID.polygon.54], polygon[GRID.polygon.55], polygon[GRID.polygon.56], polygon[GRID.polygon.57], polygon[GRID.polygon.58], text[GRID.text.59], text[GRID.text.60], text[GRID.text.61], text[GRID.text.62], text[GRID.text.63], text[GRID.text.64], text[GRID.text.65], text[GRID.text.66]) </code></pre>
+<pre class="r"><code>#dev.off()</code></pre>
 </div>
 <div id="unique-ids-split-by-number-of-visits" class="section level2">
 <h2>unique ids split by number of visits</h2>
+<pre class="r"><code>hmo_2019=data_year2019$hmo_claims_2019
+ffs_2019=data_year2019$ffs_claims_2019
+
+FIRST_DATE_OF_SERVICE_converted_hmo=sapply(hmo_2019$FIRST_DATE_OF_SERVICE, convert_date)
+FIRST_DATE_OF_SERVICE_converted_ffs=sapply(ffs_2019$FIRST_DATE_OF_SERVICE, convert_date)
+
+hmo_2019_with_service_date_only=data.frame(RECIPIENT_ID=hmo_2019$RECIPIENT_ID, FIRST_DATE_OF_SERVICE_converted=FIRST_DATE_OF_SERVICE_converted_hmo) %&gt;% distinct()  # remove duplicated rows that individuals have multiple rows at the same day 
+
+ffs_2019_with_service_date_only=data.frame(RECIPIENT_ID=ffs_2019$RECIPIENT_ID, FIRST_DATE_OF_SERVICE_converted=FIRST_DATE_OF_SERVICE_converted_ffs) %&gt;% distinct()</code></pre>
+<pre class="r"><code>hmo_table=table(hmo_2019_with_service_date_only$RECIPIENT_ID)
+num_visit=seq(1,10)
+count_id_hmo=function(x)
+{sum(hmo_table==x)}
+num_id_hmo=sapply(num_visit, count_id_hmo)
+num_id_hmo[11]=sum(hmo_table&gt;10)
+visit_hmo=data.frame(num_visit=c(paste(&quot;0&quot;,num_visit[1:9], sep=&quot;&quot;), &quot;10&quot;, &quot;more than 10&quot;), num_id=num_id_hmo) %&gt;% mutate(prop=round(num_id/sum(num_id_hmo),4))
+
+#ggplot(visit_hmo, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat=&quot;identity&quot;)+
+#  ylim(c(0, 0.7))+
+#  ylab(&quot;% unique ids&quot;)+xlab(&quot;number of visits in the year&quot;)+
+#  theme(legend.position=&quot;none&quot;)+
+#  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+#  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+#  ggtitle(&quot;hmo (2019)&quot;)+
+#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+# use rank function to rank multiple dates, then calculate the difference. </code></pre>
+<pre class="r"><code>ffs_table=table(ffs_2019_with_service_date_only$RECIPIENT_ID)
+num_visit=seq(1,10)
+count_id_ffs=function(x)
+{sum(ffs_table==x)}
+num_id_ffs=sapply(num_visit, count_id_ffs)
+num_id_ffs[11]=sum(ffs_table&gt;10)
+visit_ffs=data.frame(num_visit=c(paste(&quot;0&quot;,num_visit[1:9], sep=&quot;&quot;), &quot;10&quot;, &quot;more than 10&quot;), num_id=num_id_ffs) %&gt;% mutate(prop=round(num_id/sum(num_id_ffs),4))
+
+#ggplot(visit_ffs, aes(x=num_visit, y=prop, fill=num_visit)) +geom_bar(stat=&quot;identity&quot;)+
+#  ylim(c(0, 0.7))+
+#  ylab(&quot;% unique ids&quot;)+xlab(&quot;number of visits in the year&quot;)+
+#  theme(legend.position=&quot;none&quot;)+
+#  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+#  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+#  ggtitle(&quot;ffs (2019)&quot;)+
+#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+# use rank function to rank multiple dates, then calculate the difference. </code></pre>
+<pre class="r"><code>visit_ffs_and_hmo=rbind(visit_ffs, visit_hmo) %&gt;%mutate(plan=rep(c(&quot;ffs&quot;, &quot;hmo&quot;), each=11))
+
+ggplot(visit_ffs_and_hmo, aes(x=num_visit, y=prop, fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+  ylim(c(0, 0.7))+
+  ylab(&quot;% unique ids&quot;)+xlab(&quot;number of visits in the year&quot;)+
+  theme(legend.position=&quot;bottom&quot;)+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=11))+
+  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(&quot;year 2019 &quot;)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/part2.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -1041,6 +1236,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/cf0c9dc17c85be51918105d22b0ac7c0df36de32/docs/figure/part2.Rmd/unnamed-chunk-11-1.png" target="_blank">cf0c9dc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/d3289b6e4161bf1d2cf2b3f928eb5e49821d39c7/docs/figure/part2.Rmd/unnamed-chunk-11-1.png" target="_blank">d3289b6</a>
 </td>
 <td>
@@ -1054,12 +1260,166 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>visit_ffs_and_hmo%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"],["01","02","03","04","05","06","07","08","09","10","more than 10","01","02","03","04","05","06","07","08","09","10","more than 10"],[29468,14332,6549,3427,1949,1197,761,495,319,227,637,36625,11984,4140,1895,871,485,279,151,104,60,169],[0.4964,0.2414,0.1103,0.0577,0.0328,0.0202,0.0128,0.0083,0.0054,0.0038,0.0107,0.6452,0.2111,0.07290000000000001,0.0334,0.0153,0.008500000000000001,0.0049,0.0027,0.0018,0.0011,0.003],["ffs","ffs","ffs","ffs","ffs","ffs","ffs","ffs","ffs","ffs","ffs","hmo","hmo","hmo","hmo","hmo","hmo","hmo","hmo","hmo","hmo","hmo"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>num_visit<\/th>\n      <th>num_id<\/th>\n      <th>prop<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"num_visit","targets":1},{"name":"num_id","targets":2},{"name":"prop","targets":3},{"name":"plan","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="unique-ids-split-by-time-intervals" class="section level2">
 <h2>unique ids split by time intervals</h2>
+<pre class="r"><code>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+############ DONOT run as it takes too long time
+hmo_unique_id=unique(hmo_2019_with_service_date_only$RECIPIENT_ID)
+library(lubridate)
+calculate_time_period_hmo=function(X)
+{
+  id_visit=hmo_2019_with_service_date_only %&gt;% filter(RECIPIENT_ID ==X)
+  if (nrow(id_visit)&gt;1)
+  {
+    id_visit_rank=id_visit[order(id_visit$FIRST_DATE_OF_SERVICE_converted),] # https://stackoverflow.com/questions/6246159/how-to-sort-a-data-frame-by-date
+    first_date_of_servie=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[nrow(id_visit_rank)]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = &quot;days&quot;)
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  if (nrow(id_visit)==1)
+  {
+    
+    first_date_of_servie=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = &quot;days&quot;)
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  
+}
+time_preiod_visit_hmo=sapply(hmo_unique_id, calculate_time_period_hmo)
+#saveRDS(t(time_preiod_visit_hmo), file=&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240515.rds&quot;)</code></pre>
+<pre class="r"><code>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+############ DONOT run as it takes too long time
+ffs_unique_id=unique(ffs_2019_with_service_date_only$RECIPIENT_ID)
+library(lubridate)
+calculate_time_period_ffs=function(X)
+{
+  id_visit=ffs_2019_with_service_date_only %&gt;% filter(RECIPIENT_ID ==X)
+  if (nrow(id_visit)&gt;1)
+  {
+    id_visit_rank=id_visit[order(id_visit$FIRST_DATE_OF_SERVICE_converted),]
+    first_date_of_servie=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit_rank$FIRST_DATE_OF_SERVICE_converted[nrow(id_visit_rank)]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = &quot;days&quot;)
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  if (nrow(id_visit)==1)
+  {
+    
+    first_date_of_servie=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    last_date_of_servide=id_visit$FIRST_DATE_OF_SERVICE_converted[1]
+    time_period=difftime(last_date_of_servide,first_date_of_servie,units = &quot;days&quot;)
+    return(data.frame(id=id_visit$RECIPIENT_ID[1], first_date_of_servie=first_date_of_servie, last_date_of_servide=last_date_of_servide, time_period=time_period))
+  }
+  
+}
+time_preiod_visit_ffs=sapply(ffs_unique_id, calculate_time_period_ffs)
+#saveRDS(t(time_preiod_visit_ffs), file=&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240515.rds&quot;)</code></pre>
+<pre class="r"><code>hmo_2019_time_period_visit=readRDS(&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240515.rds&quot;)
+hmo_2019_time_period_visit1=data.frame(id=unlist(hmo_2019_time_period_visit[,1]), first_date_of_servie=unlist(hmo_2019_time_period_visit[,2]), last_date_of_service=unlist(hmo_2019_time_period_visit[,3]), time_period=unlist(hmo_2019_time_period_visit[,4]))</code></pre>
+<pre class="r"><code>time_length=seq(30, 180, by=30); num_ids=numeric()
+count_ids_hmo=function(x)
+{
+  hmo_2019_time_period_visit1 %&gt;% filter(time_period&gt;=x) %&gt;% nrow()
+  
+}
+num_ids=sapply(time_length, count_ids_hmo)
+
+num_ids_hmo=data.frame(time_interval=paste(&quot;&gt;=&quot;,seq(1,6), &quot; month&quot;, sep=&quot;&quot;), num_id=num_ids) %&gt;% mutate(prop=round(num_id/nrow(hmo_2019_time_period_visit1),4))
+
+#ggplot(num_ids_hmo, aes(x=time_interval, y=prop, fill=time_interval)) +geom_bar(stat=&quot;identity&quot;)+
+#  ylim(c(0, 0.25))+
+#  ylab(&quot;% No.unique ids&quot;)+xlab(&quot;time interval between the first and last visit&quot;)+
+#  theme(legend.position=&quot;none&quot;)+
+#  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+#  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+#  ggtitle(&quot;hmo (2019)&quot;)+
+#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
+<pre class="r"><code>ffs_2019_time_period_visit=readRDS(&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240515.rds&quot;)
+ffs_2019_time_period_visit1=data.frame(id=unlist(ffs_2019_time_period_visit[,1]), first_date_of_servie=unlist(ffs_2019_time_period_visit[,2]), last_date_of_service=unlist(ffs_2019_time_period_visit[,3]), time_period=unlist(ffs_2019_time_period_visit[,4]))</code></pre>
+<pre class="r"><code>time_length=seq(30, 180, by=30); num_ids=numeric()
+count_ids_ffs=function(x)
+{
+  ffs_2019_time_period_visit1 %&gt;% filter(time_period&gt;=x) %&gt;% nrow()
+  
+}
+num_ids=sapply(time_length, count_ids_ffs)
+
+num_ids_ffs=data.frame(time_interval=paste(&quot;&gt;=&quot;,seq(1,6), &quot; month&quot;, sep=&quot;&quot;), num_id=num_ids) %&gt;% mutate(prop=round(num_id/nrow(ffs_2019_time_period_visit1),4))
+
+#ggplot(num_ids_ffs, aes(x=time_interval, y=prop, fill=time_interval)) +geom_bar(stat=&quot;identity&quot;)+
+#  ylim(c(0, 0.4))+
+#  ylab(&quot;% unique ids&quot;)+xlab(&quot;time interval between the first and last visit&quot;)+
+#  theme(legend.position=&quot;none&quot;)+
+#  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+#  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+#  ggtitle(&quot;ffs (2019)&quot;)+
+#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
+<pre class="r"><code>num_ids_ffs_and_hmo=rbind(num_ids_ffs, num_ids_hmo)%&gt;%mutate(plan=rep(c(&quot;ffs&quot;, &quot;hmo&quot;), each=nrow(num_ids_ffs)))
+ggplot(num_ids_ffs_and_hmo, aes(x=time_interval, y=prop, fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+  ylim(c(0, 0.4))+
+  ylab(&quot;% unique ids&quot;)+xlab(&quot;time interval between the first and last visit&quot;)+
+  theme(legend.position=&quot;bottom&quot;)+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num_id), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle(&quot;year 2019&quot;)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
 <p><img src="figure/part2.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/cf0c9dc17c85be51918105d22b0ac7c0df36de32/docs/figure/part2.Rmd/unnamed-chunk-18-1.png" target="_blank">cf0c9dc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>num_ids_ffs_and_hmo%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["&gt;=1 month","&gt;=2 month","&gt;=3 month","&gt;=4 month","&gt;=5 month","&gt;=6 month","&gt;=1 month","&gt;=2 month","&gt;=3 month","&gt;=4 month","&gt;=5 month","&gt;=6 month"],[23329,19065,16185,13505,11685,10243,12672,10057,8200,6756,5608,4751],[0.393,0.3212,0.2727,0.2275,0.1968,0.1726,0.2232,0.1772,0.1445,0.119,0.0988,0.0837],["ffs","ffs","ffs","ffs","ffs","ffs","hmo","hmo","hmo","hmo","hmo","hmo"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time_interval<\/th>\n      <th>num_id<\/th>\n      <th>prop<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time_interval","targets":1},{"name":"num_id","targets":2},{"name":"prop","targets":3},{"name":"plan","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
@@ -1190,6 +1550,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

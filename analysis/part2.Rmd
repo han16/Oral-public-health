@@ -1,29 +1,20 @@
 ---
 title: "year 2019"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-05-08"
 ---
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
-multiplesheets <- function(fname) {
-   
-  # getting info about all excel sheets
-  sheets <- readxl::excel_sheets(fname)
-  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
-  data_frame <- lapply(tibble, as.data.frame)
-    
-  # assigning names to data frames
-  names(data_frame) <- sheets
-    
-  # print data frame
-  print(data_frame)
-}
+
 ```
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 # convter date, e.g. 01OCT2017  -->2017-10-01
 convert_date<-function(x)
 {
@@ -145,7 +136,7 @@ end.time <- Sys.time()
 time.taken <- round(end.time - start.time,2)
 time.taken
 
-saveRDS(demographic_2019, file="C:\\Users\\hans\\OneDrive - Marquette University\\OralPublicHealth\\demographic_2019.rds")
+#saveRDS(demographic_2019, file="C:\\Users\\hans\\OneDrive - Marquette University\\OralPublicHealth\\demographic_2019.rds")
 
 
 ```
@@ -153,7 +144,7 @@ saveRDS(demographic_2019, file="C:\\Users\\hans\\OneDrive - Marquette University
 
 ## unique ids  
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
 ```
 
@@ -178,7 +169,7 @@ Male 361 723 (45.6) Female 431 054 (54.4)
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 #data_2019$demographics_2019 %>% filter(demographic_2019_check=="Yes") %>% nrow()  # 1612620
 #length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID)) # 56763
@@ -206,7 +197,7 @@ geom_bar(position = "dodge",stat="identity")+
 * demographics: ids that have eligibility date in 2019
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 demographic_2019_id=data_year2019$demographics_2019 %>% filter(demographic_2019_check=="Yes") %>% select(demographics_eligibiligy_unique_id) %>% pull()
 #length(unique(intersect(demographic_2019_id, data_year2019$ffs_claims_2019$RECIPIENT_ID))) # 59360
 #length(unique(intersect(demographic_2019_id, data_year2019$hmo_claims_2019$RECIPIENT_ID))) # 56763
@@ -239,7 +230,7 @@ draw.triple.venn(area1=56763,area2=59361, area3 =1612620,
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 hmo_2019=data_year2019$hmo_claims_2019
 ffs_2019=data_year2019$ffs_claims_2019
 
@@ -254,7 +245,7 @@ ffs_2019_with_service_date_only=data.frame(RECIPIENT_ID=ffs_2019$RECIPIENT_ID, F
 
 
 
-```{r, echo=F, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=T}
 hmo_table=table(hmo_2019_with_service_date_only$RECIPIENT_ID)
 num_visit=seq(1,10)
 count_id_hmo=function(x)
@@ -277,7 +268,7 @@ visit_hmo=data.frame(num_visit=c(paste("0",num_visit[1:9], sep=""), "10", "more 
 ```
 
 
-```{r, echo=F, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=T}
 ffs_table=table(ffs_2019_with_service_date_only$RECIPIENT_ID)
 num_visit=seq(1,10)
 count_id_ffs=function(x)
@@ -300,7 +291,7 @@ visit_ffs=data.frame(num_visit=c(paste("0",num_visit[1:9], sep=""), "10", "more 
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 visit_ffs_and_hmo=rbind(visit_ffs, visit_hmo) %>%mutate(plan=rep(c("ffs", "hmo"), each=11))
 
 ggplot(visit_ffs_and_hmo, aes(x=num_visit, y=prop, fill=plan)) +geom_bar(position = "dodge", stat="identity")+
@@ -327,7 +318,8 @@ datatable(extensions = 'Buttons',
 ## unique ids split by time intervals 
 
 
-```{r, echo=F, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=F}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ############ DONOT run as it takes too long time
 hmo_unique_id=unique(hmo_2019_with_service_date_only$RECIPIENT_ID)
 library(lubridate)
@@ -357,7 +349,8 @@ time_preiod_visit_hmo=sapply(hmo_unique_id, calculate_time_period_hmo)
 ```
 
 
-```{r, echo=F, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=F}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ############ DONOT run as it takes too long time
 ffs_unique_id=unique(ffs_2019_with_service_date_only$RECIPIENT_ID)
 library(lubridate)
@@ -387,14 +380,14 @@ time_preiod_visit_ffs=sapply(ffs_unique_id, calculate_time_period_ffs)
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 hmo_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\hmo_2019_time_period_visit_20240515.rds")
 hmo_2019_time_period_visit1=data.frame(id=unlist(hmo_2019_time_period_visit[,1]), first_date_of_servie=unlist(hmo_2019_time_period_visit[,2]), last_date_of_service=unlist(hmo_2019_time_period_visit[,3]), time_period=unlist(hmo_2019_time_period_visit[,4]))
 ```
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 time_length=seq(30, 180, by=30); num_ids=numeric()
 count_ids_hmo=function(x)
 {
@@ -418,14 +411,14 @@ num_ids_hmo=data.frame(time_interval=paste(">=",seq(1,6), " month", sep=""), num
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 ffs_2019_time_period_visit=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\ffs_2019_time_period_visit_20240515.rds")
 ffs_2019_time_period_visit1=data.frame(id=unlist(ffs_2019_time_period_visit[,1]), first_date_of_servie=unlist(ffs_2019_time_period_visit[,2]), last_date_of_service=unlist(ffs_2019_time_period_visit[,3]), time_period=unlist(ffs_2019_time_period_visit[,4]))
 ```
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 time_length=seq(30, 180, by=30); num_ids=numeric()
 count_ids_ffs=function(x)
 {
@@ -449,7 +442,7 @@ num_ids_ffs=data.frame(time_interval=paste(">=",seq(1,6), " month", sep=""), num
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 num_ids_ffs_and_hmo=rbind(num_ids_ffs, num_ids_hmo)%>%mutate(plan=rep(c("ffs", "hmo"), each=nrow(num_ids_ffs)))
 ggplot(num_ids_ffs_and_hmo, aes(x=time_interval, y=prop, fill=plan)) +geom_bar(position = "dodge", stat="identity")+
   ylim(c(0, 0.4))+
