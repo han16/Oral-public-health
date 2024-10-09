@@ -1,0 +1,44 @@
+---
+title: "analysis for year 2019"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-10-09"
+---
+
+```{r, echo=F, message=F, warning=F}
+library(ggplot2)
+```
+
+
+
+1. among people enrolled in HMO/FFS, how many went to dentist at least once
+
+
+```{r, message=F, warning=F}
+
+#data_2019$demographics_2019 %>% filter(demographic_2019_check=="Yes") %>% nrow()  # 1612620
+#length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID)) # 56763
+#length(unique(data_year2019$ffs_claims_2019$RECIPIENT_ID)) # 59361
+
+ggplot(data.frame(source=c( "Demographs", "HMO claims", "FFS claims"), num=c(1612620, 56763, 59361)), aes(x=source, y=num, fill=source))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("No. unique ids")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
+   ggtitle("year 2019")+
+   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+```
+
+* details about how these numbers are calculated  are [here](https://han16.github.io/Oral-public-health/part2.html)
+* FFS: `59361/1612620
+[1] 0.03681028`; HMO: `56763/1612620
+[1] 0.03519924`
+

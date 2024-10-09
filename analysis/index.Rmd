@@ -22,6 +22,8 @@ output:
 
 * [year 2019](part2.html)
 
+* [analysis for year 2019](part3.html)
+
 
 ## new data- NTDC 
 
