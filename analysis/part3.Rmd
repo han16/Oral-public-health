@@ -42,3 +42,27 @@ geom_bar(position = "dodge",stat="identity")+
 [1] 0.03681028`; HMO: `56763/1612620
 [1] 0.03519924`
 
+* total number from `Demographs`. 
+
+
+
+```{r, message=F, warning=F}
+FFS_count=c(393420, 385650, 388230, 389031, 384248, 384563, 387879, 387891, 387930, 390666, 387225, 389706)
+HMO_count=c(803755, 813129, 811751, 812222, 818355, 818552, 815305,	817917,	818435,	814588,	816982,	814091)
+
+
+ggplot(data.frame(source=c( "FFS_enrolled", "HMO_enrolled", "HMO claims", "FFS claims"), num=c(sum(FFS_count), sum(HMO_count), 56763, 59361)), aes(x=source, y=num, fill=source))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("No. unique ids")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
+   ggtitle("year 2019")+
+   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+```
+* FFS claim rate: 59361/4656439=1.27%; HMO claim rate: 56763/9775082=0.58%
