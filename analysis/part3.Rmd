@@ -8,12 +8,12 @@ date: "2024-10-09"
 ---
 
 ```{r, echo=F, message=F, warning=F}
-library(ggplot2)
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
 ```
 
 
 
-1. among people enrolled in HMO/FFS, how many went to dentist at least once
+## 1. among people enrolled in HMO/FFS, how many went to dentist at least once
 
 
 ```{r, message=F, warning=F}
@@ -66,3 +66,6 @@ geom_bar(position = "dodge",stat="identity")+
   theme(legend.position = "none")
 ```
 * FFS claim rate: 59361/4656439=1.27%; HMO claim rate: 56763/9775082=0.58%
+
+
+## 2. compare 5 categories in dental procedure HMO vs FFS 
