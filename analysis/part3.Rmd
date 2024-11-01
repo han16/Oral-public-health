@@ -118,4 +118,55 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+### Preventive procedures- D1110,  D1120, D1206, D1203, D1351, D4341 and D4342
 
+```{r, message=F, warning=F}
+preventive_code=c("D1110",  "D1120", "D1206", "D1203", "D1351", "D4341", "D4342")
+y=sapply(preventive_code,calculate_prop)
+
+
+ggplot(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c("hmo", "ffs"), length(preventive_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("% unique ids")+
+  #xlab("number of visits in the year")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Preventive procedures")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c("hmo", "ffs"), length(preventive_code)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+### Simple restorative D2000 to D2430
+
+```{r, message=F, warning=F}
+restorative_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D2"])[1:13]
+y=sapply(restorative_code,calculate_prop)
+
+
+ggplot(data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("% unique ids")+
+  #xlab("number of visits in the year")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=9))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Simple restorative")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
