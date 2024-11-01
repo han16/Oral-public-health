@@ -69,3 +69,53 @@ geom_bar(position = "dodge",stat="identity")+
 
 
 ## 2. compare 5 categories in dental procedure HMO vs FFS 
+
+
+```{r, message=F, warning=F}
+data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\data_year2019.rds")
+#colnames(data_year2019$hmo_claims_2019)
+#unique(data_year2019$hmo_claims_2019$PROCEDURE_CODE)
+```
+
+```{r, message=F, warning=F}
+hmo_code=unique(data_year2019$hmo_claims_2019$PROCEDURE_CODE)
+ffs_code=unique(data_year2019$ffs_claims_2019$PROCEDURE_CODE)
+hmo_ffs_code=intersect(hmo_code, ffs_code)
+
+num_id_hmo=length(unique(data_year2019$hmo_claims_2019$RECIPIENT_ID))
+num_id_ffs=length(unique(data_year2019$ffs_claims_2019$RECIPIENT_ID))
+
+calculate_prop=function(code)
+{
+  hmo_prop=length(unique(data_year2019$hmo_claims_2019 %>% filter(PROCEDURE_CODE==code) %>% select(RECIPIENT_ID) %>% pull))/num_id_hmo
+  ffs_prop=length(unique(data_year2019$ffs_claims_2019 %>% filter(PROCEDURE_CODE==code) %>% select(RECIPIENT_ID) %>% pull))/num_id_ffs
+  return(list(hmo_prop, ffs_prop))
+}
+```
+
+### Diagnostic All CDT codes in the range of D0100 to D0999
+
+```{r, message=F, warning=F}
+diagnostic_code=hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D0"]
+y=sapply(diagnostic_code,calculate_prop)
+
+
+ggplot(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c("hmo", "ffs"), length(diagnostic_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("% unique ids")+
+  #xlab("number of visits in the year")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Diagnostic All CDT codes")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c("hmo", "ffs"), length(diagnostic_code)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
