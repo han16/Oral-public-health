@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeb2d3108f818aa1d155a19fae289e4dda33764feftargetblankb2d3108a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92abtargetblank2da4b5ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/b2d3108f818aa1d155a19fae289e4dda33764fef" target="_blank">b2d3108</a>
+<a href="https://github.com/han16/Oral-public-health/tree/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab" target="_blank">2da4b5e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeb2d3108f818aa1d155a19fae289e4dda33764feftargetblankb2d3108a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92abtargetblank2da4b5ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/b2d3108f818aa1d155a19fae289e4dda33764fef" target="_blank">b2d3108</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab" target="_blank">2da4b5e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -633,6 +633,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab/analysis/part3.Rmd" target="_blank">2da4b5e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+<td>
+11/1/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab/docs/part3.html" target="_blank">2da4b5e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+<td>
+11/1/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -932,7 +966,7 @@ y=sapply(diagnostic_code,calculate_prop)
 ggplot(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(diagnostic_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;% unique ids&quot;)+
-  #xlab(&quot;number of visits in the year&quot;)+
+  xlab(&quot;&quot;)+
   theme(legend.position=&quot;bottom&quot;)+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
@@ -997,13 +1031,50 @@ y=sapply(preventive_code,calculate_prop)
 ggplot(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(preventive_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;% unique ids&quot;)+
-  #xlab(&quot;number of visits in the year&quot;)+
+  xlab(&quot;&quot;)+
   theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=11))+
   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;Preventive procedures&quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/part3.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab/docs/figure/part3.Rmd/unnamed-chunk-7-1.png" target="_blank">2da4b5e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(preventive_code)))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -1022,13 +1093,50 @@ y=sapply(restorative_code,calculate_prop)
 ggplot(data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;% unique ids&quot;)+
-  #xlab(&quot;number of visits in the year&quot;)+
+  xlab(&quot;&quot;)+
   theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=9))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=9))+
   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;Simple restorative&quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/part3.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab/docs/figure/part3.Rmd/unnamed-chunk-8-1.png" target="_blank">2da4b5e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code)))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,

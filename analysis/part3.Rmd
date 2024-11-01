@@ -103,7 +103,7 @@ y=sapply(diagnostic_code,calculate_prop)
 ggplot(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c("hmo", "ffs"), length(diagnostic_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("% unique ids")+
-  #xlab("number of visits in the year")+
+  xlab("")+
   theme(legend.position="bottom")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
@@ -128,9 +128,9 @@ y=sapply(preventive_code,calculate_prop)
 ggplot(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c("hmo", "ffs"), length(preventive_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("% unique ids")+
-  #xlab("number of visits in the year")+
+  xlab("")+
   theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=11))+
   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Preventive procedures")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
@@ -156,9 +156,9 @@ y=sapply(restorative_code,calculate_prop)
 ggplot(data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("% unique ids")+
-  #xlab("number of visits in the year")+
+  xlab("")+
   theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=9))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=9))+
   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Simple restorative")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
