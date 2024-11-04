@@ -77,6 +77,8 @@ data_year2019=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergen
 #unique(data_year2019$hmo_claims_2019$PROCEDURE_CODE)
 ```
 
+
+
 ```{r, message=F, warning=F}
 hmo_code=unique(data_year2019$hmo_claims_2019$PROCEDURE_CODE)
 ffs_code=unique(data_year2019$ffs_claims_2019$PROCEDURE_CODE)
@@ -91,6 +93,23 @@ calculate_prop=function(code)
   ffs_prop=length(unique(data_year2019$ffs_claims_2019 %>% filter(PROCEDURE_CODE==code) %>% select(RECIPIENT_ID) %>% pull))/num_id_ffs
   return(list(hmo_prop, ffs_prop))
 }
+
+plot_figure=function(data, title, angle=0, num_size=3)
+{
+  
+  fig=ggplot(data, aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("% unique ids")+
+  xlab("")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=11))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  return(fig)
+}
+
 ```
 
 ### Diagnostic All CDT codes in the range of D0100 to D0999
@@ -100,15 +119,9 @@ diagnostic_code=hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D0"]
 y=sapply(diagnostic_code,calculate_prop)
 
 
-ggplot(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c("hmo", "ffs"), length(diagnostic_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("% unique ids")+
-  xlab("")+
-  theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Diagnostic All CDT codes")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+fig=plot_figure(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c("hmo", "ffs"), length(diagnostic_code))), title="Diagnostic All CDT codes", angle=30)
+fig
+
 
 data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c("hmo", "ffs"), length(diagnostic_code)))%>%
 datatable(extensions = 'Buttons',
@@ -125,16 +138,8 @@ preventive_code=c("D1110",  "D1120", "D1206", "D1203", "D1351", "D4341", "D4342"
 y=sapply(preventive_code,calculate_prop)
 
 
-ggplot(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c("hmo", "ffs"), length(preventive_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("% unique ids")+
-  xlab("")+
-  theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=11))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Preventive procedures")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
+fig=plot_figure(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c("hmo", "ffs"), length(preventive_code))), title="Preventive procedures", angle=0)
+fig
 data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c("hmo", "ffs"), length(preventive_code)))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
@@ -143,7 +148,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-
+* no individual for code "D1203
 
 
 ### Simple restorative D2000 to D2430
@@ -153,17 +158,68 @@ restorative_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D
 y=sapply(restorative_code,calculate_prop)
 
 
-ggplot(data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("% unique ids")+
-  xlab("")+
-  theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=9))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Simple restorative")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+fig=plot_figure(data.frame(prop=round(unlist(y),4), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), title="Simple restorative", angle=10)
+fig
 
-data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code)))%>%
+data.frame(prop=round(unlist(y),4), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### complex restorative procedures (D2510 to D2999)
+
+```{r, message=F, warning=F}
+restorative_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D2"])[14:26]
+y=sapply(restorative_code,calculate_prop)
+
+
+fig=plot_figure(data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), title="Simple restorative", angle=10, num_size=2)
+fig
+
+data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Endodontic procedures included D3000-D3999
+
+```{r, message=F, warning=F}
+Endodontic_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D3"])
+y=sapply(Endodontic_code,calculate_prop)
+
+
+fig=plot_figure(data.frame(prop=round(unlist(y),5), code=rep(Endodontic_code, each=2), plan=rep(c("hmo", "ffs"), length(Endodontic_code))), title="Endodontic", angle=0, num_size=3)
+fig
+
+data.frame(prop=round(unlist(y),5), code=rep(Endodontic_code, each=2), plan=rep(c("hmo", "ffs"), length(Endodontic_code)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### extraction/surgical procedures- D7111, D7140, D7210
+
+```{r, message=F, warning=F}
+extra_surg_code=c("D7111", "D7140", "D7210")
+y=sapply(extra_surg_code,calculate_prop)
+
+
+fig=plot_figure(data.frame(prop=round(unlist(y),3), code=rep(extra_surg_code, each=2), plan=rep(c("hmo", "ffs"), length(extra_surg_code))), title="extraction/surgical procedures", angle=0, num_size=4)
+fig
+
+data.frame(prop=round(unlist(y),3), code=rep(extra_surg_code, each=2), plan=rep(c("hmo", "ffs"), length(extra_surg_code)))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),

@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-11-01
+<strong>Last updated:</strong> 2024-11-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92abtargetblank2da4b5ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreef0d765cd293d3217e3730fe6b5bce113d9d0e7cetargetblankf0d765ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab" target="_blank">2da4b5e</a>
+<a href="https://github.com/han16/Oral-public-health/tree/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce" target="_blank">f0d765c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92abtargetblank2da4b5ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreef0d765cd293d3217e3730fe6b5bce113d9d0e7cetargetblankf0d765ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab" target="_blank">2da4b5e</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce" target="_blank">f0d765c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -585,6 +585,7 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/ddwi_part1_cache/
+    Ignored:    analysis/figure/
     Ignored:    analysis/part1_cache/
 
 Unstaged changes:
@@ -633,6 +634,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce/analysis/part3.Rmd" target="_blank">f0d765c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+<td>
+11/1/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce/docs/part3.html" target="_blank">f0d765c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+<td>
+11/1/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -955,6 +990,22 @@ calculate_prop=function(code)
   hmo_prop=length(unique(data_year2019$hmo_claims_2019 %&gt;% filter(PROCEDURE_CODE==code) %&gt;% select(RECIPIENT_ID) %&gt;% pull))/num_id_hmo
   ffs_prop=length(unique(data_year2019$ffs_claims_2019 %&gt;% filter(PROCEDURE_CODE==code) %&gt;% select(RECIPIENT_ID) %&gt;% pull))/num_id_ffs
   return(list(hmo_prop, ffs_prop))
+}
+
+plot_figure=function(data, title, angle=0, num_size=3)
+{
+  
+  fig=ggplot(data, aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+ # ylim(c(0, 0.7))+
+  ylab(&quot;% unique ids&quot;)+
+  xlab(&quot;&quot;)+
+  theme(legend.position=&quot;bottom&quot;)+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=11))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  return(fig)
 }</code></pre>
 <div id="diagnostic-all-cdt-codes-in-the-range-of-d0100-to-d0999"
 class="section level3">
@@ -963,15 +1014,8 @@ class="section level3">
 y=sapply(diagnostic_code,calculate_prop)
 
 
-ggplot(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(diagnostic_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;% unique ids&quot;)+
-  xlab(&quot;&quot;)+
-  theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=11))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Diagnostic All CDT codes&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+fig=plot_figure(data.frame(prop=round(unlist(y),3), code=rep(diagnostic_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(diagnostic_code))), title=&quot;Diagnostic All CDT codes&quot;, angle=30)
+fig</code></pre>
 <p><img src="figure/part3.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -995,6 +1039,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce/docs/figure/part3.Rmd/unnamed-chunk-6-1.png" target="_blank">f0d765c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/b2d3108f818aa1d155a19fae289e4dda33764fef/docs/figure/part3.Rmd/unnamed-chunk-6-1.png" target="_blank">b2d3108</a>
@@ -1028,15 +1083,8 @@ D4342</h3>
 y=sapply(preventive_code,calculate_prop)
 
 
-ggplot(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(preventive_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;% unique ids&quot;)+
-  xlab(&quot;&quot;)+
-  theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=11))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Preventive procedures&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+fig=plot_figure(data.frame(prop=round(unlist(y),3), code=rep(preventive_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(preventive_code))), title=&quot;Preventive procedures&quot;, angle=0)
+fig</code></pre>
 <p><img src="figure/part3.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1062,6 +1110,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce/docs/figure/part3.Rmd/unnamed-chunk-7-1.png" target="_blank">f0d765c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab/docs/figure/part3.Rmd/unnamed-chunk-7-1.png" target="_blank">2da4b5e</a>
 </td>
 <td>
@@ -1083,6 +1142,9 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],[0.12,0.191,0.098,0.189,0.09,0.335,0,0,0.031,0.079,0.007,0.002,0.002,0.004],["D1110","D1110","D1120","D1120","D1206","D1206","D1203","D1203","D1351","D1351","D4341","D4341","D4342","D4342"],["hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prop<\/th>\n      <th>code<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"prop","targets":1},{"name":"code","targets":2},{"name":"plan","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li>no individual for code “D1203</li>
+</ul>
 </div>
 <div id="simple-restorative-d2000-to-d2430" class="section level3">
 <h3>Simple restorative D2000 to D2430</h3>
@@ -1090,15 +1152,8 @@ datatable(extensions = &#39;Buttons&#39;,
 y=sapply(restorative_code,calculate_prop)
 
 
-ggplot(data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code))), aes(x=code, y=prop,fill=plan)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;% unique ids&quot;)+
-  xlab(&quot;&quot;)+
-  theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=9))+
-  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Simple restorative&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+fig=plot_figure(data.frame(prop=round(unlist(y),4), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code))), title=&quot;Simple restorative&quot;, angle=10)
+fig</code></pre>
 <p><img src="figure/part3.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1124,6 +1179,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/f0d765cd293d3217e3730fe6b5bce113d9d0e7ce/docs/figure/part3.Rmd/unnamed-chunk-8-1.png" target="_blank">f0d765c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/2da4b5e4b8f3a76e1f629f2bcb849fd30c4a92ab/docs/figure/part3.Rmd/unnamed-chunk-8-1.png" target="_blank">2da4b5e</a>
 </td>
 <td>
@@ -1137,14 +1203,71 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>data.frame(prop=round(unlist(y),3), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code)))%&gt;%
+<pre class="r"><code>data.frame(prop=round(unlist(y),4), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code)))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"],[0.004,0.019,0.006,0.027,0.002,0.012,0,0.003,0.012,0.028,0.011,0.034,0.008999999999999999,0.02,0.013,0.021,0,0,0.044,0.081,0.054,0.096,0.029,0.039,0.011,0.014],["D2140","D2140","D2150","D2150","D2160","D2160","D2161","D2161","D2330","D2330","D2331","D2331","D2332","D2332","D2335","D2335","D2390","D2390","D2391","D2391","D2392","D2392","D2393","D2393","D2394","D2394"],["hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prop<\/th>\n      <th>code<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"prop","targets":1},{"name":"code","targets":2},{"name":"plan","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"],[0.0043,0.0188,0.0058,0.0271,0.0024,0.0117,0.0004,0.0028,0.0119,0.0279,0.0108,0.0336,0.0092,0.0205,0.0134,0.0209,0.0003,0.0002,0.0438,0.0806,0.0543,0.0956,0.0291,0.0385,0.0106,0.0137],["D2140","D2140","D2150","D2150","D2160","D2160","D2161","D2161","D2330","D2330","D2331","D2331","D2332","D2332","D2335","D2335","D2390","D2390","D2391","D2391","D2392","D2392","D2393","D2393","D2394","D2394"],["hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prop<\/th>\n      <th>code<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"prop","targets":1},{"name":"code","targets":2},{"name":"plan","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="complex-restorative-procedures-d2510-to-d2999"
+class="section level3">
+<h3>complex restorative procedures (D2510 to D2999)</h3>
+<pre class="r"><code>restorative_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)==&quot;D2&quot;])[14:26]
+y=sapply(restorative_code,calculate_prop)
+
+
+fig=plot_figure(data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code))), title=&quot;Simple restorative&quot;, angle=10, num_size=2)
+fig</code></pre>
+<p><img src="figure/part3.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(restorative_code)))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"],[0.00078,0.00507,0.00102,0.00155,0.00011,0.00022,0.00777,0.01304,0.00204,0.00214,0.00023,0.00012,6.999999999999999e-05,2e-05,0.00062,0.00099,0.00338,0.00852,0.00021,0.00163,2e-05,6.999999999999999e-05,0.00213,0.00039,0.00085,0.00489],["D2791","D2791","D2920","D2920","D2929","D2929","D2930","D2930","D2931","D2931","D2932","D2932","D2933","D2933","D2934","D2934","D2940","D2940","D2951","D2951","D2952","D2952","D2954","D2954","D2999","D2999"],["hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prop<\/th>\n      <th>code<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"prop","targets":1},{"name":"code","targets":2},{"name":"plan","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="endodontic-procedures-included-d3000-d3999"
+class="section level3">
+<h3>Endodontic procedures included D3000-D3999</h3>
+<pre class="r"><code>Endodontic_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)==&quot;D3&quot;])
+y=sapply(Endodontic_code,calculate_prop)
+
+
+fig=plot_figure(data.frame(prop=round(unlist(y),5), code=rep(Endodontic_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(Endodontic_code))), title=&quot;Endodontic&quot;, angle=0, num_size=3)
+fig</code></pre>
+<p><img src="figure/part3.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>data.frame(prop=round(unlist(y),5), code=rep(Endodontic_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(Endodontic_code)))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12"],[2e-05,6.999999999999999e-05,0.00405,0.00399,0.00069,0.00074,0.00233,0.00259,0.00319,0.00241,0.00359,0.00153],["D3120","D3120","D3220","D3220","D3221","D3221","D3310","D3310","D3320","D3320","D3330","D3330"],["hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs","hmo","ffs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prop<\/th>\n      <th>code<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"prop","targets":1},{"name":"code","targets":2},{"name":"plan","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="extractionsurgical-procedures--d7111-d7140-d7210"
+class="section level3">
+<h3>extraction/surgical procedures- D7111, D7140, D7210</h3>
+<pre class="r"><code>extra_surg_code=c(&quot;D7111&quot;, &quot;D7140&quot;, &quot;D7210&quot;)
+y=sapply(extra_surg_code,calculate_prop)
+
+
+fig=plot_figure(data.frame(prop=round(unlist(y),3), code=rep(extra_surg_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(extra_surg_code))), title=&quot;extraction/surgical procedures&quot;, angle=0, num_size=4)
+fig</code></pre>
+<p><img src="figure/part3.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>data.frame(prop=round(unlist(y),3), code=rep(extra_surg_code, each=2), plan=rep(c(&quot;hmo&quot;, &quot;ffs&quot;), length(extra_surg_code)))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],[0.002,0.004,0.043,0.113,0.039,0.024],["D7111","D7111","D7140","D7140","D7210","D7210"],["hmo","ffs","hmo","ffs","hmo","ffs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>prop<\/th>\n      <th>code<\/th>\n      <th>plan<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"prop","targets":1},{"name":"code","targets":2},{"name":"plan","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
