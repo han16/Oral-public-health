@@ -148,7 +148,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* no individual for code "D1203
+* no individual for code "D1203"
 
 
 ### Simple restorative D2000 to D2430
