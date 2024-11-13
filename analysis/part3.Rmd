@@ -94,10 +94,34 @@ calculate_prop=function(code)
   return(list(hmo_prop, ffs_prop))
 }
 
+calculate_prop_all_code=function(code)
+{
+  hmo_prop=length(unique(data_year2019$hmo_claims_2019 %>% filter(PROCEDURE_CODE%in%code) %>% select(RECIPIENT_ID) %>% pull))/num_id_hmo
+  ffs_prop=length(unique(data_year2019$ffs_claims_2019 %>% filter(PROCEDURE_CODE%in%code) %>% select(RECIPIENT_ID) %>% pull))/num_id_ffs
+  return(list(hmo_prop, ffs_prop))
+}
+
 plot_figure=function(data, title, angle=0, num_size=3)
 {
   
   fig=ggplot(data, aes(x=code, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("% unique ids")+
+  xlab("")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=11))+
+  geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  return(fig)
+}
+
+
+plot_figure_all_code=function(data, title, angle=0, num_size=3)
+{
+  
+  fig=ggplot(data, aes(x=plan, y=prop,fill=plan)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("% unique ids")+
   xlab("")+
@@ -129,6 +153,12 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+#############
+yy=calculate_prop_all_code(diagnostic_code)
+fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=rep(c("hmo", "ffs"), length(diagnostic_code))), title="Diagnostic All CDT codes (all codes combined)", angle=0)
+fig
+
 ```
 
 ### Preventive procedures- D1110,  D1120, D1206, D1203, D1351, D4341 and D4342
