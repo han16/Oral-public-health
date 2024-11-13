@@ -179,7 +179,7 @@ datatable(extensions = 'Buttons',
 
 #############
 yy=calculate_prop_all_code(preventive_code)
-fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="Diagnostic All CDT codes (all codes combined)", angle=0)
+fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="Preventive procedures codes (all codes combined)", angle=0)
 fig
 ```
 
@@ -205,7 +205,7 @@ datatable(extensions = 'Buttons',
 
 #############
 yy=calculate_prop_all_code(restorative_code)
-fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="Diagnostic All CDT codes (all codes combined)", angle=0)
+fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="Simple restorative codes (all codes combined)", angle=0)
 fig
 ```
 
@@ -217,7 +217,7 @@ restorative_code=sort(hmo_ffs_code[substr(hmo_ffs_code, start = 1, stop = 2)=="D
 y=sapply(restorative_code,calculate_prop)
 
 
-fig=plot_figure(data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), title="Simple restorative", angle=10, num_size=2)
+fig=plot_figure(data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code))), title="complex restorative", angle=10, num_size=2)
 fig
 
 data.frame(prop=round(unlist(y),5), code=rep(restorative_code, each=2), plan=rep(c("hmo", "ffs"), length(restorative_code)))%>%
@@ -229,7 +229,7 @@ datatable(extensions = 'Buttons',
 
 #############
 yy=calculate_prop_all_code(restorative_code)
-fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="Diagnostic All CDT codes (all codes combined)", angle=0)
+fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="complex restorative codes (all codes combined)", angle=0)
 fig
 ```
 
@@ -277,7 +277,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 #############
 yy=calculate_prop_all_code(extra_surg_code)
-fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="Diagnostic All CDT codes (all codes combined)", angle=0)
+fig=plot_figure_all_code(data.frame(prop=round(unlist(yy),3),  plan=c("hmo", "ffs")), title="extraction/surgical codes (all codes combined)", angle=0)
 fig
 
 ```
