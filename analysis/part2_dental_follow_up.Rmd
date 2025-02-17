@@ -1,0 +1,228 @@
+---
+title: "dental follow up"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-02-11"
+---
+
+
+```{r, message=F, warning=F}
+library(ggplot2)
+```
+
+
+## data 
+
+
+*  columns used in the analysis:  :  'CLAIM_SOURCE', 'Return', 'GENDER', 'RACE_CODE', 
+    'BENEFIT_PLAN', 'age_q', 'FEDERAL_POVERTY_LEVEL.x', 'Relation_to_HPSA', 
+    'ZCTABasedWURCCode', 'medinc_q', 'MARITAL_STATUS_CODE', all were categorical.
+
+
+* use the median to fill missing values for specific variables, e.g., `'midinc_q'` 
+
+
+## methods 
+
+
+* randomly select 1882 cases from the majority class (non-dental visits), repeated 100 times to ensure robust results
+
+* Logistic Regression and LightGBM. Models were trained on the balanced dataset and evaluated using standard classification metrics
+
+
+## results 
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  dental_follow_up = c("Yes", "No"),
+  count = c(1882, 19504)
+)
+
+
+
+library(scales)  # For percentage labels
+
+# Compute percentages
+data$percent <- round(100 * data$count / sum(data$count), 1)
+
+ggplot(data, aes(x = "", y = count, fill = dental_follow_up)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = paste0(percent, "%")), position = position_stack(vjust = 0.5)) +
+  labs(title = "dental follow up (%)") #+
+  #theme_void()
+data
+```
+
+
+
+
+### logistic regression 
+
+
+* 59% accuracy 
+
+
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  Variable = c("Claim_source:HMO vs FFS", "Gender:male vs female", "Race:black vs white", "Race:hispanic vs white", "Race:not prov vs white", "Race:other vs white", "Age:juvenile vs mature", "Age:older vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", "Rural vs metro-mwke", "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", "Marital status:D vs M", "Marital status:I vs M", "Marital status:R vs M", "Marital status:S vs M", "Marital status:U vs M", "Marital status:W vs M", "Marital status:X vs M"),
+  OddsRatio = c(1.21, 0.88, 1.25, 1.06, 1.15, 0.78, 0.77, 0.64, 1.91, 1.44, 1.09, 0.62, 0.62, 0.71, 0.89, 0.86, 1.28, 1.11, 2.08, 1.17, 1.44)
+ # CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
+#  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
+)
+
+# Order Variable by OddsRatio
+data$Variable <- factor(data$Variable, levels = data$Variable[order(data$OddsRatio)])
+
+
+ggplot(data, aes(x = OddsRatio, y = Variable)) +
+  xlim(c(0,2.2))+
+  geom_point(size = 3, color = "blue") +  # Plot odds ratio as points
+  #geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3, color = "black") +  # Add confidence intervals
+  geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  #theme_minimal() +
+  labs(
+    title = "",
+    x = "Odds Ratio",
+    y = ""
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  )
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  Variable = c("Claim_source:HMO", "Claim_source:FFS",  "Gender:male", "Gender:female", "Race:white", 
+               "Race:black", "Race:not prov", "Race:hispanic", "Income:25-50per", "Income:50-75per", 
+               "Income:75-100per", "Income:0-25per", "Age: mature", "Age:older","Age:juvenile", 
+               "HPSA:DHPSA", "partial DHPSA", "not DHPSA", "Rural",  "Metro-MWKE", 
+               "UbMWKE", "Marital status:D",  "Marital status:M", "Marital status:I", "Marital status:R", 
+               "Marital status:S", "Poverty:x>=100%", "Poverty:x<=100%"),
+  OddsRatio = c(0.017, 0.0473, 0.0157, 0.0503, 0.054,
+                0.0283, 0.0273, 0.0103, 0.0397, 0.036, 
+                0.036, 0.0277, 0.0137, 0.0133, 0.009, 
+                0.041, 0.0407, 0.031, 0.036, 0.024, 
+                0.0523, 0.0227, 0.02, 0.0423, 0.0237, 
+                0.0117, 0.0137, 0.0123)
+ # CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
+#  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
+)
+
+# Order Variable by OddsRatio
+data$Variable <- factor(data$Variable, levels = data$Variable[order(data$OddsRatio)])
+
+
+ggplot(data, aes(x = OddsRatio, y = Variable)) +
+  xlim(c(0,0.06))+
+  geom_point(size = 3, color = "blue") +  # Plot odds ratio as points
+  #geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3, color = "black") +  # Add confidence intervals
+  #geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  #theme_minimal() +
+  labs(
+    title = "",
+    x = "Normalized importance",
+    y = ""
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  )
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  Variable = c("Gene A", "Gene B", "Gene C", "Gene D", "Gene E"),
+  OddsRatio = c(1.5, 2.1, 0.8, 1.2, 3.5),
+  CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
+  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
+)
+
+# Order Variable by OddsRatio
+data$Variable <- factor(data$Variable, levels = data$Variable[order(data$OddsRatio)])
+
+
+ggplot(data, aes(x = OddsRatio, y = Variable)) +
+  geom_point(size = 3, color = "blue") +  # Plot odds ratio as points
+  geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3, color = "black") +  # Add confidence intervals
+  geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = "Odds Ratio Plot",
+    x = "Odds Ratio",
+    y = "Variables (Ordered by OR)"
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  )
+
+```
+
+
+
+```{r, message=F, warning=F}
+
+# Sample dataset
+data <- data.frame(
+  Variable = c("Gene A", "Gene B", "Gene C", "Gene D", "Gene E"),
+  OddsRatio = c(1.5, 2.1, 0.8, 1.2, 3.5),
+  CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
+  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
+)
+
+# Order Variable by Odds Ratio (Descending)
+data$Variable <- factor(data$Variable, levels = data$Variable[order(-data$OddsRatio)])
+
+# Create formatted text columns for OR and CI
+data$OR_Label <- sprintf("%.2f", data$OddsRatio)
+data$CI_Label <- sprintf("(%.2f - %.2f)", data$CI_Lower, data$CI_Upper)
+
+ggplot(data, aes(x = OddsRatio, y = Variable)) +
+  geom_point(size = 3, color = "blue") +  # Plot OR points
+  geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3, color = "black") +  # Confidence intervals
+  geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  theme_minimal() +
+  
+  # Add OR text to the right
+  geom_text(aes(x = max(OddsRatio) * 1.2, label = OR_Label), hjust = 0, size = 3) +
+  
+  # Add CI text to the right
+  geom_text(aes(x = max(OddsRatio) * 1.5, label = CI_Label), hjust = 0, size = 3) +
+
+  # Adjust x-axis limits to make space for text columns
+  scale_x_continuous(limits = c(0, max(data$OddsRatio) * 1.5)) +
+  
+  # Labels
+  labs(
+    title = "Odds Ratio Plot with CI",
+    x = "Odds Ratio",
+    y = "Variables"
+  ) +
+  
+  # Adjust theme to improve readability
+  theme(
+    text = element_text(size = 12),
+    panel.grid.major.y = element_blank(),
+    axis.text.y = element_text(size = 8),
+    plot.margin = margin(10, 100, 10, 10)  # Add space for text columns
+  )
+
+```
+
+

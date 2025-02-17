@@ -28,3 +28,11 @@ output:
 ## new data- NTDC 
 
 * [summary statistics](NTDC.html)
+
+
+## NWMDS project 
+
+
+* [part 1:  emergency visit for dental reason](part1_emergence_dental_reason.html)
+
+* [part 2: dental follow up after dental emergency](part2_dental_follow_up.html)
