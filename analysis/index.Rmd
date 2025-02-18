@@ -33,6 +33,6 @@ output:
 ## NWMDS project 
 
 
-* [part 1:  emergency visit for dental reason](part1_emergence_dental_reason.html)
+* [part 1:  emergency visit for dental reason](part1_emergency_visit.html)
 
 * [part 2: dental follow up after dental emergency](part2_dental_follow_up.html)

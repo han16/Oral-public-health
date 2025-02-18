@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-02-17
+<strong>Last updated:</strong> 2025-02-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreec41e4e93775cd8c97620f000a0b61a846d36c5c7targetblankc41e4e9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeee024495d0ee2c279705fbd787dd989166131987targetblankee02449a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/c41e4e93775cd8c97620f000a0b61a846d36c5c7" target="_blank">c41e4e9</a>
+<a href="https://github.com/han16/Oral-public-health/tree/ee024495d0ee2c279705fbd787dd989166131987" target="_blank">ee02449</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreec41e4e93775cd8c97620f000a0b61a846d36c5c7targetblankc41e4e9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeee024495d0ee2c279705fbd787dd989166131987targetblankee02449a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/c41e4e93775cd8c97620f000a0b61a846d36c5c7" target="_blank">c41e4e9</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/ee024495d0ee2c279705fbd787dd989166131987" target="_blank">ee02449</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -572,10 +572,11 @@ Ignored files:
     Ignored:    analysis/part1_cache/
 
 Untracked files:
-    Untracked:  analysis/part2_dental_follow_up.Rmd
+    Untracked:  analysis/part1_emergency_visit.Rmd
 
 Unstaged changes:
     Modified:   analysis/index.Rmd
+    Modified:   analysis/part2_dental_follow_up.Rmd
 
 </code></pre>
 <p>
@@ -590,10 +591,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/part2_dental_follow_up.Rmd</code>) and HTML
+(<code>docs/part2_dental_follow_up.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/analysis/part2_dental_follow_up.Rmd" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+<td>
+2/17/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/ee024495d0ee2c279705fbd787dd989166131987/docs/part2_dental_follow_up.html" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+<td>
+2/17/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -640,6 +706,43 @@ ggplot(data, aes(x = &quot;&quot;, y = count, fill = dental_follow_up)) +
   geom_text(aes(label = paste0(percent, &quot;%&quot;)), position = position_stack(vjust = 0.5)) +
   labs(title = &quot;dental follow up (%)&quot;) #+</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-2-1.png" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>  #theme_void()
 data</code></pre>
 <pre><code>  dental_follow_up count percent
@@ -651,8 +754,16 @@ data</code></pre>
 <li>59% accuracy</li>
 </ul>
 <pre class="r"><code>data &lt;- data.frame(
-  Variable = c(&quot;Claim_source:HMO vs FFS&quot;, &quot;Gender:male vs female&quot;, &quot;Race:black vs white&quot;, &quot;Race:hispanic vs white&quot;, &quot;Race:not prov vs white&quot;, &quot;Race:other vs white&quot;, &quot;Age:juvenile vs mature&quot;, &quot;Age:older vs mature&quot;, &quot;HPSA:DHPSA vs not DHPSA&quot;, &quot;partial DHPSA vs not DHPSA&quot;, &quot;Rural vs metro-mwke&quot;, &quot;Income:0-25per vs 75-100per&quot;, &quot;Income:25-50per vs 75-100per&quot;, &quot;Income:50-75per vs 75-100per&quot;, &quot;Marital status:D vs M&quot;, &quot;Marital status:I vs M&quot;, &quot;Marital status:R vs M&quot;, &quot;Marital status:S vs M&quot;, &quot;Marital status:U vs M&quot;, &quot;Marital status:W vs M&quot;, &quot;Marital status:X vs M&quot;),
-  OddsRatio = c(1.21, 0.88, 1.25, 1.06, 1.15, 0.78, 0.77, 0.64, 1.91, 1.44, 1.09, 0.62, 0.62, 0.71, 0.89, 0.86, 1.28, 1.11, 2.08, 1.17, 1.44)
+  Variable = c(&quot;Claim_source:HMO vs FFS&quot;, &quot;Gender:male vs female&quot;, &quot;Race:black vs white&quot;, &quot;Race:hispanic vs white&quot;, &quot;Race:not prov vs white&quot;, 
+               &quot;Race:other vs white&quot;, &quot;Age:juvenile vs mature&quot;, &quot;Age:older vs mature&quot;, &quot;HPSA:DHPSA vs not DHPSA&quot;, &quot;partial DHPSA vs not DHPSA&quot;, 
+               &quot;Rural vs metro-mwke&quot;, &quot;UEMil vs metro-mwke&quot;, &quot;Income:0-25per vs 75-100per&quot;, &quot;Income:25-50per vs 75-100per&quot;, &quot;Income:50-75per vs 75-100per&quot;, 
+               &quot;Marital status:D vs M&quot;, &quot;Marital status:I vs M&quot;, &quot;Marital status:R vs M&quot;, &quot;Marital status:S vs M&quot;, &quot;Marital status:U vs M&quot;, 
+               &quot;Marital status:W vs M&quot;, &quot;Marital status:X vs M&quot;),
+  OddsRatio = c(1.21, 0.88, 1.25, 1.06, 1.15, 
+                0.78, 0.77, 0.64, 1.91, 1.44, 
+                1.09, 1.08, 0.62, 0.62, 0.71, 
+                0.89, 0.86, 1.28, 1.11, 2.08, 
+                1.17, 1.44)
  # CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
 #  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
 )
@@ -677,6 +788,43 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     panel.grid.major.y = element_blank()
   )</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-3-1.png" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>data &lt;- data.frame(
   Variable = c(&quot;Claim_source:HMO&quot;, &quot;Claim_source:FFS&quot;,  &quot;Gender:male&quot;, &quot;Gender:female&quot;, &quot;Race:white&quot;, 
                &quot;Race:black&quot;, &quot;Race:not prov&quot;, &quot;Race:hispanic&quot;, &quot;Income:25-50per&quot;, &quot;Income:50-75per&quot;, 
@@ -714,6 +862,203 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     panel.grid.major.y = element_blank()
   )</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-4-1.png" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="combine-emergency-visits-and-follow-up" class="section level2">
+<h2>combine emergency visits and follow up</h2>
+<pre class="r"><code>data_combine &lt;- data.frame(
+  Variable = rep(c(&quot;Claim_source:HMO vs FFS&quot;, &quot;Gender:male vs female&quot;, &quot;Race:black vs white&quot;, &quot;Race:hispanic vs white&quot;, &quot;Race:not prov vs white&quot;, 
+               &quot;Race:other vs white&quot;, &quot;Age:juvenile vs mature&quot;, &quot;Age:older vs mature&quot;, &quot;HPSA:DHPSA vs not DHPSA&quot;, &quot;partial DHPSA vs not DHPSA&quot;, 
+               &quot;Rural vs metro-mwke&quot;,&quot;UEMil vs metro-mwke&quot;,  &quot;Income:0-25per vs 75-100per&quot;, &quot;Income:25-50per vs 75-100per&quot;, &quot;Income:50-75per vs 75-100per&quot;, 
+               &quot;Marital status:D vs M&quot;, &quot;Marital status:I vs M&quot;, &quot;Marital status:R vs M&quot;, &quot;Marital status:S vs M&quot;, &quot;Marital status:U vs M&quot;, 
+               &quot;Marital status:W vs M&quot;, &quot;Marital status:X vs M&quot;), 2),
+  Condition = rep(c(&quot;Emergency visit&quot;, &quot;dental follow up&quot;), each = 22), 
+  OddsRatio = c(c(2.06, 1.11, 0.92, 0.82, 0.84, 
+                0.85, 0.2, 0.56, 1, 0.99, 
+                1.17, 1.18, 0.99, 1.09, 1.21, 
+                1.29, 1.69, 1.89, 1.59, 0.59, 
+                1.06, 1.38),c(1.21, 0.88, 1.25, 1.06, 1.15, 
+                0.78, 0.77, 0.64, 1.91, 1.44, 
+                1.09, 1.08, 0.62, 0.62, 0.71, 
+                0.89, 0.86, 1.28, 1.11, 2.08, 
+                1.17, 1.44)) 
+)
+
+# Order Variable by OddsRatio
+data_combine$Variable &lt;- factor(data_combine$Variable, levels = unique(data_combine$Variable[order(data_combine$OddsRatio)]))
+
+ggplot(data_combine, aes(x = OddsRatio, y = Variable, color = Condition)) +
+  geom_segment(aes(x = 0, xend = max(OddsRatio), y = Variable, yend = Variable), color = &quot;gray80&quot;, linetype = &quot;dashed&quot;) +  # Horizontal lines
+  geom_point(size = 3) +  # Plot points for odds ratio
+  geom_vline(xintercept = 1, linetype = &quot;dashed&quot;, color = &quot;blue&quot;) +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = &quot;&quot;,
+    x = &quot;Odds Ratio&quot;,
+    y = &quot;&quot;
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank(), 
+    legend.title = element_blank()  # Removes legend title
+  ) +
+  scale_color_manual(values = c(&quot;Emergency visit&quot; = &quot;pink&quot;, &quot;dental follow up&quot; = &quot;red&quot;))  # Custom colors for groups</code></pre>
+<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-5-1.png" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>data_combine2 &lt;- data.frame(
+  Variable = rep(c(&quot;Claim_source:HMO&quot;, &quot;Claim_source:FFS&quot;,  &quot;Gender:male&quot;, &quot;Gender:female&quot;, &quot;Race:white&quot;, 
+               &quot;Race:black&quot;, &quot;Race:not prov&quot;, &quot;Race:hispanic&quot;, &quot;Income:25-50per&quot;, &quot;Income:50-75per&quot;, 
+               &quot;Income:75-100per&quot;, &quot;Income:0-25per&quot;, &quot;Age: mature&quot;, &quot;Age:older&quot;,&quot;Age:juvenile&quot;, 
+               &quot;HPSA:DHPSA&quot;, &quot;partial DHPSA&quot;, &quot;not DHPSA&quot;, &quot;Rural&quot;,  &quot;Metro-MWKE&quot;, 
+               &quot;UbMWKE&quot;, &quot;Marital status:D&quot;,  &quot;Marital status:M&quot;, &quot;Marital status:I&quot;, &quot;Marital status:R&quot;, 
+               &quot;Marital status:S&quot;, &quot;Poverty:x&gt;=100%&quot;, &quot;Poverty:x&lt;=100%&quot;),2), 
+  OddsRatio = c(c(0.017, 0.0473, 0.0157, 0.0503, 0.054,
+                0.0283, 0.0273, 0.0103, 0.0397, 0.036, 
+                0.036, 0.0277, 0.0137, 0.0133, 0.009, 
+                0.041, 0.0407, 0.031, 0.036, 0.024, 
+                0.0523, 0.0227, 0.02, 0.0423, 0.0237, 
+                0.0117, 0.0137, 0.0123),  c(0.01, 0.0487, 0.008, 0.0347, 0.0353,
+                0.0237, 0.0257, 0.017, 0.0247, 0.031, 
+                0.0253, 0.024, 0.022, 0.0087, 0.022, 
+                0.0423, 0.0337, 0.0333, 0.048, 0.0387, 
+                0.032, 0.0203, 0.0273, 0.0323, 0.019, 
+                0.0083, 0.0187, 0.041)), 
+  Condition = rep(c(&quot;dental follow up&quot;, &quot;Emergency visit&quot;), each = 28)
+)
+
+# Order Variable by OddsRatio
+data_combine2$Variable &lt;- factor(data_combine2$Variable, levels = unique(data_combine2$Variable[order(data_combine2$OddsRatio)]))
+
+ggplot(data_combine2, aes(x = OddsRatio, y = Variable, color = Condition)) +
+  geom_segment(aes(x = 0, xend = max(OddsRatio), y = Variable, yend = Variable), color = &quot;gray80&quot;, linetype = &quot;dashed&quot;) +  # Horizontal lines
+  geom_point(size = 3) +  # Plot points for odds ratio
+  #geom_vline(xintercept = 1, linetype = &quot;dashed&quot;, color = &quot;blue&quot;) +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = &quot;&quot;,
+    x = &quot;Normalized importance&quot;,
+    y = &quot;&quot;
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank(), 
+    legend.title = element_blank()  # Removes legend title
+  ) +
+  scale_color_manual(values = c(&quot;Emergency visit&quot; = &quot;pink&quot;, &quot;dental follow up&quot; = &quot;red&quot;))  # Custom colors for groups</code></pre>
+<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-6-1.png" target="_blank">ee02449</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>examples</h2>
 <pre class="r"><code>data &lt;- data.frame(
   Variable = c(&quot;Gene A&quot;, &quot;Gene B&quot;, &quot;Gene C&quot;, &quot;Gene D&quot;, &quot;Gene E&quot;),
   OddsRatio = c(1.5, 2.1, 0.8, 1.2, 3.5),
@@ -739,7 +1084,7 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     text = element_text(size = 14),
     panel.grid.major.y = element_blank()
   )</code></pre>
-<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># Sample dataset
 data &lt;- data.frame(
   Variable = c(&quot;Gene A&quot;, &quot;Gene B&quot;, &quot;Gene C&quot;, &quot;Gene D&quot;, &quot;Gene E&quot;),
@@ -784,7 +1129,35 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     axis.text.y = element_text(size = 8),
     plot.margin = margin(10, 100, 10, 10)  # Add space for text columns
   )</code></pre>
-<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Example dataset with two odds ratios per variable
+data &lt;- data.frame(
+  Variable = rep(c(&quot;Gene A&quot;, &quot;Gene B&quot;, &quot;Gene C&quot;, &quot;Gene D&quot;, &quot;Gene E&quot;), each = 2),
+  Condition = rep(c(&quot;Before&quot;, &quot;After&quot;), times = 5),
+  OddsRatio = c(1.5, 1.8, 2.1, 2.5, 0.8, 1.2, 1.2, 1.4, 3.5, 4.0),
+  CI_Lower = c(1.2, 1.5, 1.7, 2.0, 0.6, 0.9, 0.9, 1.1, 2.8, 3.2),
+  CI_Upper = c(1.9, 2.2, 2.6, 3.0, 1.1, 1.5, 1.5, 1.8, 4.3, 4.8)
+)
+
+# Order variables based on the highest odds ratio in each group
+data$Variable &lt;- factor(data$Variable, levels = unique(data$Variable[order(-data$OddsRatio)]))
+
+ggplot(data, aes(x = OddsRatio, y = Variable, color = Condition)) +
+  geom_point(size = 3) +  # Plot points for odds ratio
+  #geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3) +  # Confidence intervals
+  geom_vline(xintercept = 1, linetype = &quot;dashed&quot;, color = &quot;red&quot;) +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = &quot;Odds Ratio Comparison&quot;,
+    x = &quot;Odds Ratio&quot;,
+    y = &quot;Genes&quot;
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  ) +
+  scale_color_manual(values = c(&quot;Before&quot; = &quot;blue&quot;, &quot;After&quot; = &quot;darkgreen&quot;))  # Custom colors for groups</code></pre>
+<p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -828,9 +1201,8 @@ loaded via a namespace (and not attached):
 [29] fs_1.6.5          sass_0.4.9        cli_3.6.2         withr_3.0.2      
 [33] magrittr_2.0.3    digest_0.6.33     grid_4.3.2        rstudioapi_0.17.1
 [37] lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.3    glue_1.8.0       
-[41] farver_2.1.2      colorspace_2.1-0  rmarkdown_2.29    tools_4.3.2      
-[45] pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
-</div>
+[41] farver_2.1.2      whisker_0.4.1     colorspace_2.1-0  rmarkdown_2.29   
+[45] tools_4.3.2       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 </div>
 

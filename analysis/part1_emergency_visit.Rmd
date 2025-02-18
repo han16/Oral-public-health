@@ -1,0 +1,154 @@
+---
+title: "emergency visits"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-02-18"
+---
+
+```{r, message=F, warning=F}
+library(ggplot2)
+```
+
+
+## data 
+
+
+*  columns used in the analysis:  :  'CLAIM_SOURCE', 'Return', 'GENDER', 'RACE_CODE', 
+    'BENEFIT_PLAN', 'age_q', 'FEDERAL_POVERTY_LEVEL.x', 'Relation_to_HPSA', 
+    'ZCTABasedWURCCode', 'medinc_q', 'MARITAL_STATUS_CODE', all were categorical.
+
+
+* use the median to fill missing values for specific variables, e.g., `'midinc_q'` 
+
+* HPSA: health professional shortage area 
+
+* Rural area: R1+R2+R3
+
+* UEMil=Metro W-O-W 
+
+* Age Juvenile: pediatric+adolescent 
+
+* Mature adults: young adults+middle age adults  
+
+
+## methods 
+
+
+* randomly select 21,386 cases from the majority class (non-emergency  visits), repeated 100 times to ensure robust results
+
+* Logistic Regression and LightGBM. Models were trained on the balanced dataset and evaluated using standard classification metrics
+
+
+## results 
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  dental_follow_up = c("Yes", "No"),
+  count = c(21386, 532283)
+)
+
+
+
+library(scales)  # For percentage labels
+
+# Compute percentages
+data$percent <- round(100 * data$count / sum(data$count), 1)
+
+ggplot(data, aes(x = "", y = count, fill = dental_follow_up)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = paste0(percent, "%")), position = position_stack(vjust = 0.5)) +
+  labs(title = "dental follow up (%)") #+
+  #theme_void()
+data
+```
+
+
+
+
+
+### logistic regression 
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  Variable = c("Claim_source:HMO vs FFS", "Gender:male vs female", "Race:black vs white", "Race:hispanic vs white", "Race:not prov vs white", "
+               Race:other vs white", "Age:juvenile vs mature", "Age:older vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", 
+               "Rural vs metro-mwke","UEMil vs metro-mwke",  "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", 
+               "Marital status:D vs M", "Marital status:I vs M", "Marital status:R vs M", "Marital status:S vs M", "Marital status:U vs M", 
+               "Marital status:W vs M", "Marital status:X vs M"),
+  OddsRatio = c(2.06, 1.11, 0.92, 0.82, 0.84, 
+                0.85, 0.2, 0.56, 1, 0.99, 
+                1.17, 1.18, 0.99, 1.09, 1.21, 
+                1.29, 1.69, 1.89, 1.59, 0.59, 
+                1.06, 1.38)
+ # CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
+#  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
+)
+
+# Order Variable by OddsRatio
+data$Variable <- factor(data$Variable, levels = data$Variable[order(data$OddsRatio)])
+
+
+ggplot(data, aes(x = OddsRatio, y = Variable)) +
+  xlim(c(0,2.2))+
+  geom_point(size = 3, color = "blue") +  # Plot odds ratio as points
+  #geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3, color = "black") +  # Add confidence intervals
+  geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  #theme_minimal() +
+  labs(
+    title = "",
+    x = "Odds Ratio",
+    y = ""
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  )
+
+```
+
+
+
+```{r, message=F, warning=F}
+data <- data.frame(
+  Variable = c("Claim_source:HMO", "Claim_source:FFS",  "Gender:male", "Gender:female", "Race:white", 
+               "Race:black", "Race:not prov", "Race:hispanic", "Income:25-50per", "Income:50-75per", 
+               "Income:75-100per", "Income:0-25per", "Age: mature", "Age:older","Age:juvenile", 
+               "HPSA:DHPSA", "partial DHPSA", "not DHPSA", "Rural",  "Metro-MWKE", 
+               "UbMWKE", "Marital status:D",  "Marital status:M", "Marital status:I", "Marital status:R", 
+               "Marital status:S", "Poverty:x>=100%", "Poverty:x<=100%"),
+  OddsRatio = c(0.01, 0.0487, 0.008, 0.0347, 0.0353,
+                0.0237, 0.0257, 0.017, 0.0247, 0.031, 
+                0.0253, 0.024, 0.022, 0.0087, 0.022, 
+                0.0423, 0.0337, 0.0333, 0.048, 0.0387, 
+                0.032, 0.0203, 0.0273, 0.0323, 0.019, 
+                0.0083, 0.0187, 0.041)
+ # CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
+#  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
+)
+
+# Order Variable by OddsRatio
+data$Variable <- factor(data$Variable, levels = data$Variable[order(data$OddsRatio)])
+
+
+ggplot(data, aes(x = OddsRatio, y = Variable)) +
+  xlim(c(0,0.06))+
+  geom_point(size = 3, color = "blue") +  # Plot odds ratio as points
+  #geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3, color = "black") +  # Add confidence intervals
+  #geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  #theme_minimal() +
+  labs(
+    title = "",
+    x = "Normalized importance",
+    y = ""
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  )
+
+```

@@ -70,8 +70,16 @@ data
 
 ```{r, message=F, warning=F}
 data <- data.frame(
-  Variable = c("Claim_source:HMO vs FFS", "Gender:male vs female", "Race:black vs white", "Race:hispanic vs white", "Race:not prov vs white", "Race:other vs white", "Age:juvenile vs mature", "Age:older vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", "Rural vs metro-mwke", "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", "Marital status:D vs M", "Marital status:I vs M", "Marital status:R vs M", "Marital status:S vs M", "Marital status:U vs M", "Marital status:W vs M", "Marital status:X vs M"),
-  OddsRatio = c(1.21, 0.88, 1.25, 1.06, 1.15, 0.78, 0.77, 0.64, 1.91, 1.44, 1.09, 0.62, 0.62, 0.71, 0.89, 0.86, 1.28, 1.11, 2.08, 1.17, 1.44)
+  Variable = c("Claim_source:HMO vs FFS", "Gender:male vs female", "Race:black vs white", "Race:hispanic vs white", "Race:not prov vs white", 
+               "Race:other vs white", "Age:juvenile vs mature", "Age:older vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", 
+               "Rural vs metro-mwke", "UEMil vs metro-mwke", "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", 
+               "Marital status:D vs M", "Marital status:I vs M", "Marital status:R vs M", "Marital status:S vs M", "Marital status:U vs M", 
+               "Marital status:W vs M", "Marital status:X vs M"),
+  OddsRatio = c(1.21, 0.88, 1.25, 1.06, 1.15, 
+                0.78, 0.77, 0.64, 1.91, 1.44, 
+                1.09, 1.08, 0.62, 0.62, 0.71, 
+                0.89, 0.86, 1.28, 1.11, 2.08, 
+                1.17, 1.44)
  # CI_Lower = c(1.2, 1.7, 0.6, 0.9, 2.8),
 #  CI_Upper = c(1.9, 2.6, 1.1, 1.5, 4.3)
 )
@@ -95,8 +103,14 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     text = element_text(size = 14),
     panel.grid.major.y = element_blank()
   )
-
 ```
+
+
+
+
+
+
+
 
 
 
@@ -139,9 +153,117 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     panel.grid.major.y = element_blank()
   )
 
+
+
+
 ```
 
 
+## combine emergency visits and follow up 
+
+
+
+
+
+```{r, message=F, warning=F}
+data_combine <- data.frame(
+  Variable = rep(c("Claim_source:HMO vs FFS", "Gender:male vs female", "Race:black vs white", "Race:hispanic vs white", "Race:not prov vs white", 
+               "Race:other vs white", "Age:juvenile vs mature", "Age:older vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", 
+               "Rural vs metro-mwke","UEMil vs metro-mwke",  "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", 
+               "Marital status:D vs M", "Marital status:I vs M", "Marital status:R vs M", "Marital status:S vs M", "Marital status:U vs M", 
+               "Marital status:W vs M", "Marital status:X vs M"), 2),
+  Condition = rep(c("Emergency visit", "dental follow up"), each = 22), 
+  OddsRatio = c(c(2.06, 1.11, 0.92, 0.82, 0.84, 
+                0.85, 0.2, 0.56, 1, 0.99, 
+                1.17, 1.18, 0.99, 1.09, 1.21, 
+                1.29, 1.69, 1.89, 1.59, 0.59, 
+                1.06, 1.38),c(1.21, 0.88, 1.25, 1.06, 1.15, 
+                0.78, 0.77, 0.64, 1.91, 1.44, 
+                1.09, 1.08, 0.62, 0.62, 0.71, 
+                0.89, 0.86, 1.28, 1.11, 2.08, 
+                1.17, 1.44)) 
+)
+
+# Order Variable by OddsRatio
+data_combine$Variable <- factor(data_combine$Variable, levels = unique(data_combine$Variable[order(data_combine$OddsRatio)]))
+
+ggplot(data_combine, aes(x = OddsRatio, y = Variable, color = Condition)) +
+  geom_segment(aes(x = 0, xend = max(OddsRatio), y = Variable, yend = Variable), color = "gray80", linetype = "dashed") +  # Horizontal lines
+  geom_point(size = 3) +  # Plot points for odds ratio
+  geom_vline(xintercept = 1, linetype = "dashed", color = "blue") +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = "",
+    x = "Odds Ratio",
+    y = ""
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank(), 
+    legend.title = element_blank()  # Removes legend title
+  ) +
+  scale_color_manual(values = c("Emergency visit" = "pink", "dental follow up" = "red"))  # Custom colors for groups
+
+
+
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+data_combine2 <- data.frame(
+  Variable = rep(c("Claim_source:HMO", "Claim_source:FFS",  "Gender:male", "Gender:female", "Race:white", 
+               "Race:black", "Race:not prov", "Race:hispanic", "Income:25-50per", "Income:50-75per", 
+               "Income:75-100per", "Income:0-25per", "Age: mature", "Age:older","Age:juvenile", 
+               "HPSA:DHPSA", "partial DHPSA", "not DHPSA", "Rural",  "Metro-MWKE", 
+               "UbMWKE", "Marital status:D",  "Marital status:M", "Marital status:I", "Marital status:R", 
+               "Marital status:S", "Poverty:x>=100%", "Poverty:x<=100%"),2), 
+  OddsRatio = c(c(0.017, 0.0473, 0.0157, 0.0503, 0.054,
+                0.0283, 0.0273, 0.0103, 0.0397, 0.036, 
+                0.036, 0.0277, 0.0137, 0.0133, 0.009, 
+                0.041, 0.0407, 0.031, 0.036, 0.024, 
+                0.0523, 0.0227, 0.02, 0.0423, 0.0237, 
+                0.0117, 0.0137, 0.0123),  c(0.01, 0.0487, 0.008, 0.0347, 0.0353,
+                0.0237, 0.0257, 0.017, 0.0247, 0.031, 
+                0.0253, 0.024, 0.022, 0.0087, 0.022, 
+                0.0423, 0.0337, 0.0333, 0.048, 0.0387, 
+                0.032, 0.0203, 0.0273, 0.0323, 0.019, 
+                0.0083, 0.0187, 0.041)), 
+  Condition = rep(c("dental follow up", "Emergency visit"), each = 28)
+)
+
+# Order Variable by OddsRatio
+data_combine2$Variable <- factor(data_combine2$Variable, levels = unique(data_combine2$Variable[order(data_combine2$OddsRatio)]))
+
+ggplot(data_combine2, aes(x = OddsRatio, y = Variable, color = Condition)) +
+  geom_segment(aes(x = 0, xend = max(OddsRatio), y = Variable, yend = Variable), color = "gray80", linetype = "dashed") +  # Horizontal lines
+  geom_point(size = 3) +  # Plot points for odds ratio
+  #geom_vline(xintercept = 1, linetype = "dashed", color = "blue") +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = "",
+    x = "Normalized importance",
+    y = ""
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank(), 
+    legend.title = element_blank()  # Removes legend title
+  ) +
+  scale_color_manual(values = c("Emergency visit" = "pink", "dental follow up" = "red"))  # Custom colors for groups
+
+
+
+
+```
+
+
+
+
+## examples 
 
 
 
@@ -224,5 +346,36 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
   )
 
 ```
+
+```{r, message=F, warning=F}
+# Example dataset with two odds ratios per variable
+data <- data.frame(
+  Variable = rep(c("Gene A", "Gene B", "Gene C", "Gene D", "Gene E"), each = 2),
+  Condition = rep(c("Before", "After"), times = 5),
+  OddsRatio = c(1.5, 1.8, 2.1, 2.5, 0.8, 1.2, 1.2, 1.4, 3.5, 4.0),
+  CI_Lower = c(1.2, 1.5, 1.7, 2.0, 0.6, 0.9, 0.9, 1.1, 2.8, 3.2),
+  CI_Upper = c(1.9, 2.2, 2.6, 3.0, 1.1, 1.5, 1.5, 1.8, 4.3, 4.8)
+)
+
+# Order variables based on the highest odds ratio in each group
+data$Variable <- factor(data$Variable, levels = unique(data$Variable[order(-data$OddsRatio)]))
+
+ggplot(data, aes(x = OddsRatio, y = Variable, color = Condition)) +
+  geom_point(size = 3) +  # Plot points for odds ratio
+  #geom_errorbarh(aes(xmin = CI_Lower, xmax = CI_Upper), height = 0.3) +  # Confidence intervals
+  geom_vline(xintercept = 1, linetype = "dashed", color = "red") +  # Reference line at OR=1
+  theme_minimal() +
+  labs(
+    title = "Odds Ratio Comparison",
+    x = "Odds Ratio",
+    y = "Genes"
+  ) +
+  theme(
+    text = element_text(size = 14),
+    panel.grid.major.y = element_blank()
+  ) +
+  scale_color_manual(values = c("Before" = "blue", "After" = "darkgreen"))  # Custom colors for groups
+```
+
 
 
