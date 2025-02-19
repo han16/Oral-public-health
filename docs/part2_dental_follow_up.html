@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-02-18
+<strong>Last updated:</strong> 2025-02-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeee024495d0ee2c279705fbd787dd989166131987targetblankee02449a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeae18057a24763c0917d304159b3a1d489b920e5ftargetblankae18057a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/ee024495d0ee2c279705fbd787dd989166131987" target="_blank">ee02449</a>
+<a href="https://github.com/han16/Oral-public-health/tree/ae18057a24763c0917d304159b3a1d489b920e5f" target="_blank">ae18057</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeee024495d0ee2c279705fbd787dd989166131987targetblankee02449a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeae18057a24763c0917d304159b3a1d489b920e5ftargetblankae18057a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/ee024495d0ee2c279705fbd787dd989166131987" target="_blank">ee02449</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/ae18057a24763c0917d304159b3a1d489b920e5f" target="_blank">ae18057</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,11 +571,8 @@ Ignored files:
     Ignored:    analysis/ddwi_part1_cache/
     Ignored:    analysis/part1_cache/
 
-Untracked files:
-    Untracked:  analysis/part1_emergency_visit.Rmd
-
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/part1_emergency_visit.Rmd
     Modified:   analysis/part2_dental_follow_up.Rmd
 
 </code></pre>
@@ -623,6 +620,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/c40c7d9548124a15f2f91471687003b3f45de997/analysis/part2_dental_follow_up.Rmd" target="_blank">c40c7d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-18
+</td>
+<td>
+2/18/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/c40c7d9548124a15f2f91471687003b3f45de997/docs/part2_dental_follow_up.html" target="_blank">c40c7d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-18
+</td>
+<td>
+2/18/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -704,7 +735,7 @@ ggplot(data, aes(x = &quot;&quot;, y = count, fill = dental_follow_up)) +
   geom_bar(stat = &quot;identity&quot;, width = 1) +
   coord_polar(theta = &quot;y&quot;) +
   geom_text(aes(label = paste0(percent, &quot;%&quot;)), position = position_stack(vjust = 0.5)) +
-  labs(title = &quot;dental follow up (%)&quot;) #+</code></pre>
+  labs(title = &quot;&quot;) #+</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -812,6 +843,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/c40c7d9548124a15f2f91471687003b3f45de997/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-3-1.png" target="_blank">c40c7d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-3-1.png" target="_blank">ee02449</a>
 </td>
 <td>
@@ -905,11 +947,11 @@ han
 <h2>combine emergency visits and follow up</h2>
 <pre class="r"><code>data_combine &lt;- data.frame(
   Variable = rep(c(&quot;Claim_source:HMO vs FFS&quot;, &quot;Gender:male vs female&quot;, &quot;Race:black vs white&quot;, &quot;Race:hispanic vs white&quot;, &quot;Race:not prov vs white&quot;, 
-               &quot;Race:other vs white&quot;, &quot;Age:juvenile vs mature&quot;, &quot;Age:older vs mature&quot;, &quot;HPSA:DHPSA vs not DHPSA&quot;, &quot;partial DHPSA vs not DHPSA&quot;, 
-               &quot;Rural vs metro-mwke&quot;,&quot;UEMil vs metro-mwke&quot;,  &quot;Income:0-25per vs 75-100per&quot;, &quot;Income:25-50per vs 75-100per&quot;, &quot;Income:50-75per vs 75-100per&quot;, 
+               &quot;Race:other vs white&quot;, &quot;Age:Children vs mature&quot;, &quot;Age:old vs mature&quot;, &quot;HPSA:DHPSA vs not DHPSA&quot;, &quot;partial DHPSA vs not DHPSA&quot;, 
+               &quot;Rural vs metro-MKE&quot;,&quot;Urban vs metro-MKE&quot;,  &quot;Income:0-25per vs 75-100per&quot;, &quot;Income:25-50per vs 75-100per&quot;, &quot;Income:50-75per vs 75-100per&quot;, 
                &quot;Marital status:D vs M&quot;, &quot;Marital status:I vs M&quot;, &quot;Marital status:R vs M&quot;, &quot;Marital status:S vs M&quot;, &quot;Marital status:U vs M&quot;, 
                &quot;Marital status:W vs M&quot;, &quot;Marital status:X vs M&quot;), 2),
-  Condition = rep(c(&quot;Emergency visit&quot;, &quot;dental follow up&quot;), each = 22), 
+  Condition = rep(c(&quot;NTDC ED visit&quot;, &quot;dental follow up&quot;), each = 22), 
   OddsRatio = c(c(2.06, 1.11, 0.92, 0.82, 0.84, 
                 0.85, 0.2, 0.56, 1, 0.99, 
                 1.17, 1.18, 0.99, 1.09, 1.21, 
@@ -939,7 +981,7 @@ ggplot(data_combine, aes(x = OddsRatio, y = Variable, color = Condition)) +
     panel.grid.major.y = element_blank(), 
     legend.title = element_blank()  # Removes legend title
   ) +
-  scale_color_manual(values = c(&quot;Emergency visit&quot; = &quot;pink&quot;, &quot;dental follow up&quot; = &quot;red&quot;))  # Custom colors for groups</code></pre>
+  scale_color_manual(values = c(&quot;NTDC ED visit&quot; = &quot;gray&quot;, &quot;dental follow up&quot; = &quot;red&quot;))  # Custom colors for groups</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -965,6 +1007,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/c40c7d9548124a15f2f91471687003b3f45de997/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-5-1.png" target="_blank">c40c7d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-5-1.png" target="_blank">ee02449</a>
 </td>
 <td>
@@ -982,8 +1035,8 @@ han
   Variable = rep(c(&quot;Claim_source:HMO&quot;, &quot;Claim_source:FFS&quot;,  &quot;Gender:male&quot;, &quot;Gender:female&quot;, &quot;Race:white&quot;, 
                &quot;Race:black&quot;, &quot;Race:not prov&quot;, &quot;Race:hispanic&quot;, &quot;Income:25-50per&quot;, &quot;Income:50-75per&quot;, 
                &quot;Income:75-100per&quot;, &quot;Income:0-25per&quot;, &quot;Age: mature&quot;, &quot;Age:older&quot;,&quot;Age:juvenile&quot;, 
-               &quot;HPSA:DHPSA&quot;, &quot;partial DHPSA&quot;, &quot;not DHPSA&quot;, &quot;Rural&quot;,  &quot;Metro-MWKE&quot;, 
-               &quot;UbMWKE&quot;, &quot;Marital status:D&quot;,  &quot;Marital status:M&quot;, &quot;Marital status:I&quot;, &quot;Marital status:R&quot;, 
+               &quot;HPSA:DHPSA&quot;, &quot;partial DHPSA&quot;, &quot;not DHPSA&quot;, &quot;Rural&quot;,  &quot;Metro-MKE&quot;, 
+               &quot;Urban MKE&quot;, &quot;Marital status:D&quot;,  &quot;Marital status:M&quot;, &quot;Marital status:I&quot;, &quot;Marital status:R&quot;, 
                &quot;Marital status:S&quot;, &quot;Poverty:x&gt;=100%&quot;, &quot;Poverty:x&lt;=100%&quot;),2), 
   OddsRatio = c(c(0.017, 0.0473, 0.0157, 0.0503, 0.054,
                 0.0283, 0.0273, 0.0103, 0.0397, 0.036, 
@@ -996,7 +1049,7 @@ han
                 0.0423, 0.0337, 0.0333, 0.048, 0.0387, 
                 0.032, 0.0203, 0.0273, 0.0323, 0.019, 
                 0.0083, 0.0187, 0.041)), 
-  Condition = rep(c(&quot;dental follow up&quot;, &quot;Emergency visit&quot;), each = 28)
+  Condition = rep(c(&quot;dental follow up&quot;, &quot;NTDC ED visit&quot;), each = 28)
 )
 
 # Order Variable by OddsRatio
@@ -1005,7 +1058,7 @@ data_combine2$Variable &lt;- factor(data_combine2$Variable, levels = unique(data
 ggplot(data_combine2, aes(x = OddsRatio, y = Variable, color = Condition)) +
   geom_segment(aes(x = 0, xend = max(OddsRatio), y = Variable, yend = Variable), color = &quot;gray80&quot;, linetype = &quot;dashed&quot;) +  # Horizontal lines
   geom_point(size = 3) +  # Plot points for odds ratio
-  #geom_vline(xintercept = 1, linetype = &quot;dashed&quot;, color = &quot;blue&quot;) +  # Reference line at OR=1
+  geom_vline(xintercept = 0.04, linetype = &quot;dashed&quot;, color = &quot;blue&quot;) +  # Reference line at OR=1
   theme_minimal() +
   labs(
     title = &quot;&quot;,
@@ -1017,7 +1070,7 @@ ggplot(data_combine2, aes(x = OddsRatio, y = Variable, color = Condition)) +
     panel.grid.major.y = element_blank(), 
     legend.title = element_blank()  # Removes legend title
   ) +
-  scale_color_manual(values = c(&quot;Emergency visit&quot; = &quot;pink&quot;, &quot;dental follow up&quot; = &quot;red&quot;))  # Custom colors for groups</code></pre>
+  scale_color_manual(values = c(&quot;NTDC ED visit&quot; = &quot;gray&quot;, &quot;dental follow up&quot; = &quot;red&quot;))  # Custom colors for groups</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -1041,6 +1094,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/c40c7d9548124a15f2f91471687003b3f45de997/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-6-1.png" target="_blank">c40c7d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/ee024495d0ee2c279705fbd787dd989166131987/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-6-1.png" target="_blank">ee02449</a>
@@ -1085,6 +1149,43 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     panel.grid.major.y = element_blank()
   )</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ae18057a24763c0917d304159b3a1d489b920e5f/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-7-1.png" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Sample dataset
 data &lt;- data.frame(
   Variable = c(&quot;Gene A&quot;, &quot;Gene B&quot;, &quot;Gene C&quot;, &quot;Gene D&quot;, &quot;Gene E&quot;),
@@ -1130,6 +1231,43 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     plot.margin = margin(10, 100, 10, 10)  # Add space for text columns
   )</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ae18057a24763c0917d304159b3a1d489b920e5f/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-8-1.png" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Example dataset with two odds ratios per variable
 data &lt;- data.frame(
   Variable = rep(c(&quot;Gene A&quot;, &quot;Gene B&quot;, &quot;Gene C&quot;, &quot;Gene D&quot;, &quot;Gene E&quot;), each = 2),
@@ -1158,6 +1296,43 @@ ggplot(data, aes(x = OddsRatio, y = Variable, color = Condition)) +
   ) +
   scale_color_manual(values = c(&quot;Before&quot; = &quot;blue&quot;, &quot;After&quot; = &quot;darkgreen&quot;))  # Custom colors for groups</code></pre>
 <p><img src="figure/part2_dental_follow_up.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ae18057a24763c0917d304159b3a1d489b920e5f/docs/figure/part2_dental_follow_up.Rmd/unnamed-chunk-9-1.png" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

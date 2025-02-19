@@ -8,6 +8,8 @@ date: "2025-02-18"
 ---
 
 ```{r, message=F, warning=F}
+rm(list = ls())
+set.seed(123)
 library(ggplot2)
 ```
 
@@ -46,7 +48,7 @@ library(ggplot2)
 
 ```{r, message=F, warning=F}
 data <- data.frame(
-  dental_follow_up = c("Yes", "No"),
+  NTDC_ED_visit = c("Yes", "No"),
   count = c(21386, 532283)
 )
 
@@ -57,11 +59,11 @@ library(scales)  # For percentage labels
 # Compute percentages
 data$percent <- round(100 * data$count / sum(data$count), 1)
 
-ggplot(data, aes(x = "", y = count, fill = dental_follow_up)) +
+ggplot(data, aes(x = "", y = count, fill = NTDC_ED_visit)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar(theta = "y") +
   geom_text(aes(label = paste0(percent, "%")), position = position_stack(vjust = 0.5)) +
-  labs(title = "dental follow up (%)") #+
+  labs(title = "") #+
   #theme_void()
 data
 ```

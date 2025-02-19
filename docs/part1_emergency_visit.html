@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-02-18
+<strong>Last updated:</strong> 2025-02-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeee024495d0ee2c279705fbd787dd989166131987targetblankee02449a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeae18057a24763c0917d304159b3a1d489b920e5ftargetblankae18057a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/ee024495d0ee2c279705fbd787dd989166131987" target="_blank">ee02449</a>
+<a href="https://github.com/han16/Oral-public-health/tree/ae18057a24763c0917d304159b3a1d489b920e5f" target="_blank">ae18057</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeee024495d0ee2c279705fbd787dd989166131987targetblankee02449a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeae18057a24763c0917d304159b3a1d489b920e5ftargetblankae18057a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/ee024495d0ee2c279705fbd787dd989166131987" target="_blank">ee02449</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/ae18057a24763c0917d304159b3a1d489b920e5f" target="_blank">ae18057</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,8 +571,8 @@ Ignored files:
     Ignored:    analysis/ddwi_part1_cache/
     Ignored:    analysis/part1_cache/
 
-Untracked files:
-    Untracked:  analysis/part1_emergency_visit.Rmd
+Unstaged changes:
+    Modified:   analysis/part1_emergency_visit.Rmd
 
 </code></pre>
 <p>
@@ -587,15 +587,81 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/part1_emergency_visit.Rmd</code>)
+and HTML (<code>docs/part1_emergency_visit.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/ae18057a24763c0917d304159b3a1d489b920e5f/docs/part1_emergency_visit.html" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+<td>
+2/19/2025
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/c40c7d9548124a15f2f91471687003b3f45de997/analysis/part1_emergency_visit.Rmd" target="_blank">c40c7d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-18
+</td>
+<td>
+2/18/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
-<pre class="r"><code>library(ggplot2)</code></pre>
+<pre class="r"><code>rm(list = ls())
+set.seed(123)
+library(ggplot2)</code></pre>
 <div id="data" class="section level2">
 <h2>data</h2>
 <ul>
@@ -626,7 +692,7 @@ metrics</p></li>
 <div id="results" class="section level2">
 <h2>results</h2>
 <pre class="r"><code>data &lt;- data.frame(
-  dental_follow_up = c(&quot;Yes&quot;, &quot;No&quot;),
+  NTDC_ED_visit = c(&quot;Yes&quot;, &quot;No&quot;),
   count = c(21386, 532283)
 )
 
@@ -637,17 +703,54 @@ library(scales)  # For percentage labels
 # Compute percentages
 data$percent &lt;- round(100 * data$count / sum(data$count), 1)
 
-ggplot(data, aes(x = &quot;&quot;, y = count, fill = dental_follow_up)) +
+ggplot(data, aes(x = &quot;&quot;, y = count, fill = NTDC_ED_visit)) +
   geom_bar(stat = &quot;identity&quot;, width = 1) +
   coord_polar(theta = &quot;y&quot;) +
   geom_text(aes(label = paste0(percent, &quot;%&quot;)), position = position_stack(vjust = 0.5)) +
-  labs(title = &quot;dental follow up (%)&quot;) #+</code></pre>
+  labs(title = &quot;&quot;) #+</code></pre>
 <p><img src="figure/part1_emergency_visit.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ae18057a24763c0917d304159b3a1d489b920e5f/docs/figure/part1_emergency_visit.Rmd/unnamed-chunk-2-1.png" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>  #theme_void()
 data</code></pre>
-<pre><code>  dental_follow_up  count percent
-1              Yes  21386     3.9
-2               No 532283    96.1</code></pre>
+<pre><code>  NTDC_ED_visit  count percent
+1           Yes  21386     3.9
+2            No 532283    96.1</code></pre>
 <div id="logistic-regression" class="section level3">
 <h3>logistic regression</h3>
 <pre class="r"><code>data &lt;- data.frame(
@@ -685,6 +788,43 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     panel.grid.major.y = element_blank()
   )</code></pre>
 <p><img src="figure/part1_emergency_visit.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ae18057a24763c0917d304159b3a1d489b920e5f/docs/figure/part1_emergency_visit.Rmd/unnamed-chunk-3-1.png" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>data &lt;- data.frame(
   Variable = c(&quot;Claim_source:HMO&quot;, &quot;Claim_source:FFS&quot;,  &quot;Gender:male&quot;, &quot;Gender:female&quot;, &quot;Race:white&quot;, 
                &quot;Race:black&quot;, &quot;Race:not prov&quot;, &quot;Race:hispanic&quot;, &quot;Income:25-50per&quot;, &quot;Income:50-75per&quot;, 
@@ -722,6 +862,43 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
     panel.grid.major.y = element_blank()
   )</code></pre>
 <p><img src="figure/part1_emergency_visit.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ae18057a24763c0917d304159b3a1d489b920e5f/docs/figure/part1_emergency_visit.Rmd/unnamed-chunk-4-1.png" target="_blank">ae18057</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -765,8 +942,8 @@ loaded via a namespace (and not attached):
 [29] fs_1.6.5          sass_0.4.9        cli_3.6.2         withr_3.0.2      
 [33] magrittr_2.0.3    digest_0.6.33     grid_4.3.2        rstudioapi_0.17.1
 [37] lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.3    glue_1.8.0       
-[41] farver_2.1.2      colorspace_2.1-0  rmarkdown_2.29    tools_4.3.2      
-[45] pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+[41] farver_2.1.2      whisker_0.4.1     colorspace_2.1-0  rmarkdown_2.29   
+[45] tools_4.3.2       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 </div>
 </div>

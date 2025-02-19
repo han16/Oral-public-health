@@ -52,7 +52,7 @@ ggplot(data, aes(x = "", y = count, fill = dental_follow_up)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar(theta = "y") +
   geom_text(aes(label = paste0(percent, "%")), position = position_stack(vjust = 0.5)) +
-  labs(title = "dental follow up (%)") #+
+  labs(title = "") #+
   #theme_void()
 data
 ```
@@ -168,11 +168,11 @@ ggplot(data, aes(x = OddsRatio, y = Variable)) +
 ```{r, message=F, warning=F}
 data_combine <- data.frame(
   Variable = rep(c("Claim_source:HMO vs FFS", "Gender:male vs female", "Race:black vs white", "Race:hispanic vs white", "Race:not prov vs white", 
-               "Race:other vs white", "Age:juvenile vs mature", "Age:older vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", 
-               "Rural vs metro-mwke","UEMil vs metro-mwke",  "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", 
+               "Race:other vs white", "Age:Children vs mature", "Age:old vs mature", "HPSA:DHPSA vs not DHPSA", "partial DHPSA vs not DHPSA", 
+               "Rural vs metro-MKE","Urban vs metro-MKE",  "Income:0-25per vs 75-100per", "Income:25-50per vs 75-100per", "Income:50-75per vs 75-100per", 
                "Marital status:D vs M", "Marital status:I vs M", "Marital status:R vs M", "Marital status:S vs M", "Marital status:U vs M", 
                "Marital status:W vs M", "Marital status:X vs M"), 2),
-  Condition = rep(c("Emergency visit", "dental follow up"), each = 22), 
+  Condition = rep(c("NTDC ED visit", "dental follow up"), each = 22), 
   OddsRatio = c(c(2.06, 1.11, 0.92, 0.82, 0.84, 
                 0.85, 0.2, 0.56, 1, 0.99, 
                 1.17, 1.18, 0.99, 1.09, 1.21, 
@@ -202,7 +202,7 @@ ggplot(data_combine, aes(x = OddsRatio, y = Variable, color = Condition)) +
     panel.grid.major.y = element_blank(), 
     legend.title = element_blank()  # Removes legend title
   ) +
-  scale_color_manual(values = c("Emergency visit" = "pink", "dental follow up" = "red"))  # Custom colors for groups
+  scale_color_manual(values = c("NTDC ED visit" = "gray", "dental follow up" = "red"))  # Custom colors for groups
 
 
 
@@ -218,8 +218,8 @@ data_combine2 <- data.frame(
   Variable = rep(c("Claim_source:HMO", "Claim_source:FFS",  "Gender:male", "Gender:female", "Race:white", 
                "Race:black", "Race:not prov", "Race:hispanic", "Income:25-50per", "Income:50-75per", 
                "Income:75-100per", "Income:0-25per", "Age: mature", "Age:older","Age:juvenile", 
-               "HPSA:DHPSA", "partial DHPSA", "not DHPSA", "Rural",  "Metro-MWKE", 
-               "UbMWKE", "Marital status:D",  "Marital status:M", "Marital status:I", "Marital status:R", 
+               "HPSA:DHPSA", "partial DHPSA", "not DHPSA", "Rural",  "Metro-MKE", 
+               "Urban MKE", "Marital status:D",  "Marital status:M", "Marital status:I", "Marital status:R", 
                "Marital status:S", "Poverty:x>=100%", "Poverty:x<=100%"),2), 
   OddsRatio = c(c(0.017, 0.0473, 0.0157, 0.0503, 0.054,
                 0.0283, 0.0273, 0.0103, 0.0397, 0.036, 
@@ -232,7 +232,7 @@ data_combine2 <- data.frame(
                 0.0423, 0.0337, 0.0333, 0.048, 0.0387, 
                 0.032, 0.0203, 0.0273, 0.0323, 0.019, 
                 0.0083, 0.0187, 0.041)), 
-  Condition = rep(c("dental follow up", "Emergency visit"), each = 28)
+  Condition = rep(c("dental follow up", "NTDC ED visit"), each = 28)
 )
 
 # Order Variable by OddsRatio
@@ -241,7 +241,7 @@ data_combine2$Variable <- factor(data_combine2$Variable, levels = unique(data_co
 ggplot(data_combine2, aes(x = OddsRatio, y = Variable, color = Condition)) +
   geom_segment(aes(x = 0, xend = max(OddsRatio), y = Variable, yend = Variable), color = "gray80", linetype = "dashed") +  # Horizontal lines
   geom_point(size = 3) +  # Plot points for odds ratio
-  #geom_vline(xintercept = 1, linetype = "dashed", color = "blue") +  # Reference line at OR=1
+  geom_vline(xintercept = 0.04, linetype = "dashed", color = "blue") +  # Reference line at OR=1
   theme_minimal() +
   labs(
     title = "",
@@ -253,7 +253,7 @@ ggplot(data_combine2, aes(x = OddsRatio, y = Variable, color = Condition)) +
     panel.grid.major.y = element_blank(), 
     legend.title = element_blank()  # Removes legend title
   ) +
-  scale_color_manual(values = c("Emergency visit" = "pink", "dental follow up" = "red"))  # Custom colors for groups
+  scale_color_manual(values = c("NTDC ED visit" = "gray", "dental follow up" = "red"))  # Custom colors for groups
 
 
 
