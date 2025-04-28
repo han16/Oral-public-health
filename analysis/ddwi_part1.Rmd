@@ -28,6 +28,10 @@ multiplesheets <- function(fname) {
 
 ```
 
+
+
+
+
 ```{r, message=F, warning=F}
 year=seq(2011, 2020, by=1)
 summary_num=function(code)
@@ -60,7 +64,7 @@ draw_plot_num=function(data_plot, code)
   
   p=ggplot(data_plot, aes(x=year, y=num, fill=year)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.4))+
-  ylab("#")+xlab("year")+
+  ylab("Num")+xlab("year")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
@@ -100,6 +104,9 @@ saveRDS(data, file=paste("C:\\Shengtong\\Research\\AllCollaboration\\2024\\20240
 ```
 
 
+
+
+
 ```{r, echo=F, message=F, warning=F}
 year=seq(2011, 2020); 
 #all_data=list()
@@ -112,9 +119,17 @@ all_data=readRDS("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Prade
 
 
 
+
+
 ## Pulp therapy Codes
 
+
+
+
 ### D3110 PR PULP CAP - DIRECT (EXCLUDING FINAL RESTORATION)
+
+
+
 
 ```{r, message=F, warning=F}
 D3110_data=summary_num(3110)
@@ -135,6 +150,7 @@ p1=draw_plot_num(D3110_data, code="3110")
 p2=draw_plot_prop(D3110_data, code="3110")
 grid.arrange(p1, p2, ncol = 2)
 ```
+
 
 
 

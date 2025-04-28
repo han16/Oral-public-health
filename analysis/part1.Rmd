@@ -42,6 +42,8 @@ Demographics=readRDS(file="C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Eme
 FFS_claims=readRDS("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\CWFluoridationAnalysis\\FFS Claims\\FFS_Claims.rds")
 ```
 
+
+
 ```{r, message=F, warning=F}
 colnames(HMO_claims)
 colnames(Demographics)
