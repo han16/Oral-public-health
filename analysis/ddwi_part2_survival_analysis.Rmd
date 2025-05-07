@@ -1,0 +1,66 @@
+---
+title: "survival analysis"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-05-06"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "../../AllCollaboration/Collaborations/analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F}
+all_data=readRDS("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\all_data.rds")
+```
+
+## D3220 Therapeutic Pulpotomy
+
+
+```{r, message=F, warning=F}
+
+d3220_data=list(); code=3220
+
+  for (i in 1:length(all_data))
+     d3220_data[[i]]=all_data[[i]]$`Claims and Provider `%>% filter(`Submitted Procedure Code`==code)
+      
+combined_d3220_data=bind_rows(d3220_data)
+
+```
+
+
+
+```{r, message=F, warning=F}
+unique_ids=unique(combined_d3220_data$`Unique Member ID`)
+num_codes=sapply(unique_ids, function(x) nrow(combined_d3220_data %>% filter(`Unique Member ID`==x)))
+table(num_codes)
+```
+
+
+## D3120 Pulp cap indirect
+
+
+```{r, message=F, warning=F}
+
+d3120_data=list(); code=3120
+
+  for (i in 1:length(all_data))
+     d3120_data[[i]]=all_data[[i]]$`Claims and Provider `%>% filter(`Submitted Procedure Code`==code)
+      
+combined_d3120_data=bind_rows(d3120_data)
+
+```
+
+
+
+```{r, message=F, warning=F}
+unique_ids=unique(combined_d3120_data$`Unique Member ID`)
+num_codes=sapply(unique_ids, function(x) nrow(combined_d3120_data %>% filter(`Unique Member ID`==x)))
+table(num_codes)
+```

@@ -49,7 +49,7 @@ summary_num=function(code)
   
   if (i>=6)
   {
-  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
+  num[i]=sum(all_data[[i]]$`Claims and Provider `$`Submittall_dataed Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (1)`$`Submitted Procedure Code`==code)+sum(all_data[[i]]$`Claims and Provider (2)`$`Submitted Procedure Code`==code)
   total_claims[i]=nrow(all_data[[i]]$`Claims and Provider `)+nrow(all_data[[i]]$`Claims and Provider (1)`)+nrow(all_data[[i]]$`Claims and Provider (2)`)
   prop[i]=num[i]/total_claims[i]
   
