@@ -616,6 +616,18 @@ table(num_codes)</code></pre>
 </div>
 <div id="d3120-pulp-cap-indirect" class="section level2">
 <h2>D3120 Pulp cap indirect</h2>
+<pre class="r"><code>d3120_data=list(); code=3120
+
+  for (i in 1:length(all_data))
+     d3120_data[[i]]=all_data[[i]]$`Claims and Provider `%&gt;% filter(`Submitted Procedure Code`==code)
+      
+combined_d3120_data=bind_rows(d3120_data)</code></pre>
+<pre class="r"><code>unique_ids=unique(combined_d3120_data$`Unique Member ID`)
+num_codes=sapply(unique_ids, function(x) nrow(combined_d3120_data %&gt;% filter(`Unique Member ID`==x)))
+table(num_codes)</code></pre>
+<pre><code>num_codes
+   1    2    3    4    5    6    7 
+3778  502   93   23    7    7    1 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
