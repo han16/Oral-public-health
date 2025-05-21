@@ -16,51 +16,270 @@ root <- rprojroot::find_rstudio_root_file()
 ```
 
 
-```{r, message=F, warning=F}
-all_data=readRDS("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\all_data.rds")
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+path="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\"
+all_data=readRDS(paste(path, "all_data.rds", sep=""))
+
+
+# Loop over each element of all_data and process demographic and claims
+processed_list <- lapply(all_data, function(data_item) {
+  # Standardize column names
+  colnames(data_item$`Demographic (1)`) <- colnames(data_item$`Demographic `)
+  colnames(data_item$`Claims and Provider (1)`) <- colnames(data_item$`Claims and Provider `)
+  
+  # Combine
+  demographic_combined <- rbind(data_item$`Demographic `, data_item$`Demographic (1)`)
+  claims_combined      <- rbind(data_item$`Claims and Provider `, data_item$`Claims and Provider (1)`)
+  
+  # Remove unnecessary columns
+  demographic_combined <- demographic_combined %>% 
+    select(-`Subscriber Address Line 1`, -`Subscriber Address Line 2`, -`Subscriber City`, -`Subscriber Zip Code`)
+  
+  claims_combined <- claims_combined %>% 
+    select(-`Allowed Amount`, -`Paid Amount`, -`Provider Name`, 
+           -`Clinic Address Line 1`, -`Clinic Address Line 2`, 
+           -`Clinic City`, -`Clinic Zip Code`)
+  
+  # Return the result for this element
+  list(
+    demographic = demographic_combined,
+    claims = claims_combined
+  )
+})
+
+# Now combine all demographic and claims across all 10 elements
+demographic_combined_all <- do.call(rbind, lapply(processed_list, `[[`, "demographic"))
+claims_combined_all      <- do.call(rbind, lapply(processed_list, `[[`, "claims"))
+claims_combined_all$member_tooth_number=paste(claims_combined_all$`Unique Member ID`, claims_combined_all$`Tooth Number`, sep=":")
+
+library(qs)
+
+qsave(demographic_combined_all, paste(path, "demographic_combined_all.qs", sep=""))
+qsave(claims_combined_all, paste(path, "claims_combined_all.qs", sep=""))
 ```
+
+
+
+```{r, message=F, warning=F}
+library(qs)
+path="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\"
+demo <- qread(paste(path, "demographic_combined_all.qs", sep=""))
+claims <- qread(paste(path, "claims_combined_all.qs", sep=""))
+```
+
+
 
 ## D3220 Therapeutic Pulpotomy
 
 
-```{r, message=F, warning=F}
 
-d3220_data=list(); code=3220
 
-  for (i in 1:length(all_data))
-     d3220_data[[i]]=all_data[[i]]$`Claims and Provider `%>% filter(`Submitted Procedure Code`==code)
-      
-combined_d3220_data=bind_rows(d3220_data)
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=T}
+compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
+  message("Processing [", index, "/", length(teeth_sample), "]: ", tooth_id)
+
+  # Same logic as before...
+  single_tooth_claim_data <- claims %>%
+    filter(member_tooth_number == tooth_id)
+
+  if (nrow(single_tooth_claim_data) == 0) {
+    return(data.frame(
+      Tooth_ID = tooth_id,
+      Start_Date = NA,
+      End_Date = NA,
+      Survival_Time_Days = NA,
+      Event_Observed = NA,
+      Index = index
+    ))
+  }
+
+  member_id <- single_tooth_claim_data$`Unique Member ID`[1]
+
+  single_tooth_demo_data <- demo %>%
+    filter(`Unique Member ID` == member_id)
+
+  single_tooth_claim_data$`Service Date` <- as.Date(single_tooth_claim_data$`Service Date`)
+  termination_date <- as.Date(single_tooth_demo_data$`Member Termination Date`[1])
+
+  start_row <- single_tooth_claim_data %>%
+    filter(`Submitted Procedure Code` == start_code) %>%
+    slice(1)
+
+  if (nrow(start_row) == 0) {
+    return(data.frame(
+      Tooth_ID = tooth_id,
+      Start_Date = NA,
+      End_Date = NA,
+      Survival_Time_Days = NA,
+      Event_Observed = NA,
+      Index = index
+    ))
+  }
+
+  start_date <- start_row$`Service Date`[1]
+
+  has_7140 <- single_tooth_claim_data %>%
+    filter(`Submitted Procedure Code` == 7140)
+
+  if (nrow(has_7140) > 0) {
+    end_date <- min(has_7140$`Service Date`, na.rm = TRUE)
+    event_observed <- 1
+  } else {
+    end_date <- termination_date
+    event_observed <- 0
+  }
+
+  survival_time <- as.numeric(difftime(end_date, start_date, units = "days"))
+
+  return(data.frame(
+    Tooth_ID = tooth_id,
+    Start_Date = start_date,
+    End_Date = end_date,
+    Survival_Time_Days = survival_time,
+    Event_Observed = event_observed,
+    Index = index
+  ))
+}
 
 ```
 
 
+```{r, message=F, warning=F, eval=F}
+teeth_sample=claims %>% filter(`Submitted Procedure Code`==3220) %>% select(member_tooth_number) %>% pull()
+
+
+survival_results <- map2_dfr(
+  .x = teeth_sample,
+  .y = seq_along(teeth_sample),
+  .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3220)
+)
+#qsave(survival_results, paste(path, "survival_results_for_code3220.qs", sep=""))
+```
+
+### survival analysis 
+
+
 
 ```{r, message=F, warning=F}
-unique_ids=unique(combined_d3220_data$`Unique Member ID`)
-num_codes=sapply(unique_ids, function(x) nrow(combined_d3220_data %>% filter(`Unique Member ID`==x)))
-table(num_codes)
+survival_results=qread(paste(path, "survival_results_for_code3220.qs", sep=""))
+# Assuming your data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           conf.int = TRUE,
+           conf.int.fill = "gray",       # Set confidence band to gray
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival",
+           palette = "red")              # Set curve color to red
 ```
+
 
 
 ## D3120 Pulp cap indirect
 
 
+
+```{r, message=F, warning=F, eval=F}
+start_code=3120
+teeth_sample=claims %>% filter(`Submitted Procedure Code`==start_code) %>% select(member_tooth_number) %>% pull()
+#teeth_sample=teeth_sample[1:3]
+
+
+survival_results <- map2_dfr(
+  .x = teeth_sample,
+  .y = seq_along(teeth_sample),
+  .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3120)
+)
+qsave(survival_results, paste(path, "survival_results_for_code", start_code, ".qs", sep=""))
+```
+
+
+
+
+
+
 ```{r, message=F, warning=F}
+start_code=3120
+survival_results=qread(paste(path, "survival_results_for_code", start_code, ".qs", sep=""))
+# Assuming your data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
 
-d3120_data=list(); code=3120
+library(survival)
+library(survminer)
 
-  for (i in 1:length(all_data))
-     d3120_data[[i]]=all_data[[i]]$`Claims and Provider `%>% filter(`Submitted Procedure Code`==code)
-      
-combined_d3120_data=bind_rows(d3120_data)
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
 
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           conf.int = TRUE,
+           conf.int.fill = "gray",       # Set confidence band to gray
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival",
+           palette = "red")              # Set curve color to red
 ```
 
 
 
 ```{r, message=F, warning=F}
-unique_ids=unique(combined_d3120_data$`Unique Member ID`)
-num_codes=sapply(unique_ids, function(x) nrow(combined_d3120_data %>% filter(`Unique Member ID`==x)))
-table(num_codes)
+survival_results1=qread(paste(path, "survival_results_for_code", 3220, ".qs", sep=""))
+survival_results2=qread(paste(path, "survival_results_for_code", 3120, ".qs", sep=""))
+survival_combined=rbind(survival_results1, survival_results2) 
+survival_combined$code=c(rep("3220", nrow(survival_results1)), rep("3120", nrow(survival_results2)))
+survival_combined_clean <- survival_combined[!grepl("^9999", survival_combined$End_Date), ]
+```
+
+
+```{r, message=F, warning=F}
+# Create a Surv object
+surv_object <- Surv(time = survival_combined_clean$Survival_Time_Days, 
+                    event = survival_combined_clean$Event_Observed)
+
+# Fit a survival model by 'code'
+fit <- survfit(surv_object ~ code, data = survival_combined_clean)
+
+# Plot the survival curves
+ggsurvplot(
+  fit, 
+  data = survival_combined_clean,
+  pval = TRUE,                # Add p-value for log-rank test
+  conf.int = TRUE,            # Add confidence intervals
+  risk.table = TRUE,          # Show number at risk
+  legend.title = "Code",      
+  xlab = "Time in Days",      
+  ylab = "Survival Probability",
+  palette = "Dark2",           # Use a nice color palette
+  risk.table.fontsize = 2.5    # smaller font size (try 2 to 4 for smaller text)
+)
 ```
