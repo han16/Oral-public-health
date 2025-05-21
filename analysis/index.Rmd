@@ -12,6 +12,8 @@ output:
 
 * [summary statistics](ddwi_part1.html)
 
+* [survival analysis](ddwi_part2_survival_analysis.html)
+
 
 
 ## Medicare 
