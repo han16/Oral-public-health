@@ -74,19 +74,8 @@ claims <- qread(paste(path, "claims_combined_all.qs", sep=""))
 ```
 
 
-
-## D3220 Therapeutic Pulpotomy
-
-
-
-
-
-
-
-
-
-
 ```{r, message=F, warning=F, eval=T}
+
 compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
   message("Processing [", index, "/", length(teeth_sample), "]: ", tooth_id)
 
@@ -154,6 +143,27 @@ compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
 }
 
 ```
+
+
+* start with code 3120/3220, for each tooth, find out the follow up codes in the enrollment period, it's treated as a failure if code 7140 appears before the enrollment expires, and censored otherwise. 
+
+
+
+
+
+
+## D3220 Therapeutic Pulpotomy
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```{r, message=F, warning=F, eval=F}
@@ -261,6 +271,9 @@ survival_combined_clean <- survival_combined[!grepl("^9999", survival_combined$E
 ```
 
 
+
+
+
 ```{r, message=F, warning=F}
 # Create a Surv object
 surv_object <- Surv(time = survival_combined_clean$Survival_Time_Days, 
@@ -280,6 +293,9 @@ ggsurvplot(
   xlab = "Time in Days",      
   ylab = "Survival Probability",
   palette = "Dark2",           # Use a nice color palette
-  risk.table.fontsize = 2.5    # smaller font size (try 2 to 4 for smaller text)
+  risk.table.fontsize = 3    # smaller font size (try 2 to 4 for smaller text)
 )
 ```
+
+
+* small p value suggests the survival curves differ significantly between code 3120 and 3220. 
