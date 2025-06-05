@@ -90,7 +90,9 @@ compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
       End_Date = NA,
       Survival_Time_Days = NA,
       Event_Observed = NA,
-      Index = index
+      Index = index,
+      provider_specialty=NA,
+      surface_area_code=NA
     ))
   }
 
@@ -113,7 +115,9 @@ compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
       End_Date = NA,
       Survival_Time_Days = NA,
       Event_Observed = NA,
-      Index = index
+      Index = index, 
+      provider_specialty=NA,
+      surface_area_code=NA
     ))
   }
 
@@ -131,6 +135,17 @@ compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
   }
 
   survival_time <- as.numeric(difftime(end_date, start_date, units = "days"))
+  
+  provider_specialty=claims %>%
+    filter(member_tooth_number == tooth_id) %>%
+    select(`Provider Specialty Name`) %>%
+    pull()
+  surface_area_code=claims %>%
+    filter(member_tooth_number == tooth_id) %>%
+    select(`All Surfaces Area Code`) %>%
+    pull()
+  
+  
 
   return(data.frame(
     Tooth_ID = tooth_id,
@@ -138,7 +153,10 @@ compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
     End_Date = end_date,
     Survival_Time_Days = survival_time,
     Event_Observed = event_observed,
-    Index = index
+    Index = index, 
+    provider_specialty=provider_specialty[1], 
+    surface_area_code=surface_area_code[1]
+    
   ))
 }
 
@@ -187,6 +205,12 @@ survival_results=qread(paste(path, "survival_results_for_code3220.qs", sep=""))
 # Assuming your data frame is named survival_results
 survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
 
+```
+
+
+
+```{r, message=F, warning=F}
+
 library(survival)
 library(survminer)
 
@@ -210,6 +234,32 @@ ggsurvplot(km_fit,
 
 
 
+
+
+
+
+```{r, message=F, warning=F}
+
+fit <- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
+
+# Extract labels in the correct order
+labels <- sub(".*=", "", names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+           xlab = "Time (days)",
+           ylab = "Survival Probability",
+           legend.title = "",
+           legend.labs = labels,
+           palette = "Dark2",
+           risk.table.fontsize = 2,
+           tables.theme = theme_bw(base_size = 8))
+```
+
+
+
 ## D3120 Pulp cap indirect
 
 
@@ -225,7 +275,7 @@ survival_results <- map2_dfr(
   .y = seq_along(teeth_sample),
   .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3120)
 )
-qsave(survival_results, paste(path, "survival_results_for_code", start_code, ".qs", sep=""))
+#qsave(survival_results, paste(path, "survival_results_for_code", start_code, ".qs", sep=""))
 ```
 
 
@@ -259,6 +309,31 @@ ggsurvplot(km_fit,
            title = "Kaplan-Meier Curve for Tooth Survival",
            palette = "red")              # Set curve color to red
 ```
+
+
+
+```{r, message=F, warning=F}
+
+fit <- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
+
+# Extract labels in the correct order
+labels <- sub(".*=", "", names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+           xlab = "Time (days)",
+           ylab = "Survival Probability",
+           legend.title = "",
+           legend.labs = labels,
+           palette = "Dark2",
+           risk.table.fontsize = 2,
+           tables.theme = theme_bw(base_size = 8))
+```
+
+
+
 
 
 
