@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree8ececdd885962a8f4e3b37c15b55ff94754eaa78targetblank8ececdda">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeef416dad0afec828ea78705400b08adba9f3d889targetblankef416daa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/8ececdd885962a8f4e3b37c15b55ff94754eaa78" target="_blank">8ececdd</a>
+<a href="https://github.com/han16/Oral-public-health/tree/ef416dad0afec828ea78705400b08adba9f3d889" target="_blank">ef416da</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree8ececdd885962a8f4e3b37c15b55ff94754eaa78targetblank8ececdda"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtreeef416dad0afec828ea78705400b08adba9f3d889targetblankef416daa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/8ececdd885962a8f4e3b37c15b55ff94754eaa78" target="_blank">8ececdd</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/ef416dad0afec828ea78705400b08adba9f3d889" target="_blank">ef416da</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,7 +569,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/ddwi_part1_cache/
-    Ignored:    analysis/figure/
     Ignored:    analysis/part1_cache/
 
 Unstaged changes:
@@ -620,6 +619,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/analysis/ddwi_part2_survival_analysis.Rmd" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+<td>
+9/3/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/ef416dad0afec828ea78705400b08adba9f3d889/docs/ddwi_part2_survival_analysis.html" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+<td>
+9/3/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -926,7 +959,17 @@ survival_results &lt;- map2_dfr(
 <h3>survival analysis</h3>
 <pre class="r"><code>survival_results=qread(paste(path, &quot;survival_results_for_code3220.qs&quot;, sep=&quot;&quot;))
 # Assuming your data frame is named survival_results
-survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]</code></pre>
+survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
+
+
+table(survival_results_clean$provider_specialty)</code></pre>
+<pre><code>
+         Endodontist General Practitioner       Not Applicable 
+                  26                 5061                   10 
+        Oral Surgeon         Orthodontist    Pediatric Dentist 
+                  20                    2                11930 
+        Periodontist       Prosthodontist 
+                  11                    8 </code></pre>
 <pre class="r"><code>library(survival)
 library(survminer)
 
@@ -941,7 +984,8 @@ km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
 ggsurvplot(km_fit,
            data = survival_results_clean,
            conf.int = TRUE,
-           conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           #conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
            xlab = &quot;Time (days)&quot;,
            ylab = &quot;Survival probability&quot;,
            title = &quot;Kaplan-Meier Curve for Tooth Survival&quot;,
@@ -971,6 +1015,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-7-1.png" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-7-1.png" target="_blank">8ececdd</a>
 </td>
 <td>
@@ -995,6 +1050,7 @@ ggsurvplot(fit,
            risk.table = TRUE,
            xlab = &quot;Time (days)&quot;,
            ylab = &quot;Survival Probability&quot;,
+           censor.shape = NA,      # remove vertical censoring marks
            legend.title = &quot;&quot;,
            legend.labs = labels,
            palette = &quot;Dark2&quot;,
@@ -1023,6 +1079,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-8-1.png" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-8-1.png" target="_blank">8ececdd</a>
@@ -1088,6 +1155,43 @@ ggsurvplot(
   ylab = &quot;Survival Probability&quot;
 )</code></pre>
 <p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-9-1.png" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="d3120-pulp-cap-indirect" class="section level2">
@@ -1107,8 +1211,15 @@ survival_results &lt;- map2_dfr(
 survival_results=qread(paste(path, &quot;survival_results_for_code&quot;, start_code, &quot;.qs&quot;, sep=&quot;&quot;))
 # Assuming your data frame is named survival_results
 survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
-
-library(survival)
+table(survival_results_clean$provider_specialty)</code></pre>
+<pre><code>
+         Endodontist General Practitioner       Not Applicable 
+                  13                 3297                    6 
+        Oral Surgeon         Orthodontist    Pediatric Dentist 
+                  33                    3                 1670 
+        Periodontist       Prosthodontist 
+                   1                   11 </code></pre>
+<pre class="r"><code>library(survival)
 library(survminer)
 
 # Create the survival object
@@ -1122,65 +1233,12 @@ km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
 ggsurvplot(km_fit,
            data = survival_results_clean,
            conf.int = TRUE,
-           conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+          # conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
            xlab = &quot;Time (days)&quot;,
            ylab = &quot;Survival probability&quot;,
            title = &quot;Kaplan-Meier Curve for Tooth Survival&quot;,
            palette = &quot;red&quot;)              # Set curve color to red</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-11-1.png" target="_blank">8ececdd</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-06-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
-
-# Extract labels in the correct order
-labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
-
-ggsurvplot(fit,
-           data = survival_results_clean,
-           pval = TRUE,
-           risk.table = TRUE,
-           xlab = &quot;Time (days)&quot;,
-           ylab = &quot;Survival Probability&quot;,
-           legend.title = &quot;&quot;,
-           legend.labs = labels,
-           palette = &quot;Dark2&quot;,
-           risk.table.fontsize = 2,
-           tables.theme = theme_bw(base_size = 8))</code></pre>
 <p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
@@ -1206,7 +1264,85 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-12-1.png" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-12-1.png" target="_blank">8ececdd</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
+
+# Extract labels in the correct order
+labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+            censor.shape = NA,      # remove vertical censoring marks
+           conf.int = TRUE,
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival Probability&quot;,
+           legend.title = &quot;&quot;,
+           legend.labs = labels,
+           palette = &quot;Dark2&quot;,
+           risk.table.fontsize = 2,
+           tables.theme = theme_bw(base_size = 8))</code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">ef416da</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-09-03
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">8ececdd</a>
 </td>
 <td>
 han
@@ -1256,44 +1392,7 @@ ggsurvplot(
   xlab = &quot;Days&quot;,
   ylab = &quot;Survival Probability&quot;
 )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">8ececdd</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-06-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="vs-3120" class="section level2">
@@ -1316,6 +1415,7 @@ ggsurvplot(
   data = survival_combined_clean,
   pval = TRUE,                # Add p-value for log-rank test
   conf.int = TRUE,            # Add confidence intervals
+  censor.shape = NA,      # remove vertical censoring marks
   risk.table = TRUE,          # Show number at risk
   legend.title = &quot;Code&quot;,      
   xlab = &quot;Time in Days&quot;,      
@@ -1323,7 +1423,7 @@ ggsurvplot(
   palette = &quot;Dark2&quot;,           # Use a nice color palette
   risk.table.fontsize = 3    # smaller font size (try 2 to 4 for smaller text)
 )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>small p value suggests the survival curves differ significantly
 between code 3120 and 3220.</li>

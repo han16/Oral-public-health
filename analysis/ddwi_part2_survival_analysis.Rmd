@@ -205,6 +205,8 @@ survival_results=qread(paste(path, "survival_results_for_code3220.qs", sep=""))
 # Assuming your data frame is named survival_results
 survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
 
+
+table(survival_results_clean$provider_specialty)
 ```
 
 
@@ -225,7 +227,8 @@ km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
 ggsurvplot(km_fit,
            data = survival_results_clean,
            conf.int = TRUE,
-           conf.int.fill = "gray",       # Set confidence band to gray
+           #conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
            xlab = "Time (days)",
            ylab = "Survival probability",
            title = "Kaplan-Meier Curve for Tooth Survival",
@@ -251,6 +254,7 @@ ggsurvplot(fit,
            risk.table = TRUE,
            xlab = "Time (days)",
            ylab = "Survival Probability",
+           censor.shape = NA,      # remove vertical censoring marks
            legend.title = "",
            legend.labs = labels,
            palette = "Dark2",
@@ -330,6 +334,13 @@ start_code=3120
 survival_results=qread(paste(path, "survival_results_for_code", start_code, ".qs", sep=""))
 # Assuming your data frame is named survival_results
 survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+table(survival_results_clean$provider_specialty)
+```
+
+
+
+
+```{r, message=F, warning=F}
 
 library(survival)
 library(survminer)
@@ -345,7 +356,8 @@ km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
 ggsurvplot(km_fit,
            data = survival_results_clean,
            conf.int = TRUE,
-           conf.int.fill = "gray",       # Set confidence band to gray
+          # conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
            xlab = "Time (days)",
            ylab = "Survival probability",
            title = "Kaplan-Meier Curve for Tooth Survival",
@@ -365,6 +377,8 @@ ggsurvplot(fit,
            data = survival_results_clean,
            pval = TRUE,
            risk.table = TRUE,
+            censor.shape = NA,      # remove vertical censoring marks
+           conf.int = TRUE,
            xlab = "Time (days)",
            ylab = "Survival Probability",
            legend.title = "",
@@ -448,6 +462,7 @@ ggsurvplot(
   data = survival_combined_clean,
   pval = TRUE,                # Add p-value for log-rank test
   conf.int = TRUE,            # Add confidence intervals
+  censor.shape = NA,      # remove vertical censoring marks
   risk.table = TRUE,          # Show number at risk
   legend.title = "Code",      
   xlab = "Time in Days",      
