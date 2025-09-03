@@ -259,6 +259,48 @@ ggsurvplot(fit,
 ```
 
 
+### permanent (1-32) vs  primary tooth (A-T)
+
+
+```{r, message=F, warning=F}
+
+# Extract the tooth code (part after :)
+survival_combined_clean <- survival_results_clean %>%
+  mutate(
+    Tooth_Code = sub(".*:", "", Tooth_ID),
+    Tooth_Type = ifelse(Tooth_Code %in% as.character(1:32), "Permanent",
+                        ifelse(Tooth_Code %in% LETTERS[1:20], "Primary", NA))
+  )
+
+# Check distribution
+table(survival_combined_clean$Tooth_Type, useNA = "ifany")
+
+# Build survival object
+surv_obj <- Surv(
+  time = survival_combined_clean$Survival_Time_Days,
+  event = survival_combined_clean$Event_Observed
+)
+
+# Fit Kaplan-Meier by tooth type
+fit <- survfit(surv_obj ~ Tooth_Type, data = survival_combined_clean)
+
+# Plot survival curves
+ggsurvplot(
+  fit,
+  data = survival_combined_clean,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = TRUE,
+  censor.shape = NA,      # remove vertical censoring marks
+  legend.title = "Tooth Type",
+  legend.labs = c("Permanent", "Primary"),
+  xlab = "Days",
+  ylab = "Survival Probability"
+)
+
+```
+
+
 
 ## D3120 Pulp cap indirect
 
@@ -334,7 +376,50 @@ ggsurvplot(fit,
 
 
 
+### permanent (1-32) vs  primary tooth (A-T)
 
+
+```{r, message=F, warning=F}
+
+# Extract the tooth code (part after :)
+survival_combined_clean <- survival_results_clean  %>%
+  mutate(
+    Tooth_Code = sub(".*:", "", Tooth_ID),
+    Tooth_Type = ifelse(Tooth_Code %in% as.character(1:32), "Permanent",
+                        ifelse(Tooth_Code %in% LETTERS[1:20], "Primary", NA))
+  )
+
+# Check distribution
+table(survival_combined_clean$Tooth_Type, useNA = "ifany")
+
+# Build survival object
+surv_obj <- Surv(
+  time = survival_combined_clean$Survival_Time_Days,
+  event = survival_combined_clean$Event_Observed
+)
+
+# Fit Kaplan-Meier by tooth type
+fit <- survfit(surv_obj ~ Tooth_Type, data = survival_combined_clean)
+
+# Plot survival curves
+ggsurvplot(
+  fit,
+  data = survival_combined_clean,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = TRUE,
+  censor.shape = NA,      # remove vertical censoring marks
+  legend.title = "Tooth Type",
+  legend.labs = c("Permanent", "Primary"),
+  xlab = "Days",
+  ylab = "Survival Probability"
+)
+
+```
+
+
+
+## 3220 vs 3120 
 
 
 ```{r, message=F, warning=F}
