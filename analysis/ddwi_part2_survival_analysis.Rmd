@@ -226,13 +226,17 @@ km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
 # Plot the KM curve: red curve, gray confidence interval
 ggsurvplot(km_fit,
            data = survival_results_clean,
+           risk.table = TRUE,
            conf.int = TRUE,
            #conf.int.fill = "gray",       # Set confidence band to gray
            censor.shape = NA,      # remove vertical censoring marks
            xlab = "Time (days)",
            ylab = "Survival probability",
            title = "Kaplan-Meier Curve for Tooth Survival",
-           palette = "red")              # Set curve color to red
+           palette = "red",  # Set curve color to red
+           break.time.by = 365       # tick every 365 days
+          
+  )             
 ```
 
 
@@ -259,7 +263,9 @@ ggsurvplot(fit,
            legend.labs = labels,
            palette = "Dark2",
            risk.table.fontsize = 2,
-           tables.theme = theme_bw(base_size = 8))
+           tables.theme = theme_bw(base_size = 8), 
+            break.time.by = 365       # tick every 365 days
+           )
 ```
 
 
@@ -299,7 +305,9 @@ ggsurvplot(
   legend.title = "Tooth Type",
   legend.labs = c("Permanent", "Primary"),
   xlab = "Days",
-  ylab = "Survival Probability"
+  ylab = "Survival Probability", 
+  risk.table.fontsize = 3,
+   break.time.by = 365       # tick every 365 days
 )
 
 ```
@@ -355,13 +363,16 @@ km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
 # Plot the KM curve: red curve, gray confidence interval
 ggsurvplot(km_fit,
            data = survival_results_clean,
+           risk.table = T, 
            conf.int = TRUE,
           # conf.int.fill = "gray",       # Set confidence band to gray
            censor.shape = NA,      # remove vertical censoring marks
            xlab = "Time (days)",
            ylab = "Survival probability",
            title = "Kaplan-Meier Curve for Tooth Survival",
-           palette = "red")              # Set curve color to red
+           palette = "red", # Set curve color to red
+           break.time.by = 365       # tick every 365 days
+          )              
 ```
 
 
@@ -385,7 +396,9 @@ ggsurvplot(fit,
            legend.labs = labels,
            palette = "Dark2",
            risk.table.fontsize = 2,
-           tables.theme = theme_bw(base_size = 8))
+           tables.theme = theme_bw(base_size = 8), 
+           break.time.by = 365       # tick every 365 days
+           )
 ```
 
 
@@ -426,7 +439,8 @@ ggsurvplot(
   legend.title = "Tooth Type",
   legend.labs = c("Permanent", "Primary"),
   xlab = "Days",
-  ylab = "Survival Probability"
+  ylab = "Survival Probability", 
+  break.time.by = 365       # tick every 365 days
 )
 
 ```
@@ -468,7 +482,8 @@ ggsurvplot(
   xlab = "Time in Days",      
   ylab = "Survival Probability",
   palette = "Dark2",           # Use a nice color palette
-  risk.table.fontsize = 3    # smaller font size (try 2 to 4 for smaller text)
+  risk.table.fontsize = 3,    # smaller font size (try 2 to 4 for smaller text)
+  break.time.by = 365       # tick every 365 days
 )
 ```
 
