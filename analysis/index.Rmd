@@ -14,6 +14,8 @@ output:
 
 * [survival analysis](ddwi_part2_survival_analysis.html)
 
+* [General Practitioner vs Pediatric Dentist](ddwi_part3.html)
+
 
 
 ## Medicare 
