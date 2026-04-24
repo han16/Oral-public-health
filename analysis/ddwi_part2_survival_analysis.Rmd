@@ -202,7 +202,7 @@ survival_results <- map2_dfr(
 
 ```{r, message=F, warning=F}
 survival_results=qread(paste(path, "survival_results_for_code3220.qs", sep=""))
-# Assuming your data frame is named survival_results
+# Assuming the data frame is named survival_results
 survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
 
 
@@ -267,6 +267,33 @@ ggsurvplot(fit,
             break.time.by = 365       # tick every 365 days
            )
 ```
+
+
+
+```{r, message=F, warning=F}
+
+fit <- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean %>% filter(provider_specialty=="General Practitioner" |provider_specialty=="Pediatric Dentist" ))
+
+# Extract labels in the correct order
+labels <- sub(".*=", "", names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+           xlab = "Time (days)",
+           ylab = "Survival Probability",
+           censor.shape = NA,      # remove vertical censoring marks
+           legend.title = "",
+           legend.labs = labels,
+           palette = "Dark2",
+           risk.table.fontsize = 4,
+           tables.theme = theme_bw(base_size = 10), 
+            break.time.by = 365       # tick every 365 days
+           )
+```
+
+
 
 
 ### permanent (1-32) vs  primary tooth (A-T)
@@ -397,6 +424,32 @@ ggsurvplot(fit,
            palette = "Dark2",
            risk.table.fontsize = 2,
            tables.theme = theme_bw(base_size = 8), 
+           break.time.by = 365       # tick every 365 days
+           )
+```
+
+
+
+```{r, message=F, warning=F}
+
+fit <- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean %>% filter(provider_specialty=="General Practitioner" |provider_specialty=="Pediatric Dentist"))
+
+# Extract labels in the correct order
+labels <- sub(".*=", "", names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+            censor.shape = NA,      # remove vertical censoring marks
+           conf.int = TRUE,
+           xlab = "Time (days)",
+           ylab = "Survival Probability",
+           legend.title = "",
+           legend.labs = labels,
+           palette = "Dark2",
+           risk.table.fontsize = 4,
+           tables.theme = theme_bw(base_size = 10), 
            break.time.by = 365       # tick every 365 days
            )
 ```
