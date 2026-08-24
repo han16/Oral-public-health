@@ -404,12 +404,12 @@ ggsurvplot(km_fit,
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=T}
 
 fit <- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
 
 # Extract labels in the correct order
-labels <- sub(".*=", "", names(fit$strata))
+#labels <- sub(".*=", "", names(fit$strata))
 
 ggsurvplot(fit,
            data = survival_results_clean,
@@ -417,16 +417,35 @@ ggsurvplot(fit,
            risk.table = TRUE,
             censor.shape = NA,      # remove vertical censoring marks
            conf.int = TRUE,
+           conf.int.style = "step",  # Uses GeomStep instead of GeomRibbon
            xlab = "Time (days)",
            ylab = "Survival Probability",
            legend.title = "",
-           legend.labs = labels,
+           #legend.labs = labels,
+          legend.labs = sub(".*=", "", names(fit$strata)),
            palette = "Dark2",
            risk.table.fontsize = 2,
            tables.theme = theme_bw(base_size = 8), 
            break.time.by = 365       # tick every 365 days
            )
+
+#Fix: Remove linetype from the GeomRibbon layer so ggplot2 can build the legend grob
+#p$plot$layers[[3]]$aes_params$linetype <- NULL
+#p$plot$layers[[3]]$mapping$linetype <- NULL
+#print(p)
 ```
+
+
+
+
+
+* Kaplan-Meier survival curves were computed for different provider types for codes D3120 and D3220, and the differences among them were tested. 
+
+
+
+
+
+
 
 
 
