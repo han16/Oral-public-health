@@ -58,10 +58,10 @@ demographic_combined_all <- do.call(rbind, lapply(processed_list, `[[`, "demogra
 claims_combined_all      <- do.call(rbind, lapply(processed_list, `[[`, "claims"))
 claims_combined_all$member_tooth_number=paste(claims_combined_all$`Unique Member ID`, claims_combined_all$`Tooth Number`, sep=":")
 
-library(qs)
+library(qs2)
 
-qsave(demographic_combined_all, paste(path, "demographic_combined_all.qs", sep=""))
-qsave(claims_combined_all, paste(path, "claims_combined_all.qs", sep=""))
+#qs_save(demographic_combined_all, paste(path, "demographic_combined_all.qs2", sep=""))
+#qs_save(claims_combined_all, paste(path, "claims_combined_all.qs2", sep=""))
 ```
 
 
@@ -561,3 +561,4 @@ ggsurvplot(
 
 
 * small p value suggests the survival curves differ significantly between code 3120 and 3220. 
+

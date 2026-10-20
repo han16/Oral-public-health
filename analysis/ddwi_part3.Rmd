@@ -23,17 +23,22 @@ Would like to separate Primary (Teeth #A-#T)
 and Permanent (#1-#32)
  Using the D7140 as a subsequent code would indicate further treatment that was required on this tooth. 
 I am wondering if we can use the same time frame for the Kaplan-Meier survival. 
-Would we be able to seperate teeth #A-#T , and then teeth #1-#32, that way the primary and permanent teeth are seperated. 
+Would we be able to seperate teeth #A-#T , and then teeth #1-#32, that way the primary and permanent teeth are separated. 
 
 
 
 
 ```{r, message=F, warning=F}
-library(qs)
+
+
+
+library(qs2)
 path="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\"
-demo <- qread(paste(path, "demographic_combined_all.qs", sep=""))
-claims <- qread(paste(path, "claims_combined_all.qs", sep=""))
+demo <- qs_read(paste(path, "demographic_combined_all.qs2", sep=""))
+claims <- qs_read(paste(path, "claims_combined_all.qs2", sep=""))
 ```
+
+
 
 ```{r, message=F, warning=F}
 library(dplyr)
@@ -184,7 +189,87 @@ plot_specialty_trends(claims, "Pediatric Dentist")
 ```
 
 
+## number of primary teeth numbered #A-#T and #1-#32 treated with indirect pulp therapy and pulpotomy 
 
+```{r, message=F, warning=F}
+
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(tidyr)
+
+plot_specialty_trends <- function(data, specialty_name) {
+  
+  # 1. Process data: Filter by specialty, define tooth groups, and calculate proportions
+  plot_data <- data %>%
+    # Filter for the specific specialty
+    filter(`Provider Specialty Name` == specialty_name) %>%
+    mutate(
+      # Extract Year
+      Year = year(as.Date(`Service Date`)),
+      # Clean Procedure Code
+      Code = gsub("D", "", as.character(`Submitted Procedure Code`)),
+      # Define Tooth Groups (Primary vs Permanent)
+      Tooth_Group = case_when(
+        `Tooth Number` %in% LETTERS[1:20] ~ "Primary Teeth (A-T)",
+        as.numeric(`Tooth Number`) %in% 1:32 ~ "Permanent Teeth (1-32)",
+        TRUE ~ "Other/Unknown"
+      )
+    ) %>%
+    # Filter for the years 2011-2020 and valid tooth groups
+    filter(Year >= 2011 & Year <= 2020, 
+           Tooth_Group != "Other/Unknown") %>%
+    group_by(Year, Tooth_Group) %>%
+    summarize(
+      Total_N = n(),
+      Count_3120 = sum(Code == "3120", na.rm = TRUE),
+      Count_3220 = sum(Code == "3220", na.rm = TRUE),
+      # Calculate Percentage (%) - only multiply by 100 once here
+      `3120` = (Count_3120 / Total_N) * 100,
+      `3220` = (Count_3220 / Total_N) * 100,
+      .groups = "drop"
+    ) %>%
+    # Reshape to "Long" format for plotting
+    pivot_longer(cols = c(`3120`, `3220`), 
+                 names_to = "Procedure", 
+                 values_to = "Percentage")
+
+  # 2. Create the Plot
+  # Note: y = Percentage (no need to *100 again because it was done in summarize)
+  p <- ggplot(plot_data, aes(x = Year, y = Total_N, color = Procedure, group = Procedure)) +
+    geom_line(size = 1.2) +
+    geom_point(size = 3) +
+    # Split the plot into two panels for Primary vs Permanent
+    facet_wrap(~Tooth_Group, scales = "free_y") + 
+    scale_x_continuous(breaks = 2011:2020) + 
+    scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+    scale_color_manual(values = c("3120" = "#2E5A88", "3220" = "#A02020"),
+                       labels = c("D3120 (Pulp Cap)", "D3220 (Pulpotomy)")) +
+    labs(
+      title = paste("Annual count of D3120 vs D3220:", specialty_name),
+      subtitle = "Filtered by Provider Specialty (2011-2020)",
+      x = "Procedure Year",
+      y = "Total Claims",
+      color = "Procedure Code"
+    ) +
+    theme_minimal() +
+    theme(
+      panel.grid.minor = element_blank(),
+      strip.text = element_text(size = 11, face = "bold"),
+      legend.position = "bottom", 
+      # Slant x-axis tick labels at 30 degrees and align right
+      axis.text.x = element_text(angle = 30, hjust = 1)
+    )
+  
+  return(p)
+}
+
+plot_specialty_trends(claims, "General Practitioner")
+
+# For Pediatric Dentists:
+plot_specialty_trends(claims, "Pediatric Dentist")
+
+```
 
 
 
