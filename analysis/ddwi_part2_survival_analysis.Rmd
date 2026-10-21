@@ -67,14 +67,16 @@ library(qs2)
 
 
 ```{r, message=F, warning=F}
-library(qs)
+library(qs2)
 path="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\"
-demo <- qread(paste(path, "demographic_combined_all.qs", sep=""))
-claims <- qread(paste(path, "claims_combined_all.qs", sep=""))
+demo <- qs_read(paste(path, "demographic_combined_all.qs2", sep=""))
+claims <- qs_read(paste(path, "claims_combined_all.qs2", sep=""))
 ```
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
+
+#################### too slow ####################
 
 compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
   message("Processing [", index, "/", length(teeth_sample), "]: ", tooth_id)
@@ -169,22 +171,320 @@ compute_survival <- function(tooth_id, claims, demo, index = NA, start_code) {
 
 
 
+```{r, message=F, warning=F}
+library(data.table)
+
+# Convert data frames to data.tables for lightning-fast memory handling
+setDT(claims)
+setDT(demo)
+
+# Ensure date formatting upfront
+claims[, `Service Date` := as.Date(`Service Date`)]
+demo[, `Member Termination Date` := as.Date(`Member Termination Date`)]
+
+compute_survival_fast <- function(claims_dt, demo_dt, start_code, end_code ) {
+  
+  # 1. Find the first occurrence of the start_code for each tooth
+  start_claims <- claims_dt[`Submitted Procedure Code` == start_code, 
+                            .(Start_Date = min(`Service Date`)), 
+                            by = .(Tooth_ID = member_tooth_number, `Unique Member ID`)]
+  
+  if (nrow(start_claims) == 0) return(data.table())
+  
+  # 2. Find the first occurrence of the end event (7140) for each tooth
+  end_claims <- claims_dt[`Submitted Procedure Code` == end_code, 
+                          .(End_Event_Date = min(`Service Date`)), 
+                          by = .(Tooth_ID = member_tooth_number)]
+  
+  # 3. Pull metadata (specialty, surface area) for the tooth's initial start claim
+  # (Using data.table's fast .SD syntax to grab the first row attributes)
+  meta_claims <- claims_dt[`Submitted Procedure Code` == start_code, 
+                           .(provider_specialty = `Provider Specialty Name`[1],
+                             surface_area_code = `All Surfaces Area Code`[1]), 
+                           by = .(Tooth_ID = member_tooth_number)]
+  
+  # 4. Merge start claims with demo to get member termination date
+  setkey(demo_dt, `Unique Member ID`)
+  setkey(start_claims, `Unique Member ID`)
+  merged <- demo_dt[start_claims, nomatch = 0]
+  
+  # 5. Merge with end events and metadata
+  setkey(merged, Tooth_ID)
+  setkey(end_claims, Tooth_ID)
+  merged <- end_claims[merged] # left join
+  
+  setkey(meta_claims, Tooth_ID)
+  merged <- meta_claims[merged]
+  
+  # 6. Compute survival metrics vectorized (no loops!)
+  merged[, Termination_Date := as.Date(`Member Termination Date`)]
+  merged[, Event_Observed := ifelse(!is.na(End_Event_Date) & End_Event_Date >= Start_Date, 1, 0)]
+  
+  # End date is min of (Extraction Date, Termination Date), fallback to Termination Date if no extraction
+  merged[, End_Date := fcase(
+    Event_Observed == 1, End_Event_Date,
+    default = Termination_Date
+  )]
+  
+  # Filter out rows where end date is missing or before start date
+  merged <- merged[!is.na(Start_Date) & !is.na(End_Date) & End_Date >= Start_Date]
+  
+  merged[, Survival_Time_Days := as.numeric(End_Date - Start_Date)]
+  
+  # Select final columns matching the output format
+  result <- merged[, .(
+    Tooth_ID,
+    Start_Date,
+    End_Date,
+    Survival_Time_Days,
+    Event_Observed,
+    Index = .I,
+    provider_specialty,
+    surface_area_code
+  )]
+  
+  return(result)
+}
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+# Run the entire operation in a single vectorized pass!
+#survival_results_dt <- compute_survival_fast(claims, demo, start_code = 3220, end_code = 7140)
+#qs_save(survival_results_dt, paste(path, "survival_results_for_code3220.qs2", sep=""))
+
+
+
+start_codes <- c("3120", "3220", "3230", "3240", "3310", "3320", "3330")
+
+for (code in start_codes) {
+  message("Processing start code: ", code)
+  
+  # Run your fast data.table survival function
+  survival_results_dt <- compute_survival_fast(claims, demo, start_code = code, end_code = 7140)
+  
+  # Save directly using paste0 for clean path concatenation
+  qs_save(survival_results_dt, paste0(path, "survival_results_for_code_", code, ".qs2"))
+}
+
+
+```
+
+
+
+
+
+
+
+## D3230 Pulpectomy, anterior primary tooth
+
+
+
+```{r, message=F, warning=F}
+survival_results=qs_read(paste(path, "survival_results_for_code3230.qs2", sep=""))
+# Assuming the data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+
+
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = TRUE,
+           conf.int = TRUE,
+           #conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival (D3230)",
+           palette = "red",  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             
+```
+
+
+
+
+## D3240 Pulpectomy, posterior primary tooth
+
+
+
+```{r, message=F, warning=F}
+survival_results=qs_read(paste(path, "survival_results_for_code3240.qs2", sep=""))
+# Assuming the data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+
+
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = TRUE,
+           conf.int = TRUE,
+           #conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival (D3240)",
+           palette = "red",  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             
+```
+
+
+## D3310 - Endodontic therapy, anterior tooth (front tooth)
+
+
+
+```{r, message=F, warning=F}
+survival_results=qs_read(paste(path, "survival_results_for_code_3310.qs2", sep=""))
+# Assuming the data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+
+
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = TRUE,
+           conf.int = TRUE,
+           #conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival (D3310)",
+           palette = "red",  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             
+```
+
+
+
+
+## D3320 - Endodontic therapy, premolar tooth (bicuspid / middle tooth)
+
+
+
+```{r, message=F, warning=F}
+survival_results=qs_read(paste(path, "survival_results_for_code_3320.qs2", sep=""))
+# Assuming the data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+
+
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = TRUE,
+           conf.int = TRUE,
+           #conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival (D3320)",
+           palette = "red",  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             
+```
+
+
+## D3330 - Endodontic therapy, molar tooth (back tooth) 
+
+
+
+```{r, message=F, warning=F}
+survival_results=qs_read(paste(path, "survival_results_for_code_3330.qs2", sep=""))
+# Assuming the data frame is named survival_results
+survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
+
+
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj <- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit <- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = TRUE,
+           conf.int = TRUE,
+           #conf.int.fill = "gray",       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = "Time (days)",
+           ylab = "Survival probability",
+           title = "Kaplan-Meier Curve for Tooth Survival (D3330)",
+           palette = "red",  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             
+```
+
+
 
 ## D3220 Therapeutic Pulpotomy
 
 
 
 
-
-
-
-
-
-
-
-
-
 ```{r, message=F, warning=F, eval=F}
+################################# DONOT RUN IT ################################
 teeth_sample=claims %>% filter(`Submitted Procedure Code`==3220) %>% select(member_tooth_number) %>% pull()
 
 
@@ -201,7 +501,7 @@ survival_results <- map2_dfr(
 
 
 ```{r, message=F, warning=F}
-survival_results=qread(paste(path, "survival_results_for_code3220.qs", sep=""))
+survival_results=qs_read(paste(path, "survival_results_for_code3220.qs2", sep=""))
 # Assuming the data frame is named survival_results
 survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
 
@@ -234,7 +534,8 @@ ggsurvplot(km_fit,
            ylab = "Survival probability",
            title = "Kaplan-Meier Curve for Tooth Survival",
            palette = "red",  # Set curve color to red
-           break.time.by = 365       # tick every 365 days
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
           
   )             
 ```
@@ -287,7 +588,7 @@ ggsurvplot(fit,
            legend.title = "",
            legend.labs = labels,
            palette = "Dark2",
-           risk.table.fontsize = 4,
+           risk.table.fontsize = 3,
            tables.theme = theme_bw(base_size = 10), 
             break.time.by = 365       # tick every 365 days
            )
@@ -366,7 +667,7 @@ survival_results <- map2_dfr(
 
 ```{r, message=F, warning=F}
 start_code=3120
-survival_results=qread(paste(path, "survival_results_for_code", start_code, ".qs", sep=""))
+survival_results=qs_read(paste(path, "survival_results_for_code_", start_code, ".qs2", sep=""))
 # Assuming your data frame is named survival_results
 survival_results_clean <- survival_results[!grepl("^9999", survival_results$End_Date), ]
 table(survival_results_clean$provider_specialty)
@@ -523,8 +824,8 @@ ggsurvplot(
 
 
 ```{r, message=F, warning=F}
-survival_results1=qread(paste(path, "survival_results_for_code", 3220, ".qs", sep=""))
-survival_results2=qread(paste(path, "survival_results_for_code", 3120, ".qs", sep=""))
+survival_results1=qs_read(paste(path, "survival_results_for_code_", 3220, ".qs2", sep=""))
+survival_results2=qs_read(paste(path, "survival_results_for_code_", 3120, ".qs2", sep=""))
 survival_combined=rbind(survival_results1, survival_results2) 
 survival_combined$code=c(rep("3220", nrow(survival_results1)), rep("3120", nrow(survival_results2)))
 survival_combined_clean <- survival_combined[!grepl("^9999", survival_combined$End_Date), ]

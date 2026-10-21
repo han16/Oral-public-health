@@ -14,7 +14,7 @@
 
 <title>survival analysis</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-08-24
+<strong>Last updated:</strong> 2026-10-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -418,7 +418,7 @@ title="This is the local directory in which the code in this file was executed."
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
   href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+1.7.2). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree55cf8ed014345551bcaf89514f5f6f9d29719f7btargetblank55cf8eda">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree410c4e405f79afcec2edcc4b4fd930e145ab1ca7targetblank410c4e4a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/55cf8ed014345551bcaf89514f5f6f9d29719f7b" target="_blank">55cf8ed</a>
+<a href="https://github.com/han16/Oral-public-health/tree/410c4e405f79afcec2edcc4b4fd930e145ab1ca7" target="_blank">410c4e4</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree55cf8ed014345551bcaf89514f5f6f9d29719f7btargetblank55cf8eda"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree410c4e405f79afcec2edcc4b4fd930e145ab1ca7targetblank410c4e4a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/55cf8ed014345551bcaf89514f5f6f9d29719f7b" target="_blank">55cf8ed</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/410c4e405f79afcec2edcc4b4fd930e145ab1ca7" target="_blank">410c4e4</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,6 +569,7 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/ddwi_part1_cache/
+    Ignored:    analysis/figure/
     Ignored:    analysis/part1_cache/
 
 Unstaged changes:
@@ -587,7 +588,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown
@@ -619,6 +619,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/410c4e405f79afcec2edcc4b4fd930e145ab1ca7/analysis/ddwi_part2_survival_analysis.Rmd" target="_blank">410c4e4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-20
+</td>
+<td>
+10/20/2026
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/analysis/ddwi_part2_survival_analysis.Rmd" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+<td>
+8/24/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/ddwi_part2_survival_analysis.html" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+<td>
+8/24/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -950,15 +1001,17 @@ demographic_combined_all &lt;- do.call(rbind, lapply(processed_list, `[[`, &quot
 claims_combined_all      &lt;- do.call(rbind, lapply(processed_list, `[[`, &quot;claims&quot;))
 claims_combined_all$member_tooth_number=paste(claims_combined_all$`Unique Member ID`, claims_combined_all$`Tooth Number`, sep=&quot;:&quot;)
 
-library(qs)
+library(qs2)
 
-qsave(demographic_combined_all, paste(path, &quot;demographic_combined_all.qs&quot;, sep=&quot;&quot;))
-qsave(claims_combined_all, paste(path, &quot;claims_combined_all.qs&quot;, sep=&quot;&quot;))</code></pre>
-<pre class="r"><code>library(qs)
+#qs_save(demographic_combined_all, paste(path, &quot;demographic_combined_all.qs2&quot;, sep=&quot;&quot;))
+#qs_save(claims_combined_all, paste(path, &quot;claims_combined_all.qs2&quot;, sep=&quot;&quot;))</code></pre>
+<pre class="r"><code>library(qs2)
 path=&quot;C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\&quot;
-demo &lt;- qread(paste(path, &quot;demographic_combined_all.qs&quot;, sep=&quot;&quot;))
-claims &lt;- qread(paste(path, &quot;claims_combined_all.qs&quot;, sep=&quot;&quot;))</code></pre>
-<pre class="r"><code>compute_survival &lt;- function(tooth_id, claims, demo, index = NA, start_code) {
+demo &lt;- qs_read(paste(path, &quot;demographic_combined_all.qs2&quot;, sep=&quot;&quot;))
+claims &lt;- qs_read(paste(path, &quot;claims_combined_all.qs2&quot;, sep=&quot;&quot;))</code></pre>
+<pre class="r"><code>#################### too slow ####################
+
+compute_survival &lt;- function(tooth_id, claims, demo, index = NA, start_code) {
   message(&quot;Processing [&quot;, index, &quot;/&quot;, length(teeth_sample), &quot;]: &quot;, tooth_id)
 
   # Same logic as before...
@@ -1046,33 +1099,106 @@ claims &lt;- qread(paste(path, &quot;claims_combined_all.qs&quot;, sep=&quot;&qu
 codes in the enrollment period, it’s treated as a failure if code 7140
 appears before the enrollment expires, and censored otherwise.</li>
 </ul>
-<div id="d3220-therapeutic-pulpotomy" class="section level2">
-<h2>D3220 Therapeutic Pulpotomy</h2>
-<pre class="r"><code>teeth_sample=claims %&gt;% filter(`Submitted Procedure Code`==3220) %&gt;% select(member_tooth_number) %&gt;% pull()
+<pre class="r"><code>library(data.table)
+
+# Convert data frames to data.tables for lightning-fast memory handling
+setDT(claims)
+setDT(demo)
+
+# Ensure date formatting upfront
+claims[, `Service Date` := as.Date(`Service Date`)]
+demo[, `Member Termination Date` := as.Date(`Member Termination Date`)]
+
+compute_survival_fast &lt;- function(claims_dt, demo_dt, start_code, end_code ) {
+  
+  # 1. Find the first occurrence of the start_code for each tooth
+  start_claims &lt;- claims_dt[`Submitted Procedure Code` == start_code, 
+                            .(Start_Date = min(`Service Date`)), 
+                            by = .(Tooth_ID = member_tooth_number, `Unique Member ID`)]
+  
+  if (nrow(start_claims) == 0) return(data.table())
+  
+  # 2. Find the first occurrence of the end event (7140) for each tooth
+  end_claims &lt;- claims_dt[`Submitted Procedure Code` == end_code, 
+                          .(End_Event_Date = min(`Service Date`)), 
+                          by = .(Tooth_ID = member_tooth_number)]
+  
+  # 3. Pull metadata (specialty, surface area) for the tooth&#39;s initial start claim
+  # (Using data.table&#39;s fast .SD syntax to grab the first row attributes)
+  meta_claims &lt;- claims_dt[`Submitted Procedure Code` == start_code, 
+                           .(provider_specialty = `Provider Specialty Name`[1],
+                             surface_area_code = `All Surfaces Area Code`[1]), 
+                           by = .(Tooth_ID = member_tooth_number)]
+  
+  # 4. Merge start claims with demo to get member termination date
+  setkey(demo_dt, `Unique Member ID`)
+  setkey(start_claims, `Unique Member ID`)
+  merged &lt;- demo_dt[start_claims, nomatch = 0]
+  
+  # 5. Merge with end events and metadata
+  setkey(merged, Tooth_ID)
+  setkey(end_claims, Tooth_ID)
+  merged &lt;- end_claims[merged] # left join
+  
+  setkey(meta_claims, Tooth_ID)
+  merged &lt;- meta_claims[merged]
+  
+  # 6. Compute survival metrics vectorized (no loops!)
+  merged[, Termination_Date := as.Date(`Member Termination Date`)]
+  merged[, Event_Observed := ifelse(!is.na(End_Event_Date) &amp; End_Event_Date &gt;= Start_Date, 1, 0)]
+  
+  # End date is min of (Extraction Date, Termination Date), fallback to Termination Date if no extraction
+  merged[, End_Date := fcase(
+    Event_Observed == 1, End_Event_Date,
+    default = Termination_Date
+  )]
+  
+  # Filter out rows where end date is missing or before start date
+  merged &lt;- merged[!is.na(Start_Date) &amp; !is.na(End_Date) &amp; End_Date &gt;= Start_Date]
+  
+  merged[, Survival_Time_Days := as.numeric(End_Date - Start_Date)]
+  
+  # Select final columns matching the output format
+  result &lt;- merged[, .(
+    Tooth_ID,
+    Start_Date,
+    End_Date,
+    Survival_Time_Days,
+    Event_Observed,
+    Index = .I,
+    provider_specialty,
+    surface_area_code
+  )]
+  
+  return(result)
+}</code></pre>
+<pre class="r"><code># Run the entire operation in a single vectorized pass!
+#survival_results_dt &lt;- compute_survival_fast(claims, demo, start_code = 3220, end_code = 7140)
+#qs_save(survival_results_dt, paste(path, &quot;survival_results_for_code3220.qs2&quot;, sep=&quot;&quot;))
 
 
-survival_results &lt;- map2_dfr(
-  .x = teeth_sample,
-  .y = seq_along(teeth_sample),
-  .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3220)
-)
-#qsave(survival_results, paste(path, &quot;survival_results_for_code3220.qs&quot;, sep=&quot;&quot;))</code></pre>
-<div id="survival-analysis" class="section level3">
-<h3>survival analysis</h3>
-<pre class="r"><code>survival_results=qread(paste(path, &quot;survival_results_for_code3220.qs&quot;, sep=&quot;&quot;))
+
+start_codes &lt;- c(&quot;3120&quot;, &quot;3220&quot;, &quot;3230&quot;, &quot;3240&quot;, &quot;3310&quot;, &quot;3320&quot;, &quot;3330&quot;)
+
+for (code in start_codes) {
+  message(&quot;Processing start code: &quot;, code)
+  
+  # Run your fast data.table survival function
+  survival_results_dt &lt;- compute_survival_fast(claims, demo, start_code = code, end_code = 7140)
+  
+  # Save directly using paste0 for clean path concatenation
+  qs_save(survival_results_dt, paste0(path, &quot;survival_results_for_code_&quot;, code, &quot;.qs2&quot;))
+}</code></pre>
+<div id="d3230-pulpectomy-anterior-primary-tooth"
+class="section level2">
+<h2>D3230 Pulpectomy, anterior primary tooth</h2>
+<pre class="r"><code>survival_results=qs_read(paste(path, &quot;survival_results_for_code3230.qs2&quot;, sep=&quot;&quot;))
 # Assuming the data frame is named survival_results
 survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
 
 
-table(survival_results_clean$provider_specialty)</code></pre>
-<pre><code>
-         Endodontist General Practitioner       Not Applicable 
-                  26                 5061                   10 
-        Oral Surgeon         Orthodontist    Pediatric Dentist 
-                  20                    2                11930 
-        Periodontist       Prosthodontist 
-                  11                    8 </code></pre>
-<pre class="r"><code>library(survival)
+
+library(survival)
 library(survminer)
 
 # Create the survival object
@@ -1091,12 +1217,13 @@ ggsurvplot(km_fit,
            censor.shape = NA,      # remove vertical censoring marks
            xlab = &quot;Time (days)&quot;,
            ylab = &quot;Survival probability&quot;,
-           title = &quot;Kaplan-Meier Curve for Tooth Survival&quot;,
+           title = &quot;Kaplan-Meier Curve for Tooth Survival (D3230)&quot;,
            palette = &quot;red&quot;,  # Set curve color to red
-           break.time.by = 365       # tick every 365 days
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
           
   )             </code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-7-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
 Past versions of unnamed-chunk-7-1.png
@@ -1119,6 +1246,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-7-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/230bd4dd04c872d010fb4a86c6cafcb1c838d473/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-7-1.png" target="_blank">230bd4d</a>
@@ -1167,26 +1305,42 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
+</div>
+<div id="d3240-pulpectomy-posterior-primary-tooth"
+class="section level2">
+<h2>D3240 Pulpectomy, posterior primary tooth</h2>
+<pre class="r"><code>survival_results=qs_read(paste(path, &quot;survival_results_for_code3240.qs2&quot;, sep=&quot;&quot;))
+# Assuming the data frame is named survival_results
+survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
 
-# Extract labels in the correct order
-labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
 
-ggsurvplot(fit,
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj &lt;- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
            data = survival_results_clean,
-           pval = TRUE,
            risk.table = TRUE,
-           xlab = &quot;Time (days)&quot;,
-           ylab = &quot;Survival Probability&quot;,
+           conf.int = TRUE,
+           #conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
            censor.shape = NA,      # remove vertical censoring marks
-           legend.title = &quot;&quot;,
-           legend.labs = labels,
-           palette = &quot;Dark2&quot;,
-           risk.table.fontsize = 2,
-           tables.theme = theme_bw(base_size = 8), 
-            break.time.by = 365       # tick every 365 days
-           )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = &quot;Kaplan-Meier Curve for Tooth Survival (D3240)&quot;,
+           palette = &quot;red&quot;,  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             </code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-8-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
 Past versions of unnamed-chunk-8-1.png
@@ -1209,6 +1363,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-8-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/230bd4dd04c872d010fb4a86c6cafcb1c838d473/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-8-1.png" target="_blank">230bd4d</a>
@@ -1268,26 +1433,42 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean %&gt;% filter(provider_specialty==&quot;General Practitioner&quot; |provider_specialty==&quot;Pediatric Dentist&quot; ))
+</div>
+<div id="d3310---endodontic-therapy-anterior-tooth-front-tooth"
+class="section level2">
+<h2>D3310 - Endodontic therapy, anterior tooth (front tooth)</h2>
+<pre class="r"><code>survival_results=qs_read(paste(path, &quot;survival_results_for_code_3310.qs2&quot;, sep=&quot;&quot;))
+# Assuming the data frame is named survival_results
+survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
 
-# Extract labels in the correct order
-labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
 
-ggsurvplot(fit,
+
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj &lt;- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
            data = survival_results_clean,
-           pval = TRUE,
            risk.table = TRUE,
-           xlab = &quot;Time (days)&quot;,
-           ylab = &quot;Survival Probability&quot;,
+           conf.int = TRUE,
+           #conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
            censor.shape = NA,      # remove vertical censoring marks
-           legend.title = &quot;&quot;,
-           legend.labs = labels,
-           palette = &quot;Dark2&quot;,
-           risk.table.fontsize = 4,
-           tables.theme = theme_bw(base_size = 10), 
-            break.time.by = 365       # tick every 365 days
-           )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = &quot;Kaplan-Meier Curve for Tooth Survival (D3310)&quot;,
+           palette = &quot;red&quot;,  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             </code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-9-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
 Past versions of unnamed-chunk-9-1.png
@@ -1310,6 +1491,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-9-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-9-1.png" target="_blank">55cf8ed</a>
@@ -1348,46 +1540,43 @@ han
 </div>
 </div>
 </div>
-<div id="permanent-1-32-vs-primary-tooth-a-t" class="section level3">
-<h3>permanent (1-32) vs primary tooth (A-T)</h3>
-<pre class="r"><code># Extract the tooth code (part after :)
-survival_combined_clean &lt;- survival_results_clean %&gt;%
-  mutate(
-    Tooth_Code = sub(&quot;.*:&quot;, &quot;&quot;, Tooth_ID),
-    Tooth_Type = ifelse(Tooth_Code %in% as.character(1:32), &quot;Permanent&quot;,
-                        ifelse(Tooth_Code %in% LETTERS[1:20], &quot;Primary&quot;, NA))
-  )
+<div
+id="d3320---endodontic-therapy-premolar-tooth-bicuspid-middle-tooth"
+class="section level2">
+<h2>D3320 - Endodontic therapy, premolar tooth (bicuspid / middle
+tooth)</h2>
+<pre class="r"><code>survival_results=qs_read(paste(path, &quot;survival_results_for_code_3320.qs2&quot;, sep=&quot;&quot;))
+# Assuming the data frame is named survival_results
+survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
 
-# Check distribution
-table(survival_combined_clean$Tooth_Type, useNA = &quot;ifany&quot;)</code></pre>
-<pre><code>
-Permanent   Primary      &lt;NA&gt; 
-      249     16747        72 </code></pre>
-<pre class="r"><code># Build survival object
-surv_obj &lt;- Surv(
-  time = survival_combined_clean$Survival_Time_Days,
-  event = survival_combined_clean$Event_Observed
-)
 
-# Fit Kaplan-Meier by tooth type
-fit &lt;- survfit(surv_obj ~ Tooth_Type, data = survival_combined_clean)
 
-# Plot survival curves
-ggsurvplot(
-  fit,
-  data = survival_combined_clean,
-  risk.table = TRUE,
-  pval = TRUE,
-  conf.int = TRUE,
-  censor.shape = NA,      # remove vertical censoring marks
-  legend.title = &quot;Tooth Type&quot;,
-  legend.labs = c(&quot;Permanent&quot;, &quot;Primary&quot;),
-  xlab = &quot;Days&quot;,
-  ylab = &quot;Survival Probability&quot;, 
-  risk.table.fontsize = 3,
-   break.time.by = 365       # tick every 365 days
-)</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj &lt;- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = TRUE,
+           conf.int = TRUE,
+           #conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = &quot;Kaplan-Meier Curve for Tooth Survival (D3320)&quot;,
+           palette = &quot;red&quot;,  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             </code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-10-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
 Past versions of unnamed-chunk-10-1.png
@@ -1410,6 +1599,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-10-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-10-1.png" target="_blank">55cf8ed</a>
@@ -1459,33 +1659,16 @@ han
 </div>
 </div>
 </div>
-</div>
-<div id="d3120-pulp-cap-indirect" class="section level2">
-<h2>D3120 Pulp cap indirect</h2>
-<pre class="r"><code>start_code=3120
-teeth_sample=claims %&gt;% filter(`Submitted Procedure Code`==start_code) %&gt;% select(member_tooth_number) %&gt;% pull()
-#teeth_sample=teeth_sample[1:3]
-
-
-survival_results &lt;- map2_dfr(
-  .x = teeth_sample,
-  .y = seq_along(teeth_sample),
-  .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3120)
-)
-#qsave(survival_results, paste(path, &quot;survival_results_for_code&quot;, start_code, &quot;.qs&quot;, sep=&quot;&quot;))</code></pre>
-<pre class="r"><code>start_code=3120
-survival_results=qread(paste(path, &quot;survival_results_for_code&quot;, start_code, &quot;.qs&quot;, sep=&quot;&quot;))
-# Assuming your data frame is named survival_results
+<div id="d3330---endodontic-therapy-molar-tooth-back-tooth"
+class="section level2">
+<h2>D3330 - Endodontic therapy, molar tooth (back tooth)</h2>
+<pre class="r"><code>survival_results=qs_read(paste(path, &quot;survival_results_for_code_3330.qs2&quot;, sep=&quot;&quot;))
+# Assuming the data frame is named survival_results
 survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
-table(survival_results_clean$provider_specialty)</code></pre>
-<pre><code>
-         Endodontist General Practitioner       Not Applicable 
-                  13                 3297                    6 
-        Oral Surgeon         Orthodontist    Pediatric Dentist 
-                  33                    3                 1670 
-        Periodontist       Prosthodontist 
-                   1                   11 </code></pre>
-<pre class="r"><code>library(survival)
+
+
+
+library(survival)
 library(survminer)
 
 # Create the survival object
@@ -1498,23 +1681,25 @@ km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
 # Plot the KM curve: red curve, gray confidence interval
 ggsurvplot(km_fit,
            data = survival_results_clean,
-           risk.table = T, 
+           risk.table = TRUE,
            conf.int = TRUE,
-          # conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           #conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
            censor.shape = NA,      # remove vertical censoring marks
            xlab = &quot;Time (days)&quot;,
            ylab = &quot;Survival probability&quot;,
-           title = &quot;Kaplan-Meier Curve for Tooth Survival&quot;,
-           palette = &quot;red&quot;, # Set curve color to red
-           break.time.by = 365       # tick every 365 days
-          )              </code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+           title = &quot;Kaplan-Meier Curve for Tooth Survival (D3330)&quot;,
+           palette = &quot;red&quot;,  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             </code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div id="fig-unnamed-chunk-11-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1533,18 +1718,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">55cf8ed</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-04-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/230bd4dd04c872d010fb4a86c6cafcb1c838d473/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">230bd4d</a>
+<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-11-1.png" target="_blank">ef416da</a>
 </td>
 <td>
 han
@@ -1555,29 +1729,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Oral-public-health/blob/0246f337f2592f9d8efd2f034dc2442c61007dcc/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">0246f33</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-09-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/ef416dad0afec828ea78705400b08adba9f3d889/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">ef416da</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-09-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-13-1.png" target="_blank">8ececdd</a>
+<a href="https://github.com/han16/Oral-public-health/blob/8ececdd885962a8f4e3b37c15b55ff94754eaa78/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-11-1.png" target="_blank">8ececdd</a>
 </td>
 <td>
 han
@@ -1590,29 +1742,60 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
+</div>
+<div id="d3220-therapeutic-pulpotomy" class="section level2">
+<h2>D3220 Therapeutic Pulpotomy</h2>
+<pre class="r"><code>################################# DONOT RUN IT ################################
+teeth_sample=claims %&gt;% filter(`Submitted Procedure Code`==3220) %&gt;% select(member_tooth_number) %&gt;% pull()
 
-# Extract labels in the correct order
-#labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
 
-ggsurvplot(fit,
+survival_results &lt;- map2_dfr(
+  .x = teeth_sample,
+  .y = seq_along(teeth_sample),
+  .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3220)
+)
+#qsave(survival_results, paste(path, &quot;survival_results_for_code3220.qs&quot;, sep=&quot;&quot;))</code></pre>
+<div id="survival-analysis" class="section level3">
+<h3>survival analysis</h3>
+<pre class="r"><code>survival_results=qs_read(paste(path, &quot;survival_results_for_code3220.qs2&quot;, sep=&quot;&quot;))
+# Assuming the data frame is named survival_results
+survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
+
+
+table(survival_results_clean$provider_specialty)</code></pre>
+<pre><code>
+         Endodontist General Practitioner       Not Applicable 
+                 430                50090                   90 
+        Oral Surgeon         Orthodontist    Pediatric Dentist 
+                 220                   10               125590 
+        Periodontist       Prosthodontist 
+                 110                   70 </code></pre>
+<pre class="r"><code>library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj &lt;- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
            data = survival_results_clean,
-           pval = TRUE,
            risk.table = TRUE,
-            censor.shape = NA,      # remove vertical censoring marks
            conf.int = TRUE,
-           conf.int.style = &quot;step&quot;,  # Uses GeomStep instead of GeomRibbon
+           #conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
            xlab = &quot;Time (days)&quot;,
-           ylab = &quot;Survival Probability&quot;,
-           legend.title = &quot;&quot;,
-           #legend.labs = labels,
-          legend.labs = sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata)),
-           palette = &quot;Dark2&quot;,
-           risk.table.fontsize = 2,
-           tables.theme = theme_bw(base_size = 8), 
-           break.time.by = 365       # tick every 365 days
-           )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+           ylab = &quot;Survival probability&quot;,
+           title = &quot;Kaplan-Meier Curve for Tooth Survival&quot;,
+           palette = &quot;red&quot;,  # Set curve color to red
+           break.time.by = 365,       # tick every 365 days
+           risk.table.fontsize = 3
+          
+  )             </code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-14-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
 Past versions of unnamed-chunk-14-1.png
@@ -1635,6 +1818,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-14-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-14-1.png" target="_blank">55cf8ed</a>
@@ -1672,16 +1866,7 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>#Fix: Remove linetype from the GeomRibbon layer so ggplot2 can build the legend grob
-#p$plot$layers[[3]]$aes_params$linetype &lt;- NULL
-#p$plot$layers[[3]]$mapping$linetype &lt;- NULL
-#print(p)</code></pre>
-<ul>
-<li>Kaplan-Meier survival curves were computed for different provider
-types for codes D3120 and D3220, and the differences among them were
-tested.</li>
-</ul>
-<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean %&gt;% filter(provider_specialty==&quot;General Practitioner&quot; |provider_specialty==&quot;Pediatric Dentist&quot;))
+<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
 
 # Extract labels in the correct order
 labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
@@ -1690,18 +1875,17 @@ ggsurvplot(fit,
            data = survival_results_clean,
            pval = TRUE,
            risk.table = TRUE,
-            censor.shape = NA,      # remove vertical censoring marks
-           conf.int = TRUE,
            xlab = &quot;Time (days)&quot;,
            ylab = &quot;Survival Probability&quot;,
+           censor.shape = NA,      # remove vertical censoring marks
            legend.title = &quot;&quot;,
            legend.labs = labels,
            palette = &quot;Dark2&quot;,
-           risk.table.fontsize = 4,
-           tables.theme = theme_bw(base_size = 10), 
-           break.time.by = 365       # tick every 365 days
+           risk.table.fontsize = 2,
+           tables.theme = theme_bw(base_size = 8), 
+            break.time.by = 365       # tick every 365 days
            )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-15-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
 Past versions of unnamed-chunk-15-1.png
@@ -1724,6 +1908,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-15-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-15-1.png" target="_blank">55cf8ed</a>
@@ -1750,45 +1945,26 @@ han
 </table>
 </div>
 </div>
-<div id="permanent-1-32-vs-primary-tooth-a-t-1" class="section level3">
-<h3>permanent (1-32) vs primary tooth (A-T)</h3>
-<pre class="r"><code># Extract the tooth code (part after :)
-survival_combined_clean &lt;- survival_results_clean  %&gt;%
-  mutate(
-    Tooth_Code = sub(&quot;.*:&quot;, &quot;&quot;, Tooth_ID),
-    Tooth_Type = ifelse(Tooth_Code %in% as.character(1:32), &quot;Permanent&quot;,
-                        ifelse(Tooth_Code %in% LETTERS[1:20], &quot;Primary&quot;, NA))
-  )
+<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean %&gt;% filter(provider_specialty==&quot;General Practitioner&quot; |provider_specialty==&quot;Pediatric Dentist&quot; ))
 
-# Check distribution
-table(survival_combined_clean$Tooth_Type, useNA = &quot;ifany&quot;)</code></pre>
-<pre><code>
-Permanent   Primary      &lt;NA&gt; 
-      450       195      4389 </code></pre>
-<pre class="r"><code># Build survival object
-surv_obj &lt;- Surv(
-  time = survival_combined_clean$Survival_Time_Days,
-  event = survival_combined_clean$Event_Observed
-)
+# Extract labels in the correct order
+labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
 
-# Fit Kaplan-Meier by tooth type
-fit &lt;- survfit(surv_obj ~ Tooth_Type, data = survival_combined_clean)
-
-# Plot survival curves
-ggsurvplot(
-  fit,
-  data = survival_combined_clean,
-  risk.table = TRUE,
-  pval = TRUE,
-  conf.int = TRUE,
-  censor.shape = NA,      # remove vertical censoring marks
-  legend.title = &quot;Tooth Type&quot;,
-  legend.labs = c(&quot;Permanent&quot;, &quot;Primary&quot;),
-  xlab = &quot;Days&quot;,
-  ylab = &quot;Survival Probability&quot;, 
-  break.time.by = 365       # tick every 365 days
-)</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival Probability&quot;,
+           censor.shape = NA,      # remove vertical censoring marks
+           legend.title = &quot;&quot;,
+           legend.labs = labels,
+           palette = &quot;Dark2&quot;,
+           risk.table.fontsize = 3,
+           tables.theme = theme_bw(base_size = 10), 
+            break.time.by = 365       # tick every 365 days
+           )</code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-16-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
 Past versions of unnamed-chunk-16-1.png
@@ -1811,6 +1987,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-16-1.png" target="_blank">4337942</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-16-1.png" target="_blank">55cf8ed</a>
@@ -1849,11 +2036,195 @@ han
 </div>
 </div>
 </div>
+<div id="permanent-1-32-vs-primary-tooth-a-t" class="section level3">
+<h3>permanent (1-32) vs primary tooth (A-T)</h3>
+<pre class="r"><code># Extract the tooth code (part after :)
+survival_combined_clean &lt;- survival_results_clean %&gt;%
+  mutate(
+    Tooth_Code = sub(&quot;.*:&quot;, &quot;&quot;, Tooth_ID),
+    Tooth_Type = ifelse(Tooth_Code %in% as.character(1:32), &quot;Permanent&quot;,
+                        ifelse(Tooth_Code %in% LETTERS[1:20], &quot;Primary&quot;, NA))
+  )
+
+# Check distribution
+table(survival_combined_clean$Tooth_Type, useNA = &quot;ifany&quot;)</code></pre>
+<pre><code>
+Permanent   Primary      &lt;NA&gt; 
+     2500    173350       760 </code></pre>
+<pre class="r"><code># Build survival object
+surv_obj &lt;- Surv(
+  time = survival_combined_clean$Survival_Time_Days,
+  event = survival_combined_clean$Event_Observed
+)
+
+# Fit Kaplan-Meier by tooth type
+fit &lt;- survfit(surv_obj ~ Tooth_Type, data = survival_combined_clean)
+
+# Plot survival curves
+ggsurvplot(
+  fit,
+  data = survival_combined_clean,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = TRUE,
+  censor.shape = NA,      # remove vertical censoring marks
+  legend.title = &quot;Tooth Type&quot;,
+  legend.labs = c(&quot;Permanent&quot;, &quot;Primary&quot;),
+  xlab = &quot;Days&quot;,
+  ylab = &quot;Survival Probability&quot;, 
+  risk.table.fontsize = 3,
+   break.time.by = 365       # tick every 365 days
+)</code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-17-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="d3120-pulp-cap-indirect" class="section level2">
+<h2>D3120 Pulp cap indirect</h2>
+<pre class="r"><code>start_code=3120
+teeth_sample=claims %&gt;% filter(`Submitted Procedure Code`==start_code) %&gt;% select(member_tooth_number) %&gt;% pull()
+#teeth_sample=teeth_sample[1:3]
+
+
+survival_results &lt;- map2_dfr(
+  .x = teeth_sample,
+  .y = seq_along(teeth_sample),
+  .f = ~compute_survival(tooth_id = .x, claims = claims, demo = demo, index = .y, start_code=3120)
+)
+#qsave(survival_results, paste(path, &quot;survival_results_for_code&quot;, start_code, &quot;.qs&quot;, sep=&quot;&quot;))</code></pre>
+<pre class="r"><code>start_code=3120
+survival_results=qs_read(paste(path, &quot;survival_results_for_code_&quot;, start_code, &quot;.qs2&quot;, sep=&quot;&quot;))
+# Assuming your data frame is named survival_results
+survival_results_clean &lt;- survival_results[!grepl(&quot;^9999&quot;, survival_results$End_Date), ]
+table(survival_results_clean$provider_specialty)</code></pre>
+<pre><code>
+         Endodontist General Practitioner       Not Applicable 
+                  60                26640                   50 
+        Oral Surgeon         Orthodontist    Pediatric Dentist 
+                  10                   10                17950 
+        Periodontist       Prosthodontist 
+                  10                  170 </code></pre>
+<pre class="r"><code>library(survival)
+library(survminer)
+
+# Create the survival object
+surv_obj &lt;- Surv(time = survival_results_clean$Survival_Time_Days,
+                 event = survival_results_clean$Event_Observed)
+
+# Fit the Kaplan-Meier model
+km_fit &lt;- survfit(surv_obj ~ 1, data = survival_results_clean)
+
+# Plot the KM curve: red curve, gray confidence interval
+ggsurvplot(km_fit,
+           data = survival_results_clean,
+           risk.table = T, 
+           conf.int = TRUE,
+          # conf.int.fill = &quot;gray&quot;,       # Set confidence band to gray
+           censor.shape = NA,      # remove vertical censoring marks
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = &quot;Kaplan-Meier Curve for Tooth Survival&quot;,
+           palette = &quot;red&quot;, # Set curve color to red
+           break.time.by = 365       # tick every 365 days
+          )              </code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-20-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean)
+
+# Extract labels in the correct order
+#labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+            censor.shape = NA,      # remove vertical censoring marks
+           conf.int = TRUE,
+           conf.int.style = &quot;step&quot;,  # Uses GeomStep instead of GeomRibbon
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival Probability&quot;,
+           legend.title = &quot;&quot;,
+           #legend.labs = labels,
+          legend.labs = sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata)),
+           palette = &quot;Dark2&quot;,
+           risk.table.fontsize = 2,
+           tables.theme = theme_bw(base_size = 8), 
+           break.time.by = 365       # tick every 365 days
+           )</code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-21-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Fix: Remove linetype from the GeomRibbon layer so ggplot2 can build the legend grob
+#p$plot$layers[[3]]$aes_params$linetype &lt;- NULL
+#p$plot$layers[[3]]$mapping$linetype &lt;- NULL
+#print(p)</code></pre>
+<ul>
+<li>Kaplan-Meier survival curves were computed for different provider
+types for codes D3120 and D3220, and the differences among them were
+tested.</li>
+</ul>
+<pre class="r"><code>fit &lt;- survfit(Surv(Survival_Time_Days, Event_Observed) ~ provider_specialty, data = survival_results_clean %&gt;% filter(provider_specialty==&quot;General Practitioner&quot; |provider_specialty==&quot;Pediatric Dentist&quot;))
+
+# Extract labels in the correct order
+labels &lt;- sub(&quot;.*=&quot;, &quot;&quot;, names(fit$strata))
+
+ggsurvplot(fit,
+           data = survival_results_clean,
+           pval = TRUE,
+           risk.table = TRUE,
+            censor.shape = NA,      # remove vertical censoring marks
+           conf.int = TRUE,
+           xlab = &quot;Time (days)&quot;,
+           ylab = &quot;Survival Probability&quot;,
+           legend.title = &quot;&quot;,
+           legend.labs = labels,
+           palette = &quot;Dark2&quot;,
+           risk.table.fontsize = 4,
+           tables.theme = theme_bw(base_size = 10), 
+           break.time.by = 365       # tick every 365 days
+           )</code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-22-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div id="permanent-1-32-vs-primary-tooth-a-t-1" class="section level3">
+<h3>permanent (1-32) vs primary tooth (A-T)</h3>
+<pre class="r"><code># Extract the tooth code (part after :)
+survival_combined_clean &lt;- survival_results_clean  %&gt;%
+  mutate(
+    Tooth_Code = sub(&quot;.*:&quot;, &quot;&quot;, Tooth_ID),
+    Tooth_Type = ifelse(Tooth_Code %in% as.character(1:32), &quot;Permanent&quot;,
+                        ifelse(Tooth_Code %in% LETTERS[1:20], &quot;Primary&quot;, NA))
+  )
+
+# Check distribution
+table(survival_combined_clean$Tooth_Type, useNA = &quot;ifany&quot;)</code></pre>
+<pre><code>
+Permanent   Primary      &lt;NA&gt; 
+     4740      2190     37970 </code></pre>
+<pre class="r"><code># Build survival object
+surv_obj &lt;- Surv(
+  time = survival_combined_clean$Survival_Time_Days,
+  event = survival_combined_clean$Event_Observed
+)
+
+# Fit Kaplan-Meier by tooth type
+fit &lt;- survfit(surv_obj ~ Tooth_Type, data = survival_combined_clean)
+
+# Plot survival curves
+ggsurvplot(
+  fit,
+  data = survival_combined_clean,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = TRUE,
+  censor.shape = NA,      # remove vertical censoring marks
+  legend.title = &quot;Tooth Type&quot;,
+  legend.labs = c(&quot;Permanent&quot;, &quot;Primary&quot;),
+  xlab = &quot;Days&quot;,
+  ylab = &quot;Survival Probability&quot;, 
+  break.time.by = 365       # tick every 365 days
+)</code></pre>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-23-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="vs-3120" class="section level2">
 <h2>3220 vs 3120</h2>
-<pre class="r"><code>survival_results1=qread(paste(path, &quot;survival_results_for_code&quot;, 3220, &quot;.qs&quot;, sep=&quot;&quot;))
-survival_results2=qread(paste(path, &quot;survival_results_for_code&quot;, 3120, &quot;.qs&quot;, sep=&quot;&quot;))
+<pre class="r"><code>survival_results1=qs_read(paste(path, &quot;survival_results_for_code_&quot;, 3220, &quot;.qs2&quot;, sep=&quot;&quot;))
+survival_results2=qs_read(paste(path, &quot;survival_results_for_code_&quot;, 3120, &quot;.qs2&quot;, sep=&quot;&quot;))
 survival_combined=rbind(survival_results1, survival_results2) 
 survival_combined$code=c(rep(&quot;3220&quot;, nrow(survival_results1)), rep(&quot;3120&quot;, nrow(survival_results2)))
 survival_combined_clean &lt;- survival_combined[!grepl(&quot;^9999&quot;, survival_combined$End_Date), ]</code></pre>
@@ -1879,44 +2250,7 @@ ggsurvplot(
   risk.table.fontsize = 3,    # smaller font size (try 2 to 4 for smaller text)
   break.time.by = 365       # tick every 365 days
 )</code></pre>
-<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Oral-public-health/blob/55cf8ed014345551bcaf89514f5f6f9d29719f7b/docs/figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-18-1.png" target="_blank">55cf8ed</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-04-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ddwi_part2_survival_analysis.Rmd/unnamed-chunk-25-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>small p value suggests the survival curves differ significantly
 between code 3120 and 3220.</li>
@@ -1930,12 +2264,12 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.2 (2023-10-31 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
+<pre><code>R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
 Running under: Windows 11 x64 (build 26200)
 
 Matrix products: default
-
+  LAPACK version 3.12.1
 
 locale:
 [1] LC_COLLATE=English_United States.utf8 
@@ -1952,49 +2286,51 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] survminer_0.5.0     survival_3.8-3      qs_0.27.3          
- [4] VennDiagram_1.7.3   futile.logger_1.4.3 condsurv_1.0.0     
- [7] devtools_2.4.5      usethis_3.1.0       tidycmprsk_1.1.0   
-[10] gtsummary_2.0.4     ggsurvfit_1.1.0     irr_0.84.1         
-[13] lpSolve_5.6.23      readxl_1.4.3        cowplot_1.1.3      
-[16] matrixStats_1.5.0   gridExtra_2.3       DT_0.33            
-[19] rstatix_0.7.2       ggpubr_0.6.0        kableExtra_1.4.0   
-[22] lubridate_1.9.4     forcats_1.0.0       stringr_1.5.1      
-[25] dplyr_1.1.4         purrr_1.0.2         readr_2.1.4        
-[28] tidyr_1.3.1         tibble_3.2.1        ggplot2_4.0.3      
-[31] tidyverse_2.0.0     rprojroot_2.0.4    
+ [1] survminer_0.5.2     survival_3.8-6      data.table_1.18.6.1
+ [4] qs2_0.3.1           VennDiagram_1.8.2   futile.logger_1.4.9
+ [7] condsurv_1.0.0      devtools_2.5.2      usethis_3.2.2      
+[10] tidycmprsk_1.1.2    gtsummary_2.6.1     ggsurvfit_1.2.1    
+[13] irr_0.85            lpSolve_5.6.23      readxl_1.5.0.1     
+[16] cowplot_1.2.0       matrixStats_1.5.0   gridExtra_2.3.1    
+[19] DT_0.34.0           rstatix_1.1.0       ggpubr_1.0.0       
+[22] kableExtra_1.4.1    lubridate_1.9.5     forcats_1.0.1      
+[25] stringr_1.6.0       dplyr_1.2.1         purrr_1.2.2        
+[28] readr_2.2.0         tidyr_1.3.2         tibble_3.3.1       
+[31] ggplot2_4.0.3       tidyverse_2.0.0     rprojroot_2.1.1    
 
 loaded via a namespace (and not attached):
- [1] formatR_1.14         remotes_2.5.0        rlang_1.1.2         
- [4] magrittr_2.0.3       git2r_0.35.0         compiler_4.3.2      
- [7] systemfonts_1.2.1    vctrs_0.6.5          profvis_0.4.0       
-[10] pkgconfig_2.0.3      fastmap_1.2.0        backports_1.5.0     
-[13] ellipsis_0.3.2       labeling_0.4.3       KMsurv_0.1-5        
-[16] promises_1.3.2       rmarkdown_2.29       markdown_1.13       
-[19] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.50.6         
-[22] cachem_1.1.0         jsonlite_1.8.9       later_1.4.1         
-[25] broom_1.0.7          R6_2.6.1             bslib_0.9.0         
-[28] stringi_1.8.3        RColorBrewer_1.1-3   car_3.1-3           
-[31] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
-[34] Rcpp_1.0.11          knitr_1.49           zoo_1.8-14          
-[37] httpuv_1.6.15        Matrix_1.6-5         splines_4.3.2       
-[40] timechange_0.3.0     tidyselect_1.2.1     rstudioapi_0.17.1   
-[43] abind_1.4-8          yaml_2.3.8           stringfish_0.16.0   
-[46] ggtext_0.1.2         miniUI_0.1.1.1       pkgbuild_1.4.6      
-[49] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
-[52] S7_0.2.0             evaluate_1.0.3       lambda.r_1.2.4      
-[55] RcppParallel_5.1.10  urlchecker_1.0.1     xml2_1.3.6          
-[58] survMisc_0.5.6       pillar_1.10.1        carData_3.0-5       
-[61] whisker_0.4.1        generics_0.1.3       hms_1.1.3           
-[64] commonmark_1.9.2     scales_1.4.0         RApiSerialize_0.1.4 
-[67] xtable_1.8-4         glue_1.8.0           tools_4.3.2         
-[70] data.table_1.16.4    ggsignif_0.6.4       fs_1.6.5            
-[73] Formula_1.2-5        cli_3.6.2            km.ci_0.5-6         
-[76] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
-[79] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
-[82] digest_0.6.33        htmlwidgets_1.6.4    farver_2.1.2        
-[85] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
-[88] mime_0.12            gridtext_0.1.5      </code></pre>
+ [1] formatR_1.14         rlang_1.3.0          magrittr_2.0.5      
+ [4] git2r_0.36.2         otel_0.2.0           compiler_4.6.1      
+ [7] systemfonts_1.3.2    vctrs_0.7.3          pkgconfig_2.0.3     
+[10] fastmap_1.2.0        backports_1.5.1      ellipsis_0.3.3      
+[13] labeling_0.4.3       promises_1.5.0       rmarkdown_2.32      
+[16] markdown_2.0         sessioninfo_1.2.4    tzdb_0.5.0          
+[19] xfun_0.61            cachem_1.1.0         litedown_0.11       
+[22] jsonlite_2.0.0       later_1.4.8          broom_1.0.13        
+[25] R6_2.6.1             bslib_0.12.0         stringi_1.8.9       
+[28] RColorBrewer_1.1-3   car_3.1-5            pkgload_1.5.3       
+[31] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.1.2          
+[34] knitr_1.52           httpuv_1.6.17        Matrix_1.7-5        
+[37] splines_4.6.1        timechange_0.4.0     tidyselect_1.2.1    
+[40] rstudioapi_0.19.0    abind_1.4-8          yaml_2.3.12         
+[43] stringfish_0.19.2    ggtext_0.2.0         pkgbuild_1.4.8      
+[46] lattice_0.22-9       withr_3.0.3          S7_0.2.2            
+[49] evaluate_1.0.5       lambda.r_1.2.4       RcppParallel_6.2.1  
+[52] xml2_1.6.0           pillar_1.11.1        carData_3.0-6       
+[55] whisker_0.4.1        generics_0.1.4       hms_1.1.4           
+[58] commonmark_2.0.0     scales_1.4.0         glue_1.8.1          
+[61] tools_4.6.1          ggsignif_0.6.4       fs_2.1.0            
+[64] Formula_1.2-6        cli_3.6.6            textshaping_1.0.5   
+[67] workflowr_1.7.2      futile.options_1.0.1 viridisLite_0.4.3   
+[70] svglite_2.2.2        gtable_0.3.6         sass_0.4.10         
+[73] digest_0.6.39        htmlwidgets_1.6.4    farver_2.1.2        
+[76] memoise_2.0.1        htmltools_0.5.9      lifecycle_1.0.5     
+[79] gridtext_0.1.6      </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
