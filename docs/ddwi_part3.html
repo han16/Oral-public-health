@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-10-20
+<strong>Last updated:</strong> 2026-10-23
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8dtargetblank4337942a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree01a7232e8ba31fc9305e6c1d38bab7bab825831ctargetblank01a7232a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Oral-public-health/tree/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d" target="_blank">4337942</a>
+<a href="https://github.com/han16/Oral-public-health/tree/01a7232e8ba31fc9305e6c1d38bab7bab825831c" target="_blank">01a7232</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8dtargetblank4337942a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Oralpublichealthtree01a7232e8ba31fc9305e6c1d38bab7bab825831ctargetblank01a7232a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Oral-public-health/tree/4337942d7f7a5ea9c37e2246a55f5cc2d5dfff8d" target="_blank">4337942</a>.
+<a href="https://github.com/han16/Oral-public-health/tree/01a7232e8ba31fc9305e6c1d38bab7bab825831c" target="_blank">01a7232</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -572,7 +572,6 @@ Ignored files:
     Ignored:    analysis/part1_cache/
 
 Unstaged changes:
-    Modified:   analysis/ddwi_part2_survival_analysis.Rmd
     Modified:   analysis/ddwi_part3.Rmd
 
 </code></pre>
@@ -618,6 +617,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/410c4e405f79afcec2edcc4b4fd930e145ab1ca7/analysis/ddwi_part3.Rmd" target="_blank">410c4e4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-20
+</td>
+<td>
+10/20/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Oral-public-health/410c4e405f79afcec2edcc4b4fd930e145ab1ca7/docs/ddwi_part3.html" target="_blank">410c4e4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-20
+</td>
+<td>
+10/20/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -688,6 +721,8 @@ survival. Would we be able to seperate teeth #A-#T , and then teeth
 path=&quot;C:\\Shengtong\\Research\\AllCollaboration\\2024\\202405\\Pradeep\\DDWI\\DDWI\\&quot;
 demo &lt;- qs_read(paste(path, &quot;demographic_combined_all.qs2&quot;, sep=&quot;&quot;))
 claims &lt;- qs_read(paste(path, &quot;claims_combined_all.qs2&quot;, sep=&quot;&quot;))</code></pre>
+<div id="proportion-plots" class="section level2">
+<h2>proportion plots</h2>
 <pre class="r"><code>library(dplyr)
 library(lubridate)
 library(ggplot2)
@@ -977,11 +1012,12 @@ han
 </table>
 </div>
 </div>
+</div>
 <div
-id="number-of-primary-teeth-numbered-a-t-and-1-32-treated-with-indirect-pulp-therapy-and-pulpotomy"
+id="counts-plot--number-of-primary-teeth-numbered-a-t-and-1-32-treated-with-indirect-pulp-therapy-and-pulpotomy"
 class="section level2">
-<h2>number of primary teeth numbered #A-#T and #1-#32 treated with
-indirect pulp therapy and pulpotomy</h2>
+<h2>counts plot- number of primary teeth numbered #A-#T and #1-#32
+treated with indirect pulp therapy and pulpotomy</h2>
 <pre class="r"><code>library(dplyr)
 library(lubridate)
 library(ggplot2)
@@ -1055,9 +1091,83 @@ plot_specialty_trends &lt;- function(data, specialty_name) {
 
 plot_specialty_trends(claims, &quot;General Practitioner&quot;)</code></pre>
 <p><img src="figure/ddwi_part3.Rmd/unnamed-chunk-5-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/410c4e405f79afcec2edcc4b4fd930e145ab1ca7/docs/figure/ddwi_part3.Rmd/unnamed-chunk-5-1.png" target="_blank">410c4e4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># For Pediatric Dentists:
 plot_specialty_trends(claims, &quot;Pediatric Dentist&quot;)</code></pre>
 <p><img src="figure/ddwi_part3.Rmd/unnamed-chunk-5-2.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Oral-public-health/blob/410c4e405f79afcec2edcc4b4fd930e145ab1ca7/docs/figure/ddwi_part3.Rmd/unnamed-chunk-5-2.png" target="_blank">410c4e4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

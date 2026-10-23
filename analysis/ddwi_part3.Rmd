@@ -40,6 +40,10 @@ claims <- qs_read(paste(path, "claims_combined_all.qs2", sep=""))
 
 
 
+## proportion plots 
+
+
+
 ```{r, message=F, warning=F}
 library(dplyr)
 library(lubridate)
@@ -189,7 +193,7 @@ plot_specialty_trends(claims, "Pediatric Dentist")
 ```
 
 
-## number of primary teeth numbered #A-#T and #1-#32 treated with indirect pulp therapy and pulpotomy 
+## counts plot- number of primary teeth numbered #A-#T and #1-#32 treated with indirect pulp therapy and pulpotomy 
 
 ```{r, message=F, warning=F}
 
